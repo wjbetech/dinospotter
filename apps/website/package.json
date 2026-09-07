@@ -8,6 +8,9 @@
     "build": "tsc && vp build",
     "preview": "vp preview"
   },
+  "dependencies": {
+    "utils": "workspace:*"
+  },
   "devDependencies": {
     "@types/node": "^26.1.1",
     "sax": "catalog:",
