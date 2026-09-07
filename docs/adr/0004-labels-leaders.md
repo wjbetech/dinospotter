@@ -6,3 +6,5 @@ Leader geometry: chips are DOM elements in a fixed rail. Each line endpoint is r
 Data provenance: the bundled country dataset must include its source version, license, and required attribution in `apps/website/public/geo/ATTRIBUTION.md` before it ships.
 Why: user lock style Q8; dots fail density + 60fps; lines keep findspot truth without clutter. Overload is guarded by caps + deterministic grouping (quirks 7/19); collisions are guarded by zoom thresholds (quirks 8/20).
 Alt: dot markers / silhouette pins (rejected — clutter, perf).
+Amended by ADR-005 for the focused-nation detail (admin/city labels,
+silhouette callouts in sea margin, 2–3px anchor dots as line endpoints).
