@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "types": ["node"],
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "noEmit": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "target": "esnext",
+    "lib": ["es2023"]
+  },
+  "include": ["./**/*.ts", "./**/*.tsx", "./**/*.d.ts"],
+  "exclude": ["node_modules", "dist", "apps", "packages"]
+}
