@@ -4,6 +4,10 @@ import typescriptLogo from "./assets/typescript.svg";
 import viteLogo from "./assets/vite.svg";
 import { setupCounter } from "./counter.ts";
 
+import { gate } from "../../../packages/utils/src/index.ts";
+
+console.log("gate", gate);
+
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <section id="center">
   <div class="hero">
