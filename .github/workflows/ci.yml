@@ -4,7 +4,12 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
+      - uses: pnpm/action-setup@v4
+        with: { version: 11.25.0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: "pnpm" }
       - uses: actions/checkout@v4
+      - run: vp install
       - run: vp check
       - run: vp test
       - run: vp run -r build
