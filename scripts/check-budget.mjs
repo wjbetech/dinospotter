@@ -5,9 +5,27 @@ import { gzipSync } from "node:zlib";
 const manifest = JSON.parse(fs.readFileSync("apps/website/dist/.vite/manifest.json", "utf-8"));
 
 // grab each file and squish it with gzip like the browser does, add up the bytes, and yell if it exceeds 250KB for the first page or 150KB for the globe.
-const size = gzipSync(fs.readFileSync("apps/website/dist/" + manifest["index.html"].file)).length;
+// const size = gzipSync(fs.readFileSync("apps/website/dist/" + manifest["index.html"].file)).length;
 
 // initial is the list of all the files that are entry points in the manifest. It is used to determine which files are entry points and which files are dependencies of those entry points.
 const initial = Object.values(manifest)
   .filter((m) => m.isEntry)
   .flatMap((m) => [m.file, ...(m.css || [])]);
+
+const total = initial.reduce(
+  (sum, f) => sum + gzipSync(fs.readFileSync("apps/website/dist/" + f)).length,
+  0,
+);
+
+if (total > 250 * 1024) throw new Error(`Initial JS ${total} bytes exceeds 250KB limit`);
+
+const globeFiles = Object.values(manifest)
+  .filter((m) => m.file.includes("globe"))
+  .flatMap((m) => [m.file]);
+
+const globeTotal = globeFiles.reduce(
+  (sum, f) => sum + gzipSync(fs.readFileSync("apps/website/dist/" + f)).length,
+  0,
+);
+
+console.log(globeTotal);
