@@ -1,4 +1,4 @@
-export const gate = "t0";
+export const gate = "utils/gate";
 
 export function fn() {
   return "Hello, tsdown!";

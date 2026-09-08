@@ -53,6 +53,8 @@ built using documented commands, and the mentor can run the same commands.
 No feature ticket may silently decide D4-D7. Close each decision in this file
 or an ADR, then update the affected ticket's blocker list.
 
+T0.0 gate: D4-D7 remain open blockers (9/8/2026)
+
 ## Test matrix
 
 | Concern                   | Runner                                      | Fixture/target                                         | Gate                                                                     |

@@ -9,6 +9,7 @@
     "preview": "vp preview"
   },
   "dependencies": {
+    "maplibre-gl": "catalog:",
     "utils": "workspace:*"
   },
   "devDependencies": {
