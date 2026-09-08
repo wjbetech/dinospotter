@@ -28,4 +28,4 @@ const globeTotal = globeFiles.reduce(
   0,
 );
 
-console.log(globeTotal);
+if (globeTotal > 150 * 1024) throw new Error(`Globe ${globeTotal} bytes exceeds 150KB limit`);
