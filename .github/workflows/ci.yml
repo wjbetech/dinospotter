@@ -1,0 +1,11 @@
+name: ci
+on: [push]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: vp check
+      - run: vp test
+      - run: vp run -r build
+      # WHY: run the same vp checks and balances as I run locally
