@@ -1,5 +1,6 @@
 export async function GET(req: Request): Promise<Response> {
-  return Response.json({
-    ok: true,
-  });
+  const { searchParams } = new URL(req.url);
+  const cc = searchParams.get("cc");
+
+  return Response.json({ cc });
 }

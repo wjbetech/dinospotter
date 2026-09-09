@@ -8,7 +8,7 @@ export async function initGlobe(el: HTMLElement) {
     container: el,
     style: "https://demotiles.maplibre.org/globe.json",
     center: [0, 20],
-    zoom: 1,
+    zoom: 3,
   });
 
   return map;
