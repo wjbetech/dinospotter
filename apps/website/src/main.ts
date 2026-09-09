@@ -1,16 +1,9 @@
 import "./styles/tokens.css";
 
-import { gate } from "utils";
+const loadGlobe = () => import("./components/globe/index.ts");
 
-console.log(gate);
+document.querySelector("#app")!.innerHTML = `
+  <div id="globe"></div><aside id="drawer"></aside>
+`;
 
-document.querySelector("#load-globe")?.addEventListener("click", async () => {
-  const { initGlobe } = await import("./components/globe");
-  const el = document.querySelector<HTMLElement>("#globe");
-
-  if (el) {
-    await initGlobe(el);
-  }
-
-  console.log("initGlobe: ", initGlobe);
-});
+document.querySelector("#globe")?.addEventListener("click", () => loadGlobe());

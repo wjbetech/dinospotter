@@ -9,6 +9,8 @@
     "preview": "vp preview"
   },
   "dependencies": {
+    "@fontsource/inter": "catalog:",
+    "@fontsource/space-grotesk": "catalog:",
     "maplibre-gl": "catalog:",
     "utils": "workspace:*"
   },

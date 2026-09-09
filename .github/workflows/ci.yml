@@ -19,3 +19,5 @@ jobs:
       # WHY: run the same vp checks and balances as I run locally
 
       - run: node scripts/check-budget.mjs
+
+      - run: '! grep -r "utils/src" apps/website/src'
