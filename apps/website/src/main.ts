@@ -1,16 +1,7 @@
 import "./styles/tokens.css";
+import "@fontsource/space-grotesk/500.css";
+import "@fontsource/space-grotesk/700.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
 
-import { gate } from "utils";
-
-console.log(gate);
-
-document.querySelector("#load-globe")?.addEventListener("click", async () => {
-  const { initGlobe } = await import("./components/globe");
-  const el = document.querySelector<HTMLElement>("#globe");
-
-  if (el) {
-    await initGlobe(el);
-  }
-
-  console.log("initGlobe: ", initGlobe);
-});
+document.querySelector("#app")!.innerHTML = `<div id="globe"></div><aside id="drawer"></aside>`;

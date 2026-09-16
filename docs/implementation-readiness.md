@@ -53,7 +53,9 @@ built using documented commands, and the mentor can run the same commands.
 No feature ticket may silently decide D4-D7. Close each decision in this file
 or an ADR, then update the affected ticket's blocker list.
 
-T0.0 gate: D4-D7 remain open blockers (9/8/2026)
+T0.0 gate: D4-D7 remain open blockers (9/14/2026)
+
+D5 closed: frontend-only uses `vp run dev`, full-stack uses `vercel dev`.
 
 ## Test matrix
 

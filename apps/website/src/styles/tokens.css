@@ -1,0 +1,15 @@
+:root {
+  --paper: #faf7f0;
+  --card: #ffffff;
+  --ink: #1e242b;
+  --ink-soft: #4a545e;
+  --moss: #2f7d62;
+  --straw: #d9a441;
+  --sky: #dcebf5;
+  --sand: #ede6d6;
+  --line: #e5ded0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--moss);
+}

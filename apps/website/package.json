@@ -6,9 +6,12 @@
   "scripts": {
     "dev": "vp dev",
     "build": "tsc && vp build",
-    "preview": "vp preview"
+    "preview": "vp preview",
+    "check:budget": "node ../../scripts/check-budget.mjs"
   },
   "dependencies": {
+    "@fontsource/inter": "catalog:",
+    "@fontsource/space-grotesk": "catalog:",
     "maplibre-gl": "catalog:",
     "utils": "workspace:*"
   },
