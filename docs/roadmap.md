@@ -6,7 +6,31 @@
 > Invoke per ticket: `mentor: <ticket-slug>` e.g. `mentor: globe click → country?`
 > Mentor rules (from `docs/agents/code-mentor.md`): <200 words, 1 starter snippet, 1 doc URL, 1 task + 1 check (`vp check` / `vp test`), perf+CI note every ticket.
 > Read order before any ticket: `docs/implementation-readiness.md`, `CONTEXT.md`, the four ADRs, `docs/research/pbdb-api.md`, `docs/perf-budget.md`, then this file §§2–§3. Stop at a readiness blocker instead of making an infrastructure decision inside a feature ticket.
-> Current frontier: `T0.0` only. The starter build is still blocked by the missing tsgo dependency; do not invoke a feature mentor ticket until the readiness gate is green.
+> Current frontier: `T0.0` only. See Ticket tracker below for tick-off state. The starter build is still blocked by the missing tsgo dependency; do not invoke a feature mentor ticket until the readiness gate is green.
+
+## Ticket tracker (tick these as you go — single source of truth)
+
+- [x] T0.0 `chore: make the toolchain and deployment contract runnable`
+- [x] T0.1 `chore: strip starter and install globe deps`
+- [ ] T0.2 `chore: CI perf + lint gates`
+- [ ] T0.3 `chore: country polygons + URL state skeleton`
+- [ ] T1.1 `feat(data): timescale adapter`
+- [ ] T1.2 `feat(data): PBDB pure client and aggregation`
+- [ ] T1.2b `feat(api): PBDB occurrence proxy`
+- [ ] T1.3 `feat(data): taxon detail proxy`
+- [ ] T1.4 `feat(data): seed + skeletons + badge`
+- [ ] T2.1 `feat(globe): lazy globe chunk, labels layer, default light`
+- [ ] T2.2 `feat(globe): pick + center-zoom + listbox`
+- [ ] T2.3 `feat(globe): leader lines + silhouette callouts`
+- [ ] T3.1 `feat(cards): grid + virtualize + paginate`
+- [ ] T3.2 `feat(cards): silhouette set`
+- [ ] T3.3 `feat(modal): taxon detail 90%`
+- [ ] T4.1 `feat(ui): era strip radiogroup`
+- [ ] T4.2 `feat(ui): segmented theme + 2 fonts`
+- [ ] T4.3 `feat(ui): copy deck + empty/error states`
+- [ ] T5.1 `perf: budget audit`
+- [ ] T5.2 `a11y: keyboard + motion + axe`
+- [ ] T5.3 `test: e2e golden paths F1–F7`
 
 ## 0. Vision, success, non-goals, repo map
 
@@ -354,16 +378,16 @@ Blocked by: none.
 
 Mentor: `mentor: baseline and deployment gate?` Files: `docs/implementation-readiness.md`, workspace/package configuration, planned `api/tsconfig.json`, `vercel.json`, and CI configuration. DoD: clean starter passes the documented install/check/test/build commands; D4-D7 are either closed or explicitly blocked; no feature code is included. Check: `vp check`, `vp run -r test`, `vp run -r build`. Perf: record the unmodified build baseline. Doc: https://viteplus.dev/guide/ci
 
-- M0.0.1 resolve the `tsgo` dependency failure and record whether `@typescript/native-preview` or the non-tsgo pack path is used.
-- M0.0.2 add a typed check for root `api/` and document Vercel root, runtime, build/output settings, preview environment, and local `/api` execution.
-- M0.0.3 make the workspace package dependency and task ordering explicit; prove the website imports only the public utility export.
-- M0.0.4 close D4-D7 with ADRs or leave them as named blockers. No feature ticket may absorb one of these decisions.
+- [ ] M0.0.1 resolve the `tsgo` dependency failure and record whether `@typescript/native-preview` or the non-tsgo pack path is used.
+- [ ] M0.0.2 add a typed check for root `api/` and document Vercel root, runtime, build/output settings, preview environment, and local `/api` execution.
+- [ ] M0.0.3 make the workspace package dependency and task ordering explicit; prove the website imports only the public utility export.
+- [ ] M0.0.4 close D4-D7 with ADRs or leave them as named blockers. No feature ticket may absorb one of these decisions.
 
 #### T0.1 `chore: strip starter and install globe deps` — Blocked by: T0.0.
 
 Mentor: `mentor: strip starter?` Files: `apps/website/src/main.ts`, `apps/website/src/counter.ts` (delete), `apps/website/src/style.css`→`apps/website/src/styles/tokens.css`, `apps/website/package.json`. DoD: `vp check` clean, globe only via lazy import, and package dependencies match the workspace contract. Check: `vp check`. Perf: baseline recorded by T0.0; compare the new initial bundle. Doc: https://maplibre.org/maplibre-gl-js/docs/
 
-- M0.1.1 delete starter (red: no test; green: delete): remove `counter.ts`, demo markup in `main.ts`, unused `hero.png` refs. Snippet:
+- [x] M0.1.1 delete starter (red: no test; green: delete): remove `counter.ts`, demo markup in `main.ts`, unused `hero.png` refs. Snippet:
 
 ```ts
 // main.ts — TODO: you fill in boot shell only
@@ -371,31 +395,31 @@ import "./styles/tokens.css";
 document.querySelector("#app")!.innerHTML = `<div id="globe"></div><aside id="drawer"></aside>`;
 ```
 
-- M0.1.2 tokens.css (locked Q1–Q3 Round 2): `:root{--paper:#FAF7F0;--card:#fff;--ink:#1E242B;--ink-soft:#4A545E;--moss:#2F7D62;--straw:#D9A441;--sky:#DCEBF5;--sand:#EDE6D6;--line:#E5DED0}` + `:focus-visible{outline:3px solid var(--moss)}` + panel rule (1px `line` border, 12px radius, 8px gap). No test; visual.
-- M0.1.3 deps + lazy guard: `pnpm add maplibre-gl` + `@fontsource/space-grotesk @fontsource/inter` (locked Q4 Round 2 — 2 families only); assert no static `import "maplibre-gl"` in `main.ts` (grep in CI). Snippet:
+- [x] M0.1.2 tokens.css (locked Q1–Q3 Round 2): `:root{--paper:#FAF7F0;--card:#fff;--ink:#1E242B;--ink-soft:#4A545E;--moss:#2F7D62;--straw:#D9A441;--sky:#DCEBF5;--sand:#EDE6D6;--line:#E5DED0}` + `:focus-visible{outline:3px solid var(--moss)}` + panel rule (1px `line` border, 12px radius, 8px gap). No test; visual.
+- [x] M0.1.3 deps + lazy guard: `pnpm add maplibre-gl` + `@fontsource/space-grotesk @fontsource/inter` (locked Q4 Round 2 — 2 families only); assert no static `import "maplibre-gl"` in `main.ts` (grep in CI). Snippet:
 
 ```ts
 // TODO: you fill in — lazy only, never static import
 const loadGlobe = () => import("./globe/index.ts");
 ```
 
-- M0.1.4 remove starter-only assets after confirming no planned UI references them.
+- [x] M0.1.4 remove starter-only assets after confirming no planned UI references them.
 
 #### T0.2 `chore: CI perf + lint gates` — Blocked by: T0.0, T0.1.
 
 Files: `.github/workflows/ci.yml`, benchmark config, `vite.config.ts`, `package.json` (devDeps). DoD: CI runs the test matrix in `docs/implementation-readiness.md`; a temporary budget breach fails and reverting it passes. Check: `vp check`, `vp test`, `vp build`.
 
-- M0.2.0 add the selected browser/Lighthouse dependencies with pinned versions and use Vite+'s documented GitHub Action setup.
-- M0.2.1 configure a benchmark command explicitly (`vitest bench`); `vp test` is not assumed to discover benchmark files.
-- M0.2.2 budget gate: parse the actual Vite build manifest or report artifact and assert initial gzip <250KB and globe chunk <150KB. Do not depend on an undocumented `vp build --report` flag.
-- M0.2.3 enforce the utility package public-export rule with a configured dependency check, not an unconfigured “boundary lint” claim.
+- [ ] M0.2.0 add the selected browser/Lighthouse dependencies with pinned versions and use Vite+'s documented GitHub Action setup.
+- [ ] M0.2.1 configure a benchmark command explicitly (`vitest bench`); `vp test` is not assumed to discover benchmark files.
+- [ ] M0.2.2 budget gate: parse the actual Vite build manifest or report artifact and assert initial gzip <250KB and globe chunk <150KB. Do not depend on an undocumented `vp build --report` flag.
+- [ ] M0.2.3 enforce the utility package public-export rule with a configured dependency check, not an unconfigured “boundary lint” claim.
 
 #### T0.3 `chore: country polygons + URL state skeleton` — Blocked by: T0.0, T0.1.
 
 Files: planned `apps/website/public/geo/countries.geojson`, `apps/website/src/store.ts`, `apps/website/src/url.ts`. DoD: `?cc=US&era=Mesozoic` sets state, no fetch. Check: `vp test`.
 
-- M0.3.1 geo file: add Natural Earth `countries.geojson` with documented version/license in `apps/website/public/geo/ATTRIBUTION.md`, normalized ISO2 properties, and explicit `GB` polygon → `UK` application mapping. Verify: fixture exists, <500KB, and includes a MultiPolygon plus antimeridian case.
-- M0.3.2 url parse/serialize (TDD seam `parseUrl`/`serializeUrl`): test `?cc=gb&era=mesozoic` → `{cc:"UK",era:"Mesozoic"}` (GB→UK here too). Snippet:
+- [ ] M0.3.1 geo file: add Natural Earth `countries.geojson` with documented version/license in `apps/website/public/geo/ATTRIBUTION.md`, normalized ISO2 properties, and explicit `GB` polygon → `UK` application mapping. Verify: fixture exists, <500KB, and includes a MultiPolygon plus antimeridian case.
+- [ ] M0.3.2 url parse/serialize (TDD seam `parseUrl`/`serializeUrl`): test `?cc=gb&era=mesozoic` → `{cc:"UK",era:"Mesozoic"}` (GB→UK here too). Snippet:
 
 ```ts
 // TODO: you fill in — normalize + GB→UK + era default Mesozoic
@@ -404,7 +428,7 @@ export function parseUrl(s: string): { cc: string | null; era: Era } {
 }
 ```
 
-- M0.3.3 store: `subscribe/render`, LRU Map(12), versioned `sessionStorage` try/catch, `source/status` semantics, and stale-response protection. Snippet: `export const store = createStore({ cc: null, era: "Mesozoic" as Era, status: "idle" as Status });`
+- [ ] M0.3.3 store: `subscribe/render`, LRU Map(12), versioned `sessionStorage` try/catch, `source/status` semantics, and stale-response protection. Snippet: `export const store = createStore({ cc: null, era: "Mesozoic" as Era, status: "idle" as Status });`
 
 ### Phase 1 — Data pipeline — exit: live proxy serving validated `SitePayload`
 
@@ -414,7 +438,7 @@ Blocked by: T0.0, T0.1, T0.2.
 
 Mentor: `mentor: era buckets from intervals?` Files: planned `packages/utils/src/timescale.ts`, `packages/utils/src/index.ts` (re-export), `packages/utils/tests/timescale.test.ts`, and `apps/website/public/data/timescale.json`. DoD: the checked-in snapshot maps named Period rows to the three eras; Triassic/Jurassic/Cretaceous→Mesozoic; unknown→fallback+warn. Check: `vp test`. Doc: https://paleobiodb.org/data1.2/intervals_doc.html Perf: load the static snapshot once, not per request.
 
-- M1.1.1 `normalizeColor` (seam: pure fn): accept `#RGB/#RRGGBB/RRGGBB/rgb()` → `#RRGGBB` else `#2F7D62`. Snippet:
+- [ ] M1.1.1 `normalizeColor` (seam: pure fn): accept `#RGB/#RRGGBB/RRGGBB/rgb()` → `#RRGGBB` else `#2F7D62`. Snippet:
 
 ```ts
 // TODO: you fill in — §3.4 table
@@ -423,15 +447,15 @@ export function normalizeColor(raw: string): string {
 }
 ```
 
-- M1.1.2 `eraOfPeriod` map: `Triassic|Jurassic|Cretaceous→Mesozoic`, etc.; unknown→`Mesozoic`+`console.warn`. Test pins table.
-- M1.1.3 `getEpochs` blurbs: `nam,eag,lag,col→EpochBlurb` + `description` 1–2 lines (static copy map, not PBDB text). Snippet: `export function toBlurb(r: IntervalRow): EpochBlurb { /* ... */ }`
-- M1.1.4 entry-point export: add to `index.ts`; boundary lint passes.
+- [ ] M1.1.2 `eraOfPeriod` map: `Triassic|Jurassic|Cretaceous→Mesozoic`, etc.; unknown→`Mesozoic`+`console.warn`. Test pins table.
+- [ ] M1.1.3 `getEpochs` blurbs: `nam,eag,lag,col→EpochBlurb` + `description` 1–2 lines (static copy map, not PBDB text). Snippet: `export function toBlurb(r: IntervalRow): EpochBlurb { /* ... */ }`
+- [ ] M1.1.4 entry-point export: add to `index.ts`; boundary lint passes.
 
 #### T1.2 `feat(data): PBDB pure client and aggregation` — Blocked by: T1.1, T0.2.
 
 Mentor: `mentor: proxy URL for UK?` Files: planned `packages/utils/src/pbdb.ts` + tests. DoD: pure code expands one era into Period URLs, parses fixed fixtures, returns `ParsedOccurrences`, groups by `tid` into cards with all sites, and has deterministic age/name/formation behavior. Check: `vp test`. Perf: bounded rows and no DOM dependency. Doc: https://paleobiodb.org/data1.2/occs/list_doc.html
 
-- M1.2.1 `normalizeCc`: trim+upper, `GB→UK`. Test: `GB,gb," uk "`→`UK`.
+- [ ] M1.2.1 `normalizeCc`: trim+upper, `GB→UK`. Test: `GB,gb," uk "`→`UK`.
 
 ```ts
 // TODO: you fill in
@@ -440,33 +464,33 @@ export function normalizeCc(cc: string): string {
 }
 ```
 
-- M1.2.2 `buildOccsUrls` per-Period expansion (quirk 15): `era→Period[]` (`Mesozoic→[Triassic,Jurassic,Cretaceous]`), `show=coords,ident,strat`, `limit=500`. Test asserts normalized `cc=UK` in every URL.
-- M1.2.3 `parseOccs`: count raw rows, coerce only valid numeric fields, drop missing/null/out-of-range/0,0 coordinates and missing `tna/tid`, and return `ParsedOccurrences`. Test uses malformed literal fixtures.
-- M1.2.4 `groupByTid`: merge duplicate `tid`, preserve every valid site, aggregate age envelope and deterministic formation, then sort by occurrence count desc, `eag` desc, and `tid` asc. Test: 3 rows/2 tids → 2 cards.
-- M1.2.5 entry-point export and contract fixtures: all website consumers import the package export; no deep import.
+- [ ] M1.2.2 `buildOccsUrls` per-Period expansion (quirk 15): `era→Period[]` (`Mesozoic→[Triassic,Jurassic,Cretaceous]`), `show=coords,ident,strat`, `limit=500`. Test asserts normalized `cc=UK` in every URL.
+- [ ] M1.2.3 `parseOccs`: count raw rows, coerce only valid numeric fields, drop missing/null/out-of-range/0,0 coordinates and missing `tna/tid`, and return `ParsedOccurrences`. Test uses malformed literal fixtures.
+- [ ] M1.2.4 `groupByTid`: merge duplicate `tid`, preserve every valid site, aggregate age envelope and deterministic formation, then sort by occurrence count desc, `eag` desc, and `tid` asc. Test: 3 rows/2 tids → 2 cards.
+- [ ] M1.2.5 entry-point export and contract fixtures: all website consumers import the package export; no deep import.
 
 #### T1.2b `feat(api): PBDB occurrence proxy` — Blocked by: T0.0, T1.2.
 
 Files: planned `api/occs.ts`, `api/tsconfig.json`, proxy contract tests, and deployment config. DoD: allowlisted `cc`/`era`, bounded concurrent Period fetches, one 8s upstream-attempt deadline, typed 4xx/5xx JSON envelopes, `Retry-After` on 429, cache headers, and validated `SitePayload`. Check: `vp test`. Perf: no more than three Period requests per client request; upstream timeout is observable.
 
-- M1.2b.1 define `200`, `400`, `429`, `502`, and timeout response bodies and headers before handler code.
-- M1.2b.2 mock `fetch` for success, empty, malformed, timeout, 429, and 5xx; assert no PBDB URL or arbitrary query parameter is accepted from the client. Client retry timing is tested separately at 2s then 8s, at most twice.
-- M1.2b.3 test local full-stack routing and a Vercel preview smoke request before calling the ticket complete.
+- [ ] M1.2b.1 define `200`, `400`, `429`, `502`, and timeout response bodies and headers before handler code.
+- [ ] M1.2b.2 mock `fetch` for success, empty, malformed, timeout, 429, and 5xx; assert no PBDB URL or arbitrary query parameter is accepted from the client. Client retry timing is tested separately at 2s then 8s, at most twice.
+- [ ] M1.2b.3 test local full-stack routing and a Vercel preview smoke request before calling the ticket complete.
 
 #### T1.3 `feat(data): taxon detail proxy` — Blocked by: T1.2b.
 
 Files: planned `api/taxon.ts`, `packages/utils/src/taxon.ts` + test. DoD: modal gets validated `TaxonDetail` in one fetch; the selected card remains the source for formation and coordinates. Check: `vp test`.
 
-- M1.3.1 `toTaxonDetail` mapper + `pbdbUrl` builder. Map PBDB `oid`, `nam`, `rnk`, `att`, `par`, and `noc`; accept either `txn:NN` or `NN`, normalize to one `txn:NN`, and reject every other id before building the URL. Snippet: `export function taxonUrl(id: string): string { const raw = id.replace(/^txn:/, ""); if (!/^\\d+$/.test(raw)) throw new Error("invalid tid"); return \`https://paleobiodb.org/data1.2/taxa/single.json?id=txn:${raw}&show=attr\`; }`
-- M1.3.2 `api/taxon.ts` route + cache headers (same as occs).
+- [ ] M1.3.1 `toTaxonDetail` mapper + `pbdbUrl` builder. Map PBDB `oid`, `nam`, `rnk`, `att`, `par`, and `noc`; accept either `txn:NN` or `NN`, normalize to one `txn:NN`, and reject every other id before building the URL. Snippet: `export function taxonUrl(id: string): string { const raw = id.replace(/^txn:/, ""); if (!/^\\d+$/.test(raw)) throw new Error("invalid tid"); return \`https://paleobiodb.org/data1.2/taxa/single.json?id=txn:${raw}&show=attr\`; }`
+- [ ] M1.3.2 `api/taxon.ts` route + cache headers (same as occs).
 
 #### T1.4 `feat(data): seed + skeletons + badge` — Blocked by: T1.2b. Independent of T1.3.
 
 Files: planned `apps/website/public/data/seed/US-Mesozoic.json`, `apps/website/src/ui/{skeleton,badge}.ts`. DoD: offline first visit shows seed+badge and exact `degraded` semantics. Check: `vp check`.
 
-- M1.4.1 seed JSON ≤50 recs (hand-verified snapshot, matches `SitePayload`).
-- M1.4.2 skeleton cards (`aria-busy=true`, "Loading fossil records…").
-- M1.4.3 badge + Retry: exact copy §1; Retry refetches same `cc+era`.
+- [ ] M1.4.1 seed JSON ≤50 recs (hand-verified snapshot, matches `SitePayload`).
+- [ ] M1.4.2 skeleton cards (`aria-busy=true`, "Loading fossil records…").
+- [ ] M1.4.3 badge + Retry: exact copy §1; Retry refetches same `cc+era`.
 - Seed checks: US/UK/DE/FR live + MG/MN empty states.
 
 ### Phase 2 — Globe core — exit: tap country → zoom → `?cc=` syncs, 60fps
@@ -477,7 +501,7 @@ Blocked by: T0.3 and D4. Data tickets are not required for the renderer itself.
 
 Mentor: `mentor: globe click → country?` Files: planned `apps/website/src/globe/{index,style,labels}.ts`. DoD: globe absent from initial JS; labels render, no dots. Check: `vp build --manifest` plus the artifact-size script. Doc: https://maplibre.org/maplibre-gl-js/docs/ Perf: chunk <150KB gzip.
 
-- M2.1.1 `initGlobe` lazy: `await import("maplibre-gl")` inside `initGlobe(el)`, globe projection, selected self-hosted/approved light style, and documented attribution. Snippet:
+- [ ] M2.1.1 `initGlobe` lazy: `await import("maplibre-gl")` inside `initGlobe(el)`, globe projection, selected self-hosted/approved light style, and documented attribution. Snippet:
 
 ```ts
 // TODO: you fill in — never static-import maplibre-gl
@@ -486,24 +510,24 @@ export async function initGlobe(el: HTMLElement) {
 }
 ```
 
-- M2.1.2 transparent hit-test fill + label layers from bundled `countries.geojson`; small labels hidden until safe zoom (locked Q8). Rendered basemap sources follow D4; no unlicensed or undocumented public tile dependency.
-- M2.1.3 manifest assert: the generated manifest shows `maplibre` in an async chunk only; the size script checks compressed bytes.
+- [ ] M2.1.2 transparent hit-test fill + label layers from bundled `countries.geojson`; small labels hidden until safe zoom (locked Q8). Rendered basemap sources follow D4; no unlicensed or undocumented public tile dependency.
+- [ ] M2.1.3 manifest assert: the generated manifest shows `maplibre` in an async chunk only; the size script checks compressed bytes.
 
 #### T2.2 `feat(globe): pick + center-zoom + listbox` — Blocked by: T2.1.
 
 Files: planned `apps/website/src/globe/{pick,zoom}.ts`, `apps/website/src/ui/country-listbox.ts`, and benchmark configuration. DoD: click US→centers US + `?cc=US`, zoom<1s (locked Q8–Q9). Check: `vp test`.
 
-- M2.2.1 `pickCountry` pure math (seam: `pointInPolygon`): ray-cast on geojson rings; ocean→`null`. Bench it. Snippet: `export function pointInPolygon(pt: [number,number], ring: [number,number][]): boolean { /* ... */ }`
-- M2.2.2 `zoomTo` centers country bbox (900ms ease-out cubic locked Q9, 0ms if `matchMedia("(prefers-reduced-motion: reduce)")`). Snippet: `export function zoomDuration(): number { return matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 900; }`
-- M2.2.3 click wiring: map click→`pickCountry`→`store.setCc`→center + `history.pushState` for user selection. Initial URL normalization uses `replaceState`; ocean→hint copy.
-- M2.2.4 listbox: `<select>` of ISO2→name (same `setCc` path); keyboard S6.
+- [ ] M2.2.1 `pickCountry` pure math (seam: `pointInPolygon`): ray-cast on geojson rings; ocean→`null`. Bench it. Snippet: `export function pointInPolygon(pt: [number,number], ring: [number,number][]): boolean { /* ... */ }`
+- [ ] M2.2.2 `zoomTo` centers country bbox (900ms ease-out cubic locked Q9, 0ms if `matchMedia("(prefers-reduced-motion: reduce)")`). Snippet: `export function zoomDuration(): number { return matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 900; }`
+- [ ] M2.2.3 click wiring: map click→`pickCountry`→`store.setCc`→center + `history.pushState` for user selection. Initial URL normalization uses `replaceState`; ocean→hint copy.
+- [ ] M2.2.4 listbox: `<select>` of ISO2→name (same `setCc` path); keyboard S6.
 
 #### T2.3 `feat(globe): leader lines + silhouette callouts` — Blocked by: T2.2, T1.2b.
 
 Mentor: `mentor: leader lines?` Files: planned `apps/website/src/globe/leaders.ts`, `packages/utils/src/leaders.ts` + test. DoD: CountryFocus shows ≤8 silhouette callouts + moss lines to 2–3px anchors with admin/city labels per ADR-005; redraws on era change (locked Q8). Check: `vp test` + visual.
 
-- M2.3.1 `leaders` pure (seam): flatten card sites, rank taxon groups by site count desc then `tid`, select max 8 groups, and cap emitted segments at 500. Snippet: `export function leaders(cards: TaxonCard[], max = 8): Leader[] { /* ... */ }`
-- M2.3.2 `render` single GeoJSON line + anchor layer (`moss` 1.5px, 2–3px anchor dots as line endpoints) + silhouette callouts (`moss` fill, Inter 500 short name) placed in sea/margin space per ADR-005; update on map move/zoom/resize; "+N more" chip when grouped; clear on era change. On narrow screens use a bottom rail inside the globe panel so the geometry remains defined.
+- [ ] M2.3.1 `leaders` pure (seam): flatten card sites, rank taxon groups by site count desc then `tid`, select max 8 groups, and cap emitted segments at 500. Snippet: `export function leaders(cards: TaxonCard[], max = 8): Leader[] { /* ... */ }`
+- [ ] M2.3.2 `render` single GeoJSON line + anchor layer (`moss` 1.5px, 2–3px anchor dots as line endpoints) + silhouette callouts (`moss` fill, Inter 500 short name) placed in sea/margin space per ADR-005; update on map move/zoom/resize; "+N more" chip when grouped; clear on era change. On narrow screens use a bottom rail inside the globe panel so the geometry remains defined.
 
 ### Phase 3 — Sites + cards + modal — exit: cards → 90% modal per §1 spec
 
@@ -513,15 +537,15 @@ Blocked by: data contracts and the card interaction shell. T3.1/T3.3 can proceed
 
 Mentor: `mentor: card grid?` Files: planned `apps/website/src/ui/cards.ts`, `packages/utils/src/paging.ts` + test. DoD: 500 occurrence rows produce a bounded taxon-card DOM and scroll without jank. Check: `vp test`. Perf: no full-list DOM.
 
-- M3.1.1 `page` pure: `slice(payload.cards, page*48, 48)`. Snippet: `export function page(cards: TaxonCard[], n: number, size = 48): TaxonCard[] { /* ... */ }`
-- M3.1.2 `renderCards` viewport-only: IntersectionObserver appends next page; `aria-busy` during fetch.
-- M3.1.3 card DOM per §1 spec: 3:2 `sand` figure + grid + flat silhouette + Inter name + tabular-nums Ma + ICS dot + `sfm` 1-line; hover via inset shadow (no shift).
+- [ ] M3.1.1 `page` pure: `slice(payload.cards, page*48, 48)`. Snippet: `export function page(cards: TaxonCard[], n: number, size = 48): TaxonCard[] { /* ... */ }`
+- [ ] M3.1.2 `renderCards` viewport-only: IntersectionObserver appends next page; `aria-busy` during fetch.
+- [ ] M3.1.3 card DOM per §1 spec: 3:2 `sand` figure + grid + flat silhouette + Inter name + tabular-nums Ma + ICS dot + `sfm` 1-line; hover via inset shadow (no shift).
 
 #### T3.2 `feat(cards): silhouette set + ADR-003` — Blocked by: T3.1.
 
 Files: planned `apps/website/public/sprites/*.svg`, `packages/utils/src/silhouette.ts` + test, `docs/adr/0003-silhouettes.md`. DoD: every card figured; unknown→fallback pinned. Check: `vp test`.
 
-- M3.2.1 `silhouetteFor` keyword map (§3.3 table). Snippet:
+- [ ] M3.2.1 `silhouetteFor` keyword map (§3.3 table). Snippet:
 
 ```ts
 // TODO: you fill in — order matters (ptero before saur)
@@ -540,16 +564,16 @@ export function silhouetteFor(
 }
 ```
 
-- M3.2.2 8 SVGs ink-on-transparent + tick-bar component (1.8m human bar).
-- M3.2.3 sprite sheet + lazy below-fold; ADR-003 already locked docs-only (no amendment).
+- [ ] M3.2.2 8 SVGs ink-on-transparent + tick-bar component (1.8m human bar).
+- [ ] M3.2.3 sprite sheet + lazy below-fold; ADR-003 already locked docs-only (no amendment).
 
 #### T3.3 `feat(modal): taxon detail 90%` — Blocked by: T1.3, T3.1.
 
 Files: planned `apps/website/src/ui/modal.ts`. DoD: keyboard open/close, axe clean. Check: `vp check`. Doc: https://paleobiodb.org/data1.2/
 
-- M3.3.1 `openTaxon` shell: `role=dialog aria-modal`, backdrop, PBDB link, footnote. Snippet: `export function openTaxon(card: TaxonCard, detail: TaxonDetail, returnTo: HTMLElement): void { /* ... */ }`
-- M3.3.2 focus trap: keep Tab inside, store `returnTo`. Snippet: `function trap(e: KeyboardEvent): void { /* ... */ }`
-- M3.3.3 Esc + backdrop close + focus return; stats table (Ma, sfm, coords, tid).
+- [ ] M3.3.1 `openTaxon` shell: `role=dialog aria-modal`, backdrop, PBDB link, footnote. Snippet: `export function openTaxon(card: TaxonCard, detail: TaxonDetail, returnTo: HTMLElement): void { /* ... */ }`
+- [ ] M3.3.2 focus trap: keep Tab inside, store `returnTo`. Snippet: `function trap(e: KeyboardEvent): void { /* ... */ }`
+- [ ] M3.3.3 Esc + backdrop close + focus return; stats table (Ma, sfm, coords, tid).
 
 ### Phase 4 — Era strip + theme polish — exit: §1 spec pixel-complete
 
@@ -559,26 +583,26 @@ Blocked per ticket below; theme work is independent of data and card work.
 
 Files: planned `apps/website/src/ui/era-strip.ts`. DoD: era switch never loses `cc`; back-button restores. Check: `vp test`.
 
-- M4.1.1 radiogroup DOM: 3 buttons, `aria-checked`, ICS dots. Snippet: `export function renderEraStrip(active: Era, dots: Record<Era,string>): HTMLElement { /* ... */ }`
-- M4.1.1b blurbs: load bundled `timescale.json` once → `toBlurb` per Period → render under country name; on a missing/corrupt snapshot show era name + Ma range only (no blurb). Never fetch PBDB directly from the browser.
-- M4.1.2 filter-or-fetch: cache hit→instant filter; miss→skeleton+fetch same `cc`. Snippet: `export async function selectEra(era: Era): Promise<void> { /* ... */ }`
-- M4.1.3 URL sync: `pushState` for user era changes, `replaceState` only for initial normalization, `popstate` restore without a new history entry; default `Mesozoic` first load.
+- [ ] M4.1.1 radiogroup DOM: 3 buttons, `aria-checked`, ICS dots. Snippet: `export function renderEraStrip(active: Era, dots: Record<Era,string>): HTMLElement { /* ... */ }`
+- [ ] M4.1.1b blurbs: load bundled `timescale.json` once → `toBlurb` per Period → render under country name; on a missing/corrupt snapshot show era name + Ma range only (no blurb). Never fetch PBDB directly from the browser.
+- [ ] M4.1.2 filter-or-fetch: cache hit→instant filter; miss→skeleton+fetch same `cc`. Snippet: `export async function selectEra(era: Era): Promise<void> { /* ... */ }`
+- [ ] M4.1.3 URL sync: `pushState` for user era changes, `replaceState` only for initial normalization, `popstate` restore without a new history entry; default `Mesozoic` first load.
 
 #### T4.2 `feat(ui): segmented theme + 2 fonts` — Blocked by: T0.1. Independent of T4.1.
 
 Files: planned `apps/website/src/styles/tokens.css`, `apps/website/src/main.ts` (fontsource imports). DoD: contrast ≥4.5:1, a11y 100, VS Code-style segments. Check: `vp check`.
 
-- M4.2.1 fontsource self-host (locked Q4 Round 2): `@fontsource/space-grotesk` 500/700 + `@fontsource/inter` 400/500, `swap`, tabular-nums for Ma.
-- M4.2.2 segmented CSS: `paper` canvas, 8px gaps, `card` panels 1px `line` + 12px radius; breakpoints §1 (60/40, 50/50, stacked<640px, globe 320px).
-- M4.2.3 motion CSS: zoom handled in JS; card stagger max-6 × 40ms, `@media (prefers-reduced-motion: reduce){*{animation:none}}`.
+- [ ] M4.2.1 fontsource self-host (locked Q4 Round 2): `@fontsource/space-grotesk` 500/700 + `@fontsource/inter` 400/500, `swap`, tabular-nums for Ma.
+- [ ] M4.2.2 segmented CSS: `paper` canvas, 8px gaps, `card` panels 1px `line` + 12px radius; breakpoints §1 (60/40, 50/50, stacked<640px, globe 320px).
+- [ ] M4.2.3 motion CSS: zoom handled in JS; card stagger max-6 × 40ms, `@media (prefers-reduced-motion: reduce){*{animation:none}}`.
 
 #### T4.3 `feat(ui): copy deck + empty/error states` — Blocked by: T1.4, T4.1.
 
 Files: planned `apps/website/src/ui/states.ts`, copy in §1. DoD: all 5 error cases (§2.3) show correct copy, including the no-fallback error state. Check: `vp check`.
 
-- M4.3.1 `renderState` switch: `idle|loading|ready|empty|degraded|error` → exact strings §1. Snippet: `export function copyFor(s: Status, cc: string | null, era: Era): string { /* ... */ }`
-- M4.3.2 footnote always visible: "Sites plotted at modern coordinates."
-- M4.3.3 Retry wiring → refetch same `cc+era` (no state loss).
+- [ ] M4.3.1 `renderState` switch: `idle|loading|ready|empty|degraded|error` → exact strings §1. Snippet: `export function copyFor(s: Status, cc: string | null, era: Era): string { /* ... */ }`
+- [ ] M4.3.2 footnote always visible: "Sites plotted at modern coordinates."
+- [ ] M4.3.3 Retry wiring → refetch same `cc+era` (no state loss).
 
 ### Phase 5 — Perf, a11y, QA — exit: all §0 success criteria S1–S6 green
 
@@ -588,25 +612,25 @@ Blocked by: Phases 0–4.
 
 DoD: regression fails CI (prove once). Check: `vp run -r build`.
 
-- M5.1.1 `vp build --manifest`: initial gzip <250KB, globe chunk <150KB; record the command, compression method, and numbers in the PR.
-- M5.1.2 Lighthouse CI: LCP<2.5s, INP<200ms on US/Mesozoic.
-- M5.1.3 sprite/font audit: sheet size, 4 font files max, leader-layer segment cap live (500 segs, 8 callouts).
+- [ ] M5.1.1 `vp build --manifest`: initial gzip <250KB, globe chunk <150KB; record the command, compression method, and numbers in the PR.
+- [ ] M5.1.2 Lighthouse CI: LCP<2.5s, INP<200ms on US/Mesozoic.
+- [ ] M5.1.3 sprite/font audit: sheet size, 4 font files max, leader-layer segment cap live (500 segs, 8 callouts).
 
 #### T5.2 `a11y: keyboard + motion + axe` — Blocked by: T3.3, T4.2.
 
 DoD: axe 0 violations, S6 script passes. Check: `vp check`.
 
-- M5.2.1 keyboard script: listbox→era→card→modal→Esc→focus-returns (manual checklist §1.1 F-flows).
-- M5.2.2 reduced-motion: zoom 0ms, no stagger (assert `zoomDuration()===0` under emulation).
-- M5.2.3 contrast: `ink/paper`, `ink-soft` ≥4.5:1; `moss` focus visible.
+- [ ] M5.2.1 keyboard script: listbox→era→card→modal→Esc→focus-returns (manual checklist §1.1 F-flows).
+- [ ] M5.2.2 reduced-motion: zoom 0ms, no stagger (assert `zoomDuration()===0` under emulation).
+- [ ] M5.2.3 contrast: `ink/paper`, `ink-soft` ≥4.5:1; `moss` focus visible.
 
 #### T5.3 `test: e2e golden paths F1–F7` — Blocked by: T5.1, T5.2, D5, D7.
 
 DoD: 7 flows green against a deterministic local API fixture; live PBDB is a separate smoke check. Check: browser runner command documented in `docs/implementation-readiness.md`.
 
-- M5.3.1 F1+F2+F7: first-visit + era switch + back-button + label-only zoomed-out check (zero dots zoomed-out; ADR-005 anchors in focus).
-- M5.3.2 F3+F4: modal Esc + UK/`GB` normalize.
-- M5.3.3 F5+F6: empty era + offline seed + Retry.
+- [ ] M5.3.1 F1+F2+F7: first-visit + era switch + back-button + label-only zoomed-out check (zero dots zoomed-out; ADR-005 anchors in focus).
+- [ ] M5.3.2 F3+F4: modal Esc + UK/`GB` normalize.
+- [ ] M5.3.3 F5+F6: empty era + offline seed + Retry.
 
 ### Phase 6 — Launch + stretch (post-MVP, ordered, each needs `gh` issue + perf note)
 

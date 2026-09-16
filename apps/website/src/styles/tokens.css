@@ -13,3 +13,16 @@
 :focus-visible {
   outline: 3px solid var(--moss);
 }
+
+#globe-panel,
+#drawer-panel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+#app {
+  background: var(--paper);
+  display: grid;
+  gap: 8px;
+}
