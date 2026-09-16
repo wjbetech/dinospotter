@@ -12,7 +12,7 @@
 
 - [x] T0.0 `chore: make the toolchain and deployment contract runnable`
 - [x] T0.1 `chore: strip starter and install globe deps`
-- [ ] T0.2 `chore: CI perf + lint gates`
+- [x] T0.2 `chore: CI perf + lint gates`
 - [ ] T0.3 `chore: country polygons + URL state skeleton`
 - [ ] T1.1 `feat(data): timescale adapter`
 - [ ] T1.2 `feat(data): PBDB pure client and aggregation`
@@ -410,8 +410,8 @@ const loadGlobe = () => import("./globe/index.ts");
 Files: `.github/workflows/ci.yml`, benchmark config, `vite.config.ts`, `package.json` (devDeps). DoD: CI runs the test matrix in `docs/implementation-readiness.md`; a temporary budget breach fails and reverting it passes. Check: `vp check`, `vp test`, `vp build`.
 
 - [ ] M0.2.0 add the selected browser/Lighthouse dependencies with pinned versions and use Vite+'s documented GitHub Action setup.
-- [ ] M0.2.1 configure a benchmark command explicitly (`vitest bench`); `vp test` is not assumed to discover benchmark files.
-- [ ] M0.2.2 budget gate: parse the actual Vite build manifest or report artifact and assert initial gzip <250KB and globe chunk <150KB. Do not depend on an undocumented `vp build --report` flag.
+- [x] M0.2.1 configure a benchmark command explicitly (`vitest bench`); `vp test` is not assumed to discover benchmark files.
+- [x] M0.2.2 budget gate: parse the actual Vite build manifest or report artifact and assert initial gzip <250KB and globe chunk <150KB. Do not depend on an undocumented `vp build --report` flag.
 - [ ] M0.2.3 enforce the utility package public-export rule with a configured dependency check, not an unconfigured “boundary lint” claim.
 
 #### T0.3 `chore: country polygons + URL state skeleton` — Blocked by: T0.0, T0.1.
