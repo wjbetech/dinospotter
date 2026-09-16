@@ -9,7 +9,10 @@
     "prepare": "vp config"
   },
   "devDependencies": {
+    "@axe-core/playwright": "catalog:",
+    "@lhci/cli": "catalog:",
     "@types/node": "^26.1.1",
+    "playwright": "catalog:",
     "vite": "catalog:",
     "vite-plus": "catalog:"
   },
