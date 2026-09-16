@@ -6,9 +6,25 @@ export default defineConfig({
   },
   fmt: {},
   lint: {
-    jsPlugins: [{ name: "vite-plus", specifier: "vite-plus/oxlint-plugin" }],
-    rules: { "vite-plus/prefer-vite-plus-imports": "error" },
-    options: { typeAware: true, typeCheck: true },
+    jsPlugins: [
+      {
+        name: "vite-plus",
+        specifier: "vite-plus/oxlint-plugin",
+      },
+    ],
+    rules: {
+      "vite-plus/prefer-vite-plus-imports": "error",
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: ["packages/utils/src/*"],
+        },
+      ],
+    },
+    options: {
+      typeAware: true,
+      typeCheck: true,
+    },
   },
   run: {
     cache: true,
