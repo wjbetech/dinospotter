@@ -1,0 +1,4 @@
+[
+  { "nam": "Triassic", "itp": "period", "eag": 251.9, "lag": 201.3, "col": "#FFCC99", "pid": null },
+  { "nam": "Jurassic", "itp": "period", "eag": 201.3, "lag": 145, "col": "#99CC99", "pid": null }
+]

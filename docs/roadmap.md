@@ -14,7 +14,7 @@
 - [x] T0.1 `chore: strip starter and install globe deps`
 - [x] T0.2 `chore: CI perf + lint gates`
 - [x] T0.3 `chore: country polygons + URL state skeleton`
-- [ ] T1.1 `feat(data): timescale adapter`
+- [x] T1.1 `feat(data): timescale adapter`
 - [ ] T1.2 `feat(data): PBDB pure client and aggregation`
 - [ ] T1.2b `feat(api): PBDB occurrence proxy`
 - [ ] T1.3 `feat(data): taxon detail proxy`
@@ -438,7 +438,7 @@ Blocked by: T0.0, T0.1, T0.2.
 
 Mentor: `mentor: era buckets from intervals?` Files: planned `packages/utils/src/timescale.ts`, `packages/utils/src/index.ts` (re-export), `packages/utils/tests/timescale.test.ts`, and `apps/website/public/data/timescale.json`. DoD: the checked-in snapshot maps named Period rows to the three eras; Triassic/Jurassic/Cretaceous→Mesozoic; unknown→fallback+warn. Check: `vp test`. Doc: https://paleobiodb.org/data1.2/intervals_doc.html Perf: load the static snapshot once, not per request.
 
-- [ ] M1.1.1 `normalizeColor` (seam: pure fn): accept `#RGB/#RRGGBB/RRGGBB/rgb()` → `#RRGGBB` else `#2F7D62`. Snippet:
+- [x] M1.1.1 `normalizeColor` (seam: pure fn): accept `#RGB/#RRGGBB/RRGGBB/rgb()` → `#RRGGBB` else `#2F7D62`. Snippet:
 
 ```ts
 // TODO: you fill in — §3.4 table
@@ -447,9 +447,9 @@ export function normalizeColor(raw: string): string {
 }
 ```
 
-- [ ] M1.1.2 `eraOfPeriod` map: `Triassic|Jurassic|Cretaceous→Mesozoic`, etc.; unknown→`Mesozoic`+`console.warn`. Test pins table.
-- [ ] M1.1.3 `getEpochs` blurbs: `nam,eag,lag,col→EpochBlurb` + `description` 1–2 lines (static copy map, not PBDB text). Snippet: `export function toBlurb(r: IntervalRow): EpochBlurb { /* ... */ }`
-- [ ] M1.1.4 entry-point export: add to `index.ts`; boundary lint passes.
+- [x] M1.1.2 `eraOfPeriod` map: `Triassic|Jurassic|Cretaceous→Mesozoic`, etc.; unknown→`Mesozoic`+`console.warn`. Test pins table.
+- [x] M1.1.3 `getEpochs` blurbs: `nam,eag,lag,col→EpochBlurb` + `description` 1–2 lines (static copy map, not PBDB text). Snippet: `export function toBlurb(r: IntervalRow): EpochBlurb { /* ... */ }`
+- [x] M1.1.4 entry-point export: add to `index.ts`; boundary lint passes.
 
 #### T1.2 `feat(data): PBDB pure client and aggregation` — Blocked by: T1.1, T0.2.
 
