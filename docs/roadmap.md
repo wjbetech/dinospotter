@@ -13,7 +13,7 @@
 - [x] T0.0 `chore: make the toolchain and deployment contract runnable`
 - [x] T0.1 `chore: strip starter and install globe deps`
 - [x] T0.2 `chore: CI perf + lint gates`
-- [ ] T0.3 `chore: country polygons + URL state skeleton`
+- [x] T0.3 `chore: country polygons + URL state skeleton`
 - [ ] T1.1 `feat(data): timescale adapter`
 - [ ] T1.2 `feat(data): PBDB pure client and aggregation`
 - [ ] T1.2b `feat(api): PBDB occurrence proxy`
@@ -418,8 +418,8 @@ Files: `.github/workflows/ci.yml`, benchmark config, `vite.config.ts`, `package.
 
 Files: planned `apps/website/public/geo/countries.geojson`, `apps/website/src/store.ts`, `apps/website/src/url.ts`. DoD: `?cc=US&era=Mesozoic` sets state, no fetch. Check: `vp test`.
 
-- [ ] M0.3.1 geo file: add Natural Earth `countries.geojson` with documented version/license in `apps/website/public/geo/ATTRIBUTION.md`, normalized ISO2 properties, and explicit `GB` polygon → `UK` application mapping. Verify: fixture exists, <500KB, and includes a MultiPolygon plus antimeridian case.
-- [ ] M0.3.2 url parse/serialize (TDD seam `parseUrl`/`serializeUrl`): test `?cc=gb&era=mesozoic` → `{cc:"UK",era:"Mesozoic"}` (GB→UK here too). Snippet:
+- [x] M0.3.1 geo file: add Natural Earth `countries.geojson` with documented version/license in `apps/website/public/geo/ATTRIBUTION.md`, normalized ISO2 properties, and explicit `GB` polygon → `UK` application mapping. Verify: fixture exists, <500KB, and includes a MultiPolygon plus antimeridian case.
+- [x] M0.3.2 url parse/serialize (TDD seam `parseUrl`/`serializeUrl`): test `?cc=gb&era=mesozoic` → `{cc:"UK",era:"Mesozoic"}` (GB→UK here too). Snippet:
 
 ```ts
 // TODO: you fill in — normalize + GB→UK + era default Mesozoic
@@ -428,7 +428,7 @@ export function parseUrl(s: string): { cc: string | null; era: Era } {
 }
 ```
 
-- [ ] M0.3.3 store: `subscribe/render`, LRU Map(12), versioned `sessionStorage` try/catch, `source/status` semantics, and stale-response protection. Snippet: `export const store = createStore({ cc: null, era: "Mesozoic" as Era, status: "idle" as Status });`
+- [x] M0.3.3 store: `subscribe/render`, LRU Map(12), versioned `sessionStorage` try/catch, `source/status` semantics, and stale-response protection. Snippet: `export const store = createStore({ cc: null, era: "Mesozoic" as Era, status: "idle" as Status });`
 
 ### Phase 1 — Data pipeline — exit: live proxy serving validated `SitePayload`
 
