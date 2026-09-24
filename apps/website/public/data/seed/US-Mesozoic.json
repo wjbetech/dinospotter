@@ -1,0 +1,19 @@
+{
+  "cc": "US",
+  "era": "Mesozoic",
+  "updatedAt": "2026-09-24T00:00:00Z",
+  "stale": false,
+  "dropped": 0,
+  "total": 1,
+  "cards": [
+    {
+      "tid": "10",
+      "tna": "T.rex",
+      "oei": "Maastrichtian",
+      "eag": 70,
+      "lag": 66,
+      "sfm": "Hell Creek",
+      "sites": []
+    }
+  ]
+}
