@@ -1,5 +1,5 @@
 import { expect, test } from "vite-plus/test";
-import { buildOccsUrls, normalizeCc, parseOccs } from "../src/pbdb.ts";
+import { buildOccsUrls, normalizeCc, parseOccs, groupByTid } from "../src/pbdb.ts";
 
 test("normalizeCc turns GB to UK, gb to UK, uk to UK", () => {
   expect(normalizeCc("GB")).toBe("UK");
@@ -41,4 +41,45 @@ test("parseOccs: drops missing tna, 0,0, eag<lag", () => {
   expect(rows).toHaveLength(1);
   expect(dropped).toBe(3);
   expect(total).toBe(4);
+});
+
+test("groupByTid merges duplicates tid", () => {
+  const cards = groupByTid([
+    {
+      tid: "10",
+      tna: "A",
+      eag: 70,
+      lag: 66,
+      lng: 0,
+      lat: 0,
+      oid: "1",
+      oei: "",
+      sfm: "",
+    } as any,
+    {
+      tid: "10",
+      tna: "A",
+      eag: 68,
+      lag: 65,
+      lng: 1,
+      lat: 1,
+      oid: "2",
+      oei: "",
+      sfm: "",
+    } as any,
+    {
+      tid: "11",
+      tna: "B",
+      eag: 70,
+      lag: 66,
+      lng: 2,
+      lat: 2,
+      oid: ":3",
+      oei: "",
+      sfm: "",
+    } as any,
+  ]);
+
+  expect(cards).toHaveLength(2);
+  expect(cards[0].sites).toHaveLength(2);
 });

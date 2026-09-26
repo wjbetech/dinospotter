@@ -19,8 +19,8 @@
 - [ ] T1.2b `feat(api): PBDB occurrence proxy`
 - [x] T1.3 `feat(data): taxon detail proxy`
 - [x] T1.4 `feat(data): seed + skeletons + badge`
-- [ ] T2.1 `feat(globe): lazy globe chunk, labels layer, default light`
-- [ ] T2.2 `feat(globe): pick + center-zoom + listbox`
+- [x] T2.1 `feat(globe): lazy globe chunk, labels layer, default light`
+- [x] T2.2 `feat(globe): pick + center-zoom + listbox`
 - [ ] T2.3 `feat(globe): leader lines + silhouette callouts`
 - [ ] T3.1 `feat(cards): grid + virtualize + paginate`
 - [ ] T3.2 `feat(cards): silhouette set`
@@ -455,7 +455,7 @@ export function normalizeColor(raw: string): string {
 
 Mentor: `mentor: proxy URL for UK?` Files: planned `packages/utils/src/pbdb.ts` + tests. DoD: pure code expands one era into Period URLs, parses fixed fixtures, returns `ParsedOccurrences`, groups by `tid` into cards with all sites, and has deterministic age/name/formation behavior. Check: `vp test`. Perf: bounded rows and no DOM dependency. Doc: https://paleobiodb.org/data1.2/occs/list_doc.html
 
-- [ ] M1.2.1 `normalizeCc`: trim+upper, `GB→UK`. Test: `GB,gb," uk "`→`UK`.
+- [x] M1.2.1 `normalizeCc`: trim+upper, `GB→UK`. Test: `GB,gb," uk "`→`UK`.
 
 ```ts
 // TODO: you fill in
@@ -464,10 +464,10 @@ export function normalizeCc(cc: string): string {
 }
 ```
 
-- [ ] M1.2.2 `buildOccsUrls` per-Period expansion (quirk 15): `era→Period[]` (`Mesozoic→[Triassic,Jurassic,Cretaceous]`), `show=coords,ident,strat`, `limit=500`. Test asserts normalized `cc=UK` in every URL.
-- [ ] M1.2.3 `parseOccs`: count raw rows, coerce only valid numeric fields, drop missing/null/out-of-range/0,0 coordinates and missing `tna/tid`, and return `ParsedOccurrences`. Test uses malformed literal fixtures.
-- [ ] M1.2.4 `groupByTid`: merge duplicate `tid`, preserve every valid site, aggregate age envelope and deterministic formation, then sort by occurrence count desc, `eag` desc, and `tid` asc. Test: 3 rows/2 tids → 2 cards.
-- [ ] M1.2.5 entry-point export and contract fixtures: all website consumers import the package export; no deep import.
+- [x] M1.2.2 `buildOccsUrls` per-Period expansion (quirk 15): `era→Period[]` (`Mesozoic→[Triassic,Jurassic,Cretaceous]`), `show=coords,ident,strat`, `limit=500`. Test asserts normalized `cc=UK` in every URL.
+- [x] M1.2.3 `parseOccs`: count raw rows, coerce only valid numeric fields, drop missing/null/out-of-range/0,0 coordinates and missing `tna/tid`, and return `ParsedOccurrences`. Test uses malformed literal fixtures.
+- [x] M1.2.4 `groupByTid`: merge duplicate `tid`, preserve every valid site, aggregate age envelope and deterministic formation, then sort by occurrence count desc, `eag` desc, and `tid` asc. Test: 3 rows/2 tids → 2 cards.
+- [x] M1.2.5 entry-point export and contract fixtures: all website consumers import the package export; no deep import.
 
 #### T1.2b `feat(api): PBDB occurrence proxy` — Blocked by: T0.0, T1.2.
 
