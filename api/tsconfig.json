@@ -9,7 +9,10 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "target": "esnext",
-    "lib": ["es2023"]
+    "lib": ["es2023"],
+    "paths": {
+      "utils": ["../packages/utils/src/index.ts"]
+    }
   },
   "include": ["./**/*.ts", "./**/*.tsx", "./**/*.d.ts"],
   "exclude": ["node_modules", "dist", "apps", "packages"]

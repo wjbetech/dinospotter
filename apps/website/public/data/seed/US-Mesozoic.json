@@ -13,7 +13,19 @@
       "eag": 70,
       "lag": 66,
       "sfm": "Hell Creek",
-      "sites": []
+      "sites": [
+        {
+          "oid": "1",
+          "tid": "10",
+          "tna": "T.rex",
+          "oei": "Maastrichtian",
+          "eag": 70,
+          "lag": 60,
+          "lng": -104.5,
+          "lat": 47.1,
+          "sfm": "Hell Creek"
+        }
+      ]
     }
   ]
 }

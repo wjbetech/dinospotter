@@ -16,9 +16,9 @@
 - [x] T0.3 `chore: country polygons + URL state skeleton`
 - [x] T1.1 `feat(data): timescale adapter`
 - [x] T1.2 `feat(data): PBDB pure client and aggregation`
-- [x] T1.2b `feat(api): PBDB occurrence proxy`
-- [ ] T1.3 `feat(data): taxon detail proxy`
-- [ ] T1.4 `feat(data): seed + skeletons + badge`
+- [ ] T1.2b `feat(api): PBDB occurrence proxy`
+- [x] T1.3 `feat(data): taxon detail proxy`
+- [x] T1.4 `feat(data): seed + skeletons + badge`
 - [ ] T2.1 `feat(globe): lazy globe chunk, labels layer, default light`
 - [ ] T2.2 `feat(globe): pick + center-zoom + listbox`
 - [ ] T2.3 `feat(globe): leader lines + silhouette callouts`
