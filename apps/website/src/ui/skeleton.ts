@@ -1,5 +1,6 @@
 export function renderSkeleton(n = 6): HTMLElement {
   const ul = document.createElement("ul");
+  ul.setAttribute("aria-busy", "true");
   ul.setAttribute("aria-label", "Loading fossil records...");
 
   for (let i = 0; i < n; i++) {
