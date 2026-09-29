@@ -22,7 +22,7 @@ export async function initGlobe(el: HTMLElement) {
 
   const map = new Map({
     container: el,
-    style: "https://demotiles.maplibre.org/globe.json",
+    style: "/styles/light.json",
     center: [0, 20],
     zoom: 3,
   });
@@ -32,7 +32,7 @@ export async function initGlobe(el: HTMLElement) {
 
     map.addSource("countries", {
       type: "geojson",
-      data: "geo",
+      data: geo,
     });
 
     map.addLayer({
@@ -50,11 +50,14 @@ export async function initGlobe(el: HTMLElement) {
       source: "countries",
       layout: {
         "text-field": ["get", "name"],
+        "text-allow-overlap": false,
+        "text-ignore-placement": false,
+        "text-optional": true,
       },
     });
 
     map.on("click", (e) => {
-      const cc = pickCountry([e.lngLat.lng, e.lngLat.lat]);
+      const cc = pickCountry([e.lngLat.lng, e.lngLat.lat], geo.features);
 
       if (!cc) {
         if (hint) hint.textContent = "Pick a country to start.";

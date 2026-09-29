@@ -1,7 +1,3 @@
-export function pickCountry(_point: [number, number]): string | null {
-  return null;
-}
-
 export function pointInPolygon(point: [number, number], ring: [number, number][]): boolean {
   let inside = false;
 
@@ -17,4 +13,23 @@ export function pointInPolygon(point: [number, number], ring: [number, number][]
     if (px < xIntersect) inside = !inside;
   }
   return inside;
+}
+
+export function pickCountry(
+  point: [number, number],
+  features: {
+    properties: {
+      ISO2: string;
+    };
+    geometry: {
+      coordinates: number[][][];
+    };
+  }[],
+): string | null {
+  for (const feat of features) {
+    if (pointInPolygon(point, feat.geometry.coordinates[0] as [number, number][])) {
+      return feat.properties.ISO2;
+    }
+  }
+  return null;
 }

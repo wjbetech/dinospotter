@@ -7,10 +7,9 @@ export function renderBadge(status: string, onRetry: () => void): HTMLElement | 
       ? "PBDB unavailable - showing cached data. Data may be incomplete or out of date."
       : "PBDB unavailable. Please try again.";
 
-  const btn = Object.assign(document.createElement("button"), {
-    textContent: "Retry",
-    onClick: onRetry,
-  });
+  const btn = document.createElement("button");
+  btn.textContent = "Retry";
+  btn.addEventListener("click", onRetry);
 
   div.append(btn);
 

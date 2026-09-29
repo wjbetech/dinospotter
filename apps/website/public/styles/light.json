@@ -1,0 +1,14 @@
+{
+  "version": 8,
+  "name": "Dinospotter Light",
+  "sources": {},
+  "layers": [
+    {
+      "id": "bg",
+      "type": "background",
+      "paint": {
+        "background-color": "#DCEBF5"
+      }
+    }
+  ]
+}

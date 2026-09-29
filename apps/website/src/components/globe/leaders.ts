@@ -1,4 +1,4 @@
-import type { Leader } from "../../../../../packages/utils/src/leaders.ts";
+import type { Leader } from "utils";
 
 export function render(map: import("maplibre-gl").Map, leaders: Leader[]) {
   const lines = {
@@ -7,7 +7,7 @@ export function render(map: import("maplibre-gl").Map, leaders: Leader[]) {
       type: "Feature",
       geometry: {
         type: "LineString",
-        coordinates: [leader.anchor],
+        coordinates: [leader.anchor, leader.callout],
       },
     })),
   };
@@ -19,13 +19,15 @@ export function render(map: import("maplibre-gl").Map, leaders: Leader[]) {
         data: lines,
       });
 
-  map.addLayer({
-    id: "leaders",
-    type: "line",
-    source: "leaders",
-    paint: {
-      "line-color": "#2F7D62",
-      "line-width": 1.5,
-    },
-  });
+  if (!map.getLayer("leaders")) {
+    map.addLayer({
+      id: "leaders",
+      type: "line",
+      source: "leaders",
+      paint: {
+        "line-color": "#2F7D62",
+        "line-width": 1.5,
+      },
+    });
+  }
 }
