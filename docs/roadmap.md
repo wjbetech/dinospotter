@@ -22,15 +22,22 @@
 - [x] T2.1 `feat(globe): lazy globe chunk, labels layer, default light`
 - [x] T2.2 `feat(globe): pick + center-zoom + listbox`
 - [ ] T2.3 `feat(globe): leader lines + silhouette callouts`
-- [ ] T3.1 `feat(cards): grid + virtualize + paginate`
+- [x] T3.1 `feat(cards): grid + virtualize + paginate`
 - [ ] T3.2 `feat(cards): silhouette set`
-- [ ] T3.3 `feat(modal): taxon detail 90%`
+- [x] T3.3 `feat(modal): taxon detail 90%`
 - [ ] T4.1 `feat(ui): era strip radiogroup`
 - [ ] T4.2 `feat(ui): segmented theme + 2 fonts`
 - [ ] T4.3 `feat(ui): copy deck + empty/error states`
 - [ ] T5.1 `perf: budget audit`
 - [ ] T5.2 `a11y: keyboard + motion + axe`
 - [ ] T5.3 `test: e2e golden paths F1–F7`
+
+## Last task done (handoff):
+
+- Date: 2026-09-30
+- Task: T3.1 M3.1.3 `renderCard` wired to `renderCards`
+- Frontier: T3.2 `silhouetteFor` table
+- Checks: `vp check` green, `vp test` green
 
 ## 0. Vision, success, non-goals, repo map
 
@@ -481,15 +488,15 @@ Files: planned `api/occs.ts`, `api/tsconfig.json`, proxy contract tests, and dep
 
 Files: planned `api/taxon.ts`, `packages/utils/src/taxon.ts` + test. DoD: modal gets validated `TaxonDetail` in one fetch; the selected card remains the source for formation and coordinates. Check: `vp test`.
 
-- [ ] M1.3.1 `toTaxonDetail` mapper + `pbdbUrl` builder. Map PBDB `oid`, `nam`, `rnk`, `att`, `par`, and `noc`; accept either `txn:NN` or `NN`, normalize to one `txn:NN`, and reject every other id before building the URL. Snippet: `export function taxonUrl(id: string): string { const raw = id.replace(/^txn:/, ""); if (!/^\\d+$/.test(raw)) throw new Error("invalid tid"); return \`https://paleobiodb.org/data1.2/taxa/single.json?id=txn:${raw}&show=attr\`; }`
-- [ ] M1.3.2 `api/taxon.ts` route + cache headers (same as occs).
+- [x] M1.3.1 `toTaxonDetail` mapper + `pbdbUrl` builder. Map PBDB `oid`, `nam`, `rnk`, `att`, `par`, and `noc`; accept either `txn:NN` or `NN`, normalize to one `txn:NN`, and reject every other id before building the URL. Snippet: `export function taxonUrl(id: string): string { const raw = id.replace(/^txn:/, ""); if (!/^\\d+$/.test(raw)) throw new Error("invalid tid"); return \`https://paleobiodb.org/data1.2/taxa/single.json?id=txn:${raw}&show=attr\`; }`
+- [x] M1.3.2 `api/taxon.ts` route + cache headers (same as occs).
 
 #### T1.4 `feat(data): seed + skeletons + badge` — Blocked by: T1.2b. Independent of T1.3.
 
 Files: planned `apps/website/public/data/seed/US-Mesozoic.json`, `apps/website/src/ui/{skeleton,badge}.ts`. DoD: offline first visit shows seed+badge and exact `degraded` semantics. Check: `vp check`.
 
-- [ ] M1.4.1 seed JSON ≤50 recs (hand-verified snapshot, matches `SitePayload`).
-- [ ] M1.4.2 skeleton cards (`aria-busy=true`, "Loading fossil records…").
+- [x] M1.4.1 seed JSON ≤50 recs (hand-verified snapshot, matches `SitePayload`).
+- [x] M1.4.2 skeleton cards (`aria-busy=true`, "Loading fossil records…").
 - [ ] M1.4.3 badge + Retry: exact copy §1; Retry refetches same `cc+era`.
 - Seed checks: US/UK/DE/FR live + MG/MN empty states.
 
@@ -501,7 +508,7 @@ Blocked by: T0.3 and D4. Data tickets are not required for the renderer itself.
 
 Mentor: `mentor: globe click → country?` Files: planned `apps/website/src/globe/{index,style,labels}.ts`. DoD: globe absent from initial JS; labels render, no dots. Check: `vp build --manifest` plus the artifact-size script. Doc: https://maplibre.org/maplibre-gl-js/docs/ Perf: chunk <150KB gzip.
 
-- [ ] M2.1.1 `initGlobe` lazy: `await import("maplibre-gl")` inside `initGlobe(el)`, globe projection, selected self-hosted/approved light style, and documented attribution. Snippet:
+- [x] M2.1.1 `initGlobe` lazy: `await import("maplibre-gl")` inside `initGlobe(el)`, globe projection, selected self-hosted/approved light style, and documented attribution. Snippet:
 
 ```ts
 // TODO: you fill in — never static-import maplibre-gl
@@ -510,17 +517,17 @@ export async function initGlobe(el: HTMLElement) {
 }
 ```
 
-- [ ] M2.1.2 transparent hit-test fill + label layers from bundled `countries.geojson`; small labels hidden until safe zoom (locked Q8). Rendered basemap sources follow D4; no unlicensed or undocumented public tile dependency.
-- [ ] M2.1.3 manifest assert: the generated manifest shows `maplibre` in an async chunk only; the size script checks compressed bytes.
+- [x] M2.1.2 transparent hit-test fill + label layers from bundled `countries.geojson`; small labels hidden until safe zoom (locked Q8). Rendered basemap sources follow D4; no unlicensed or undocumented public tile dependency.
+- [x] M2.1.3 manifest assert: the generated manifest shows `maplibre` in an async chunk only; the size script checks compressed bytes.
 
 #### T2.2 `feat(globe): pick + center-zoom + listbox` — Blocked by: T2.1.
 
 Files: planned `apps/website/src/globe/{pick,zoom}.ts`, `apps/website/src/ui/country-listbox.ts`, and benchmark configuration. DoD: click US→centers US + `?cc=US`, zoom<1s (locked Q8–Q9). Check: `vp test`.
 
-- [ ] M2.2.1 `pickCountry` pure math (seam: `pointInPolygon`): ray-cast on geojson rings; ocean→`null`. Bench it. Snippet: `export function pointInPolygon(pt: [number,number], ring: [number,number][]): boolean { /* ... */ }`
-- [ ] M2.2.2 `zoomTo` centers country bbox (900ms ease-out cubic locked Q9, 0ms if `matchMedia("(prefers-reduced-motion: reduce)")`). Snippet: `export function zoomDuration(): number { return matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 900; }`
-- [ ] M2.2.3 click wiring: map click→`pickCountry`→`store.setCc`→center + `history.pushState` for user selection. Initial URL normalization uses `replaceState`; ocean→hint copy.
-- [ ] M2.2.4 listbox: `<select>` of ISO2→name (same `setCc` path); keyboard S6.
+- [x] M2.2.1 `pickCountry` pure math (seam: `pointInPolygon`): ray-cast on geojson rings; ocean→`null`. Bench it. Snippet: `export function pointInPolygon(pt: [number,number], ring: [number,number][]): boolean { /* ... */ }`
+- [x] M2.2.2 `zoomTo` centers country bbox (900ms ease-out cubic locked Q9, 0ms if `matchMedia("(prefers-reduced-motion: reduce)")`). Snippet: `export function zoomDuration(): number { return matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 900; }`
+- [x] M2.2.3 click wiring: map click→`pickCountry`→`store.setCc`→center + `history.pushState` for user selection. Initial URL normalization uses `replaceState`; ocean→hint copy.
+- [x] M2.2.4 listbox: `<select>` of ISO2→name (same `setCc` path); keyboard S6.
 
 #### T2.3 `feat(globe): leader lines + silhouette callouts` — Blocked by: T2.2, T1.2b.
 
@@ -537,9 +544,9 @@ Blocked by: data contracts and the card interaction shell. T3.1/T3.3 can proceed
 
 Mentor: `mentor: card grid?` Files: planned `apps/website/src/ui/cards.ts`, `packages/utils/src/paging.ts` + test. DoD: 500 occurrence rows produce a bounded taxon-card DOM and scroll without jank. Check: `vp test`. Perf: no full-list DOM.
 
-- [ ] M3.1.1 `page` pure: `slice(payload.cards, page*48, 48)`. Snippet: `export function page(cards: TaxonCard[], n: number, size = 48): TaxonCard[] { /* ... */ }`
-- [ ] M3.1.2 `renderCards` viewport-only: IntersectionObserver appends next page; `aria-busy` during fetch.
-- [ ] M3.1.3 card DOM per §1 spec: 3:2 `sand` figure + grid + flat silhouette + Inter name + tabular-nums Ma + ICS dot + `sfm` 1-line; hover via inset shadow (no shift).
+- [x] M3.1.1 `page` pure: `slice(payload.cards, page*48, 48)`. Snippet: `export function page(cards: TaxonCard[], n: number, size = 48): TaxonCard[] { /* ... */ }`
+- [x] M3.1.2 `renderCards` viewport-only: IntersectionObserver appends next page; `aria-busy` during fetch.
+- [x] M3.1.3 card DOM per §1 spec: 3:2 `sand` figure + grid + flat silhouette + Inter name + tabular-nums Ma + ICS dot + `sfm` 1-line; hover via inset shadow (no shift).
 
 #### T3.2 `feat(cards): silhouette set + ADR-003` — Blocked by: T3.1.
 
