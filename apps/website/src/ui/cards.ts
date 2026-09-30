@@ -20,3 +20,10 @@ export function renderCard(taxonCard: TaxonCard): HTMLElement {
   `;
   return cardEl;
 }
+
+export function renderTickBar(): HTMLElement {
+  const tickBar = document.createElement("div");
+  tickBar.className = "tick-bar";
+  tickBar.textContent = "1.8m";
+  return tickBar;
+}
