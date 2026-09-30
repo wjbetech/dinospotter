@@ -1,7 +1,7 @@
 export type SvgId =
   | "theropod"
   | "sauropod"
-  | "ornithischan"
+  | "ornithischian"
   | "pterosaur"
   | "marine"
   | "synapsid"
@@ -36,7 +36,7 @@ export function silhouetteFor(taxonName: string): SvgId {
     name.includes("steg") ||
     name.includes("ankyl")
   ) {
-    return "ornithischan";
+    return "ornithischian";
   }
 
   if (name.includes("therapsid") || name.includes("synap")) {
