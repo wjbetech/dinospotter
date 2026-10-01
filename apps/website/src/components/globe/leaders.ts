@@ -1,3 +1,4 @@
+import type { GeoJSONSource } from "maplibre-gl";
 import type { Leader } from "utils";
 
 export function render(map: import("maplibre-gl").Map, leaders: Leader[]) {
@@ -12,12 +13,14 @@ export function render(map: import("maplibre-gl").Map, leaders: Leader[]) {
     })),
   };
 
-  map.getSource("leaders")
-    ? (map.getSource("leaders") as any).setData(lines)
-    : map.addSource("leaders", {
-        type: "geojson",
-        data: lines,
-      });
+  if (map.getSource("leaders")) {
+    void (map.getSource("leaders") as GeoJSONSource).setData(lines);
+  } else {
+    map.addSource("leaders", {
+      type: "geojson",
+      data: lines,
+    });
+  }
 
   if (!map.getLayer("leaders")) {
     map.addLayer({

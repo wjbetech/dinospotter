@@ -24,7 +24,7 @@ export function createStore(initial: { cc: string | null; era: Era; status: Stat
     } catch {}
   }
 
-  function loadSession(key: string): unknown | null {
+  function loadSession(key: string): unknown {
     try {
       const raw = sessionStorage.getItem(storageKey(key));
       return raw ? JSON.parse(raw) : null;
