@@ -3,6 +3,14 @@
 // #aabbcc => #AABBCC.
 // return warning and moss if invalid.
 export type Era = "Paleozoic" | "Mesozoic" | "Cenozoic";
+export type EpochBlurb = {
+  name: string;
+  era: Era;
+  eag: number;
+  lag: number;
+  color: string;
+  description: string;
+};
 
 export function normalizeColor(raw: string): string {
   const s = raw.trim();
@@ -39,14 +47,13 @@ export function eraOfPeriod(period: string): Era {
   return "Mesozoic";
 }
 
-export function toBlurb(row: { nam: string; eag: number; lag: number; col: string; itp: string }): {
-  name: string;
-  era: Era;
+export function toBlurb(row: {
+  nam: string;
   eag: number;
   lag: number;
-  color: string;
-  description: string;
-} {
+  col: string;
+  itp: string;
+}): EpochBlurb {
   return {
     name: row.nam,
     era: eraOfPeriod(row.itp || row.nam),

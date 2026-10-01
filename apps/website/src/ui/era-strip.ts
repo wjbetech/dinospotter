@@ -1,4 +1,35 @@
 import type { Era } from "../url.ts";
+import { toBlurb } from "utils";
+import type { EpochBlurb } from "utils";
+
+type TimescaleJson = {
+  records: {
+    nam: string;
+    eag: number;
+    lag: number;
+    col: string;
+    itp: string;
+  }[];
+};
+
+let cache: EpochBlurb[] | null = null;
+
+export async function loadBlurbs(): Promise<EpochBlurb[]> {
+  if (cache) return cache;
+
+  try {
+    const json = await fetch("/data/timescale.json").then(
+      (r) => r.json() as Promise<TimescaleJson>,
+    );
+
+    cache = json.records.map(toBlurb);
+
+    return cache;
+  } catch (error) {
+    console.error("Failed to load epoch blurbs:", error);
+    return [];
+  }
+}
 
 export function renderEraStrip(active: Era, dots: Record<Era, string>): HTMLElement {
   const group = document.createElement("div");
