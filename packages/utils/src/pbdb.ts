@@ -47,7 +47,7 @@ export function buildOccsUrls(cc: string, era: Era): string[] {
   );
 }
 
-export function parseOccs(json: { records: any[] }): ParsedOccurrences {
+export function parseOccs(json: { records: Record<string, unknown>[] }): ParsedOccurrences {
   let dropped = 0;
   const rows: FossilSite[] = [];
   for (const r of json.records ?? []) {

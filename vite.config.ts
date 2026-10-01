@@ -29,4 +29,9 @@ export default defineConfig({
   run: {
     cache: true,
   },
+  resolve: {
+    alias: {
+      utils: "/packages/utils/src/index.ts",
+    },
+  },
 });
