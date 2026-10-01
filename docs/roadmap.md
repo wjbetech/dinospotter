@@ -34,9 +34,9 @@
 
 ## Last task done (handoff):
 
-- Date: 2026-09-30
-- Task: T3.1 M3.1.3 `renderCard` wired to `renderCards`
-- Frontier: T3.2 `silhouetteFor` table
+- Date: 2026-10-01
+- Task: T4.1 M4.1.1b `loadBlurbs` + `EpochBlurb` (typed `timescale.json`, no `any`) + T1.2b per-era `buildOccsUrls` → `SitePayload`
+- Frontier: T4.1 M4.1.2 `filter-or-fetch` (cache hit → instant, miss → skeleton)
 - Checks: `vp check` green, `vp test` green
 
 ## 0. Vision, success, non-goals, repo map
