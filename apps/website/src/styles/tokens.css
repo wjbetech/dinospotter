@@ -14,6 +14,12 @@
   outline: 3px solid var(--moss);
 }
 
+body {
+  background: var(--paper);
+  dispaly: grid;
+  gap: 8px;
+}
+
 #globe-panel,
 #drawer-panel {
   background: var(--card);

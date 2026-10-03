@@ -4,7 +4,7 @@ import { parseUrl } from "./url.ts";
 describe("parseUrl helper", () => {
   it("gb→UK + mesozoic→Mesozoic", () => {
     expect(parseUrl("?cc=gb&era=mesozoic")).toEqual({
-      cc: "UK",
+      countryCode: "UK",
       era: "Mesozoic",
     });
   });

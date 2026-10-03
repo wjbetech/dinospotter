@@ -1,26 +1,26 @@
 export type Era = "Paleozoic" | "Mesozoic" | "Cenozoic";
 
-function normalizeCc(cc: string): string {
-  const trimmedCc = cc.trim().toUpperCase();
-  return trimmedCc === "GB" ? "UK" : trimmedCc;
+function normalizeCc(countryCode: string): string {
+  const trimmedCountryCode = countryCode.trim().toUpperCase();
+  return trimmedCountryCode === "GB" ? "UK" : trimmedCountryCode;
 }
 
 export function parseUrl(str: string): {
-  cc: string | null;
+  countryCode: string | null;
   era: Era;
 } {
   const params = new URLSearchParams(str);
   const rawCc = params.get("cc");
-  const cc = rawCc?.trim() ? normalizeCc(rawCc) : null;
+  const countryCode = rawCc?.trim() ? normalizeCc(rawCc) : null;
   const paramsEra = params.get("era")?.toLowerCase();
   const era: Era =
     paramsEra === "paleozoic" ? "Paleozoic" : paramsEra === "cenozoic" ? "Cenozoic" : "Mesozoic";
-  return { cc, era };
+  return { countryCode, era };
 }
 
-export function serializeUrl(cc: string | null, era: Era): string {
+export function serializeUrl(countryCode: string | null, era: Era): string {
   const params = new URLSearchParams();
-  if (cc?.trim()) params.set("cc", normalizeCc(cc));
+  if (countryCode?.trim()) params.set("cc", normalizeCc(countryCode));
   params.set("era", era);
   return `${params.toString()}`;
 }

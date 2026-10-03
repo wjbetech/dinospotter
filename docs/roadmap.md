@@ -25,7 +25,7 @@
 - [x] T3.1 `feat(cards): grid + virtualize + paginate`
 - [x] T3.2 `feat(cards): silhouette set`
 - [x] T3.3 `feat(modal): taxon detail 90%`
-- [ ] T4.1 `feat(ui): era strip radiogroup`
+- [x] T4.1 `feat(ui): era strip radiogroup`
 - [ ] T4.2 `feat(ui): segmented theme + 2 fonts`
 - [ ] T4.3 `feat(ui): copy deck + empty/error states`
 - [ ] T5.1 `perf: budget audit`
@@ -592,7 +592,7 @@ Files: planned `apps/website/src/ui/era-strip.ts`. DoD: era switch never loses `
 
 - [ ] M4.1.1 radiogroup DOM: 3 buttons, `aria-checked`, ICS dots. Snippet: `export function renderEraStrip(active: Era, dots: Record<Era,string>): HTMLElement { /* ... */ }`
 - [ ] M4.1.1b blurbs: load bundled `timescale.json` once → `toBlurb` per Period → render under country name; on a missing/corrupt snapshot show era name + Ma range only (no blurb). Never fetch PBDB directly from the browser.
-- [ ] M4.1.2 filter-or-fetch: cache hit→instant filter; miss→skeleton+fetch same `cc`. Snippet: `export async function selectEra(era: Era): Promise<void> { /* ... */ }`
+- [x] M4.1.2 filter-or-fetch: cache hit→instant filter; miss→skeleton+fetch same `cc`. Snippet: `export async function selectEra(era: Era): Promise<void> { /* ... */ }`
 - [ ] M4.1.3 URL sync: `pushState` for user era changes, `replaceState` only for initial normalization, `popstate` restore without a new history entry; default `Mesozoic` first load.
 
 #### T4.2 `feat(ui): segmented theme + 2 fonts` — Blocked by: T0.1. Independent of T4.1.
@@ -600,7 +600,7 @@ Files: planned `apps/website/src/ui/era-strip.ts`. DoD: era switch never loses `
 Files: planned `apps/website/src/styles/tokens.css`, `apps/website/src/main.ts` (fontsource imports). DoD: contrast ≥4.5:1, a11y 100, VS Code-style segments. Check: `vp check`.
 
 - [ ] M4.2.1 fontsource self-host (locked Q4 Round 2): `@fontsource/space-grotesk` 500/700 + `@fontsource/inter` 400/500, `swap`, tabular-nums for Ma.
-- [ ] M4.2.2 segmented CSS: `paper` canvas, 8px gaps, `card` panels 1px `line` + 12px radius; breakpoints §1 (60/40, 50/50, stacked<640px, globe 320px).
+- [x] M4.2.2 segmented CSS: `paper` canvas, 8px gaps, `card` panels 1px `line` + 12px radius; breakpoints §1 (60/40, 50/50, stacked<640px, globe 320px).
 - [ ] M4.2.3 motion CSS: zoom handled in JS; card stagger max-6 × 40ms, `@media (prefers-reduced-motion: reduce){*{animation:none}}`.
 
 #### T4.3 `feat(ui): copy deck + empty/error states` — Blocked by: T1.4, T4.1.

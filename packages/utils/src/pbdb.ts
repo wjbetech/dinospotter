@@ -22,6 +22,16 @@ export interface TaxonCard {
   sites: FossilSite[];
 }
 
+export interface SitePayload {
+  countryCode: string;
+  era: Era;
+  updatedAt: string;
+  stale: boolean;
+  dropped: number;
+  total: number;
+  cards: TaxonCard[];
+}
+
 export interface ParsedOccurrences {
   rows: FossilSite[];
   dropped: number;

@@ -1,9 +1,15 @@
 import type { Era } from "./url";
+import type { SitePayload } from "utils";
 
 export type Status = "idle" | "loading" | "ready" | "empty" | "degraded" | "error";
 export type DataSource = "network" | "session" | "seed" | null;
 
-export function createStore(initial: { cc: string | null; era: Era; status: Status }) {
+export function createStore(initial: {
+  countryCode: string | null;
+  era: Era;
+  status: Status;
+  payload: SitePayload | null;
+}) {
   const cache = new Map<string, unknown>();
 
   function setCache(key: string, val: unknown) {
@@ -46,8 +52,8 @@ export function createStore(initial: { cc: string | null; era: Era; status: Stat
 
     state = { ...state, ...par };
 
-    if (par.cc !== undefined || par.era !== undefined) {
-      const key = `${state.cc ?? ""}:${state.era}`;
+    if (par.countryCode !== undefined || par.era !== undefined) {
+      const key = `${state.countryCode ?? ""}:${state.era}`;
       setCache(key, state);
       saveSession(key, state);
     }
@@ -65,3 +71,10 @@ export function createStore(initial: { cc: string | null; era: Era; status: Stat
     loadSession,
   };
 }
+
+export const store = createStore({
+  countryCode: null,
+  era: "Mesozoic" as Era,
+  status: "idle" as Status,
+  payload: null,
+});

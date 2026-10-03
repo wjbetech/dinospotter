@@ -3,8 +3,15 @@ import { page, silhouetteFor, type TaxonCard } from "utils";
 export function renderCards(wrap: HTMLElement, cards: TaxonCard[]): void {
   let num = 0;
   const sentinel = document.createElement("div");
-  const io = new IntersectionObserver(() => {
-    wrap.append(...page(cards, num++).map(renderCard));
+  const io = new IntersectionObserver((entries) => {
+    if (!entries[0].isIntersecting) return;
+    const next = page(cards, num++);
+    if (!next.length) {
+      io.disconnect();
+      return;
+    }
+    wrap.append(...next.map(renderCard));
+    if (num * 48 >= cards.length) io.disconnect();
   });
   io.observe(sentinel);
   wrap.append(sentinel);

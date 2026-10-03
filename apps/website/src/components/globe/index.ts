@@ -4,13 +4,14 @@ import { zoomTo } from "../../globe/zoom.ts";
 import { serializeUrl } from "../../url";
 
 const store = createStore({
-  cc: null,
+  countryCode: null,
+  payload: null,
   era: "Mesozoic",
   status: "idle",
 });
 const hint = document.querySelector<HTMLElement>("#hint");
 
-function bboxFor(_cc: string): [number, number, number, number] {
+function bboxFor(_countryCode: string): [number, number, number, number] {
   return [-125, 24, -66, 49];
 }
 
@@ -57,16 +58,16 @@ export async function initGlobe(el: HTMLElement) {
     });
 
     map.on("click", (e) => {
-      const cc = pickCountry([e.lngLat.lng, e.lngLat.lat], geo.features);
+      const countryCode = pickCountry([e.lngLat.lng, e.lngLat.lat], geo.features);
 
-      if (!cc) {
+      if (!countryCode) {
         if (hint) hint.textContent = "Pick a country to start.";
         return;
       }
 
-      store.setState({ cc });
-      zoomTo(map, bboxFor(cc));
-      history.pushState(null, "", "?" + serializeUrl(cc, store.getState().era));
+      store.setState({ countryCode });
+      zoomTo(map, bboxFor(countryCode));
+      history.pushState(null, "", "?" + serializeUrl(countryCode, store.getState().era));
     });
 
     return geo;
