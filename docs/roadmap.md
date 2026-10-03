@@ -34,9 +34,9 @@
 
 ## Last task done (handoff):
 
-- Date: 2026-10-01
-- Task: T4.1 M4.1.1b `loadBlurbs` + `EpochBlurb` (typed `timescale.json`, no `any`) + T1.2b per-era `buildOccsUrls` → `SitePayload`
-- Frontier: T4.1 M4.1.2 `filter-or-fetch` (cache hit → instant, miss → skeleton)
+- Date: 2026-10-03
+- Task: T4.1 M4.1.2 `selectEra` filter-or-fetch live — cache checks `payload.cards`, `url.test` `cc` → `countryCode`, UK verified 548 cards / 48 DOM
+- Frontier: T4.2 segmented theme verify
 - Checks: `vp check` green, `vp test` green
 
 ## 0. Vision, success, non-goals, repo map
