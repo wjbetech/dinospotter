@@ -12,12 +12,19 @@ export function openTaxon(card: TaxonCard, detail: TaxonDetail, returnTo: HTMLEl
     <p>${card.eag}-${card.lag} MA · ${card.sfm} · ${card.tid}</p>
   `;
 
+  dialog.className = "modal-panel";
+  dialog.style.cssText =
+    "position:fixed;inset:5%;background:#fff;border:1px solid #E5DED0;border-radius:12px;padding:16px;z-index:50";
+
+  const firstLink = dialog.querySelector("a") as HTMLElement | null;
+
   dialog.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       closeTaxon(dialog, returnTo);
     } else {
       trap(event, dialog);
     }
+    if (firstLink) firstLink.focus();
   });
 
   document.body.append(dialog);

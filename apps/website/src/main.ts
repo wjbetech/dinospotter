@@ -1,13 +1,14 @@
 import "./styles/tokens.css";
-import "@fontsource/space-grotesk/500.css";
-import "@fontsource/space-grotesk/700.css";
-import "@fontsource/inter/400.css";
-import "@fontsource/inter/500.css";
+import "@fontsource/space-grotesk/latin-500.css";
+import "@fontsource/space-grotesk/latin-700.css";
+import "@fontsource/inter/latin-400.css";
+import "@fontsource/inter/latin-500.css";
 
 import { store } from "./store.ts";
 import { renderCards } from "./ui/cards.ts";
 import { renderSkeleton } from "./ui/skeleton.ts";
 import { renderCountryListBox } from "./ui/country-listbox.ts";
+import { renderEraStrip } from "./ui/era-strip.ts";
 import { renderBadge } from "./ui/badge.ts";
 import { serializeUrl } from "./url.ts";
 import { selectEra } from "./ui/era-strip.ts";
@@ -41,6 +42,14 @@ if (drawer instanceof HTMLElement) {
         void selectEra(era);
       },
     ),
+  );
+
+  drawer.append(
+    renderEraStrip(store.getState().era, {
+      Paleozoic: "#2F7D62",
+      Mesozoic: "#D9A441",
+      Cenozoic: "#DCEBF5",
+    }),
   );
 
   store.subscribe(() => {

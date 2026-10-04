@@ -37,7 +37,7 @@
 - Date: 2026-10-03
 - Task: T4.1 M4.1.2 `selectEra` filter-or-fetch live — cache checks `payload.cards`, `url.test` `cc` → `countryCode`, UK verified 548 cards / 48 DOM
 - Frontier: T4.2 segmented theme verify
-- Checks: build initial 2.88kb gzip pass, globe lazy 1.02kb, maplibre 252kb deferred.
+- Checks: fonts 4 latin, sprites 8, initial 2.88kb gzip pass.
 
 ## 0. Vision, success, non-goals, repo map
 
