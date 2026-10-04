@@ -2,28 +2,60 @@ import { page, silhouetteFor, type TaxonCard } from "utils";
 import { openTaxon } from "./modal.ts";
 import type { TaxonDetail } from "utils";
 
-export async function openCardModal(taxonCard: TaxonCard, cardElement: HTMLElement): Promise<void> {
-  console.log("openCardModal", taxonCard.tid);
-  const response = await fetch(`/api/taxon?id=${taxonCard.tid}`);
-  console.log("taxon status: ", response.status);
-  if (!response.ok) return;
-  const detail = (await response.json()) as TaxonDetail;
-  openTaxon(taxonCard, detail, cardElement);
+const pending = new Set<string>();
+const detailCache = new Map<string, TaxonDetail>();
+
+export async function openCardModal(taxonCard: TaxonCard, cardEl: HTMLElement): Promise<void> {
+  if (pending.has(taxonCard.tid)) return;
+  const cached = detailCache.get(taxonCard.tid);
+  if (cached) {
+    openTaxon(taxonCard, cached, cardEl);
+    return;
+  }
+  pending.add(taxonCard.tid);
+  openTaxon(
+    taxonCard,
+    {
+      tid: taxonCard.tid,
+      tna: taxonCard.tna,
+      rank: "Loading...",
+      authority: "",
+      parentTid: "",
+      occurrenceCount: null,
+      pbdbUrl: "#",
+    },
+    cardEl,
+  );
+  try {
+    const response = await fetch(`/api/taxon?id=${encodeURIComponent(taxonCard.tid)}`);
+    if (!response.ok) return;
+    detailCache.set(taxonCard.tid, (await response.json()) as TaxonDetail);
+  } finally {
+    pending.delete(taxonCard.tid);
+  }
 }
 
 export function renderCards(wrap: HTMLElement, cards: TaxonCard[]): void {
   let num = 0;
   const sentinel = document.createElement("div");
-  const io = new IntersectionObserver((entries) => {
-    if (!entries[0].isIntersecting) return;
+
+  function appendNext(): void {
     const next = page(cards, num++);
     if (!next.length) {
       io.disconnect();
       return;
     }
+
     wrap.append(...next.map(renderCard));
     if (num * 48 >= cards.length) io.disconnect();
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    if (!entries[0].isIntersecting) return;
+    appendNext();
   });
+
+  appendNext();
   io.observe(sentinel);
   wrap.append(sentinel);
 }
@@ -36,8 +68,8 @@ export function renderCard(taxonCard: TaxonCard): HTMLElement {
   cardEl.addEventListener("keydown", (event) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
+      void openCardModal(taxonCard, cardEl);
     }
-    void openCardModal(taxonCard, cardEl);
   });
 
   cardEl.innerHTML = `

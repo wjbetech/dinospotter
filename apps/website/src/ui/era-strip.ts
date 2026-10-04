@@ -60,7 +60,7 @@ export async function selectEra(era: Era): Promise<void> {
     store.setState({
       era,
       payload: cached.payload as SitePayload,
-      status: "ready",
+      status: cached.payload.cards.length ? "ready" : "empty",
     });
 
     history.pushState(null, "", "?" + serializeUrl(countryCode, era));
@@ -72,21 +72,23 @@ export async function selectEra(era: Era): Promise<void> {
     status: "loading",
   });
 
-  const res = await fetch(`/api/occs?cc=${countryCode}&era=${era}`);
-
-  console.log("selectEra", countryCode, era, res.status);
-  res.headers.get("content-type");
-
-  const payload = (await res.json()) as SitePayload;
-  console.log("selectEra payload", payload);
-
-  store.setState({
-    era,
-    payload,
-    status: "ready",
-  });
-
-  history.pushState(null, "", "?" + serializeUrl(countryCode, era));
+  try {
+    const res = await fetch(`/api/occs?cc=${countryCode}&era=${era}`);
+    if (!res.ok) throw new Error("upstream");
+    const payload = (await res.json()) as SitePayload;
+    store.setState({
+      era,
+      payload,
+      status: payload.cards.length ? "ready" : "empty",
+    });
+    history.pushState(null, "", "?" + serializeUrl(countryCode, era));
+  } catch {
+    store.setState({
+      era,
+      status: "degraded",
+    });
+    history.pushState(null, "", "?" + serializeUrl(countryCode, era));
+  }
 }
 
 const init = parseUrl(location.search);

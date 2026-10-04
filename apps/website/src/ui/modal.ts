@@ -1,10 +1,19 @@
 import type { TaxonCard, TaxonDetail } from "utils";
 
 export function openTaxon(card: TaxonCard, detail: TaxonDetail, returnTo: HTMLElement): void {
+  if (document.querySelector('[role="dialog"]')) return;
+
   const dialog = document.createElement("div");
 
   dialog.setAttribute("role", "dialog");
   dialog.setAttribute("aria-modal", "true");
+
+  const closeButton = document.createElement("button");
+
+  closeButton.textContent = "Close";
+  closeButton.addEventListener("click", () => {
+    closeTaxon(dialog, returnTo);
+  });
 
   dialog.innerHTML = `
     <h2>${card.tna}</h2>
@@ -12,6 +21,7 @@ export function openTaxon(card: TaxonCard, detail: TaxonDetail, returnTo: HTMLEl
     <p>${card.eag}-${card.lag} MA · ${card.sfm} · ${card.tid}</p>
   `;
 
+  dialog.prepend(closeButton);
   dialog.className = "modal-panel";
   dialog.style.cssText =
     "position:fixed;inset:5%;background:#fff;border:1px solid #E5DED0;border-radius:12px;padding:16px;z-index:50";
@@ -27,7 +37,10 @@ export function openTaxon(card: TaxonCard, detail: TaxonDetail, returnTo: HTMLEl
     if (firstLink) firstLink.focus();
   });
 
+  dialog.setAttribute("tabindex", "-1");
   document.body.append(dialog);
+  dialog.focus();
+  document.body.style.overflow = "hidden";
 }
 
 export function trap(event: KeyboardEvent, dialog: HTMLElement): void {
@@ -50,5 +63,6 @@ export function trap(event: KeyboardEvent, dialog: HTMLElement): void {
 
 export function closeTaxon(dialog: HTMLElement, returnTo: HTMLElement): void {
   dialog.remove();
+  document.body.style.overflow = "";
   returnTo.focus();
 }

@@ -4,6 +4,8 @@ import "@fontsource/space-grotesk/latin-700.css";
 import "@fontsource/inter/latin-400.css";
 import "@fontsource/inter/latin-500.css";
 
+import { parseUrl } from "./url.ts";
+
 import { store } from "./store.ts";
 import { renderCards } from "./ui/cards.ts";
 import { renderSkeleton } from "./ui/skeleton.ts";
@@ -12,6 +14,7 @@ import { renderEraStrip } from "./ui/era-strip.ts";
 import { renderBadge } from "./ui/badge.ts";
 import { serializeUrl } from "./url.ts";
 import { selectEra } from "./ui/era-strip.ts";
+import { copyFor } from "./ui/states.ts";
 
 document.querySelector("#app")!.innerHTML = `<div id="globe"></div><aside id="drawer"></aside>`;
 
@@ -53,7 +56,7 @@ if (drawer instanceof HTMLElement) {
   );
 
   store.subscribe(() => {
-    const { payload, status } = store.getState();
+    const { payload, status, countryCode, era } = store.getState();
 
     console.log("store", status, payload);
 
@@ -63,15 +66,25 @@ if (drawer instanceof HTMLElement) {
       const s = renderSkeleton();
       s.classList.add("skeleton");
       drawer.append(s);
+    } else if (status === "empty") {
+      const emptyMessage = document.createElement("p");
+      emptyMessage.textContent = copyFor("empty", countryCode, era);
+      drawer.append(emptyMessage);
     } else if (status === "degraded" || status === "error") {
       const badge = renderBadge(status, () => void selectEra(store.getState().era));
       if (badge) {
         drawer.append(badge);
       }
-
       if (payload) renderCards(drawer, payload.cards);
     } else if (payload) {
       renderCards(drawer, payload.cards);
     }
   });
+}
+
+const init = parseUrl(location.search);
+
+if (init.countryCode) {
+  store.setState({ countryCode: init.countryCode, era: init.era });
+  void selectEra(init.era);
 }

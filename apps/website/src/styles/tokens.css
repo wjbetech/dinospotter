@@ -15,6 +15,7 @@
 }
 
 body {
+  color: var(--ink);
   font-family: Inter, system-ui, sans-serif;
   font-variant-numeric: tabular-nums;
   background: var(--paper);
@@ -48,6 +49,19 @@ h2,
 
 .card-enter:nth-child(n + 7) {
   animation: none;
+}
+
+.figure {
+  aspect-ratio: 3 / 2;
+  background: var(--sand);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.figure img {
+  max-height: 100%;
+  max-width: 80%;
 }
 
 @keyframes card-in {

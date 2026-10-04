@@ -176,6 +176,9 @@ catalogs:
     '@lhci/cli':
       specifier: 0.14.0
       version: 0.14.0
+    '@playwright/test':
+      specifier: 1.48.0
+      version: 1.48.0
     maplibre-gl:
       specifier: ^6.7.0
       version: 6.7.0
@@ -230,6 +233,9 @@ importers:
         specifier: workspace:*
         version: link:../../packages/utils
     devDependencies:
+      '@playwright/test':
+        specifier: 'catalog:'
+        version: 1.48.0
       '@types/node':
         specifier: ^26.1.1
         version: 26.4.1
@@ -636,6 +642,11 @@ packages:
 
   '@paulirish/trace_engine@0.0.23':
     resolution: {integrity: sha512-2ym/q7HhC5K+akXkNV6Gip3oaHpbI6TsGjmcAsl7bcJ528MVbacPQeoauLFEeLXH4ulJvsxQwNDIg/kAEhFZxw==}
+
+  '@playwright/test@1.48.0':
+    resolution: {integrity: sha512-W5lhqPUVPqhtc/ySvZI5Q8X2ztBOUgZ8LbAFy0JQgrXZs2xaILrUcNO3rQjwbLPfGK13+rZsDa1FpG+tqYkT5w==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
@@ -2716,6 +2727,10 @@ snapshots:
   '@oxlint/plugins@1.68.0': {}
 
   '@paulirish/trace_engine@0.0.23': {}
+
+  '@playwright/test@1.48.0':
+    dependencies:
+      playwright: 1.48.0
 
   '@polka/url@1.0.0-next.29': {}
 
