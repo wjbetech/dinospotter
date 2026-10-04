@@ -8,6 +8,7 @@ import { store } from "./store.ts";
 import { renderCards } from "./ui/cards.ts";
 import { renderSkeleton } from "./ui/skeleton.ts";
 import { renderCountryListBox } from "./ui/country-listbox.ts";
+import { renderBadge } from "./ui/badge.ts";
 import { serializeUrl } from "./url.ts";
 import { selectEra } from "./ui/era-strip.ts";
 
@@ -53,6 +54,13 @@ if (drawer instanceof HTMLElement) {
       const s = renderSkeleton();
       s.classList.add("skeleton");
       drawer.append(s);
+    } else if (status === "degraded" || status === "error") {
+      const badge = renderBadge(status, () => void selectEra(store.getState().era));
+      if (badge) {
+        drawer.append(badge);
+      }
+
+      if (payload) renderCards(drawer, payload.cards);
     } else if (payload) {
       renderCards(drawer, payload.cards);
     }

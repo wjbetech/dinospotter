@@ -27,7 +27,7 @@
 - [x] T3.3 `feat(modal): taxon detail 90%`
 - [x] T4.1 `feat(ui): era strip radiogroup`
 - [ ] T4.2 `feat(ui): segmented theme + 2 fonts`
-- [ ] T4.3 `feat(ui): copy deck + empty/error states`
+- [x] T4.3 `feat(ui): copy deck + empty/error states`
 - [ ] T5.1 `perf: budget audit`
 - [ ] T5.2 `a11y: keyboard + motion + axe`
 - [ ] T5.3 `test: e2e golden paths F1–F7`
@@ -37,7 +37,7 @@
 - Date: 2026-10-03
 - Task: T4.1 M4.1.2 `selectEra` filter-or-fetch live — cache checks `payload.cards`, `url.test` `cc` → `countryCode`, UK verified 548 cards / 48 DOM
 - Frontier: T4.2 segmented theme verify
-- Checks: `vp check` green, `vp test` green
+- Checks: build initial 2.88kb gzip pass, globe lazy 1.02kb, maplibre 252kb deferred.
 
 ## 0. Vision, success, non-goals, repo map
 
