@@ -1,6 +1,8 @@
 import { page, silhouetteFor, type TaxonCard } from "utils";
 import { openTaxon } from "./modal.ts";
 import type { TaxonDetail } from "utils";
+import { store } from "../store";
+import { serializeUrl } from "../url";
 
 const pending = new Set<string>();
 const detailCache = new Map<string, TaxonDetail>();
@@ -26,6 +28,13 @@ export async function openCardModal(taxonCard: TaxonCard, cardEl: HTMLElement): 
     },
     cardEl,
   );
+
+  history.replaceState(
+    null,
+    "",
+    `${serializeUrl(store.getState().countryCode, store.getState().era, taxonCard.tid)}`,
+  );
+
   try {
     const response = await fetch(`/api/taxon?id=${encodeURIComponent(taxonCard.tid)}`);
     if (!response.ok) return;

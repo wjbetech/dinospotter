@@ -7,7 +7,7 @@ import "@fontsource/inter/latin-500.css";
 import { parseUrl } from "./url.ts";
 
 import { store } from "./store.ts";
-import { renderCards } from "./ui/cards.ts";
+import { renderCards, openCardModal } from "./ui/cards.ts";
 import { renderSkeleton } from "./ui/skeleton.ts";
 import { renderCountryListBox } from "./ui/country-listbox.ts";
 import { renderEraStrip } from "./ui/era-strip.ts";
@@ -78,6 +78,13 @@ if (drawer instanceof HTMLElement) {
       if (payload) renderCards(drawer, payload.cards);
     } else if (payload) {
       renderCards(drawer, payload.cards);
+    }
+
+    const txn = parseUrl(location.search).txn;
+
+    if (txn && payload) {
+      const hit = payload.cards.find((c) => c.tid === txn || c.tid === `txn:${txn}`);
+      if (hit) void openCardModal(hit, document.body);
     }
   });
 }

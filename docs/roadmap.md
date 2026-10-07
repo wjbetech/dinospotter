@@ -26,18 +26,18 @@
 - [x] T3.2 `feat(cards): silhouette set`
 - [x] T3.3 `feat(modal): taxon detail 90%`
 - [x] T4.1 `feat(ui): era strip radiogroup`
-- [ ] T4.2 `feat(ui): segmented theme + 2 fonts`
+- [x] T4.2 `feat(ui): segmented theme + 2 fonts`
 - [x] T4.3 `feat(ui): copy deck + empty/error states`
-- [ ] T5.1 `perf: budget audit`
-- [ ] T5.2 `a11y: keyboard + motion + axe`
-- [ ] T5.3 `test: e2e golden paths F1–F7`
+- [x] T5.1 `perf: budget audit`
+- [x] T5.2 `a11y: keyboard + motion + axe`
+- [x] T5.3 `test: e2e golden paths F1–F7`
 
 ## Last task done (handoff):
 
-- Date: 2026-10-03
+- Date: 2026-10-06
 - Task: T4.1 M4.1.2 `selectEra` filter-or-fetch live — cache checks `payload.cards`, `url.test` `cc` → `countryCode`, UK verified 548 cards / 48 DOM
-- Frontier: T5.3 F1 first-visit US+Mesozoic
-- Checks: fonts 4 latin, sprites 8, initial 2.88kb gzip pass.
+- Frontier: Phase 6 txn deep-link
+- Checks: e2e 7/7 green --workers=1
 
 ## 0. Vision, success, non-goals, repo map
 

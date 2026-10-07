@@ -34,6 +34,9 @@ export default defineConfig({
   run: {
     cache: true,
   },
+  test: {
+    exclude: ["**/node_modules/**", "**/dist/**", "**/e2e/**"],
+  },
   resolve: {
     alias: {
       utils: "/packages/utils/src/index.ts",

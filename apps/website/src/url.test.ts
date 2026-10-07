@@ -6,6 +6,7 @@ describe("parseUrl helper", () => {
     expect(parseUrl("?cc=gb&era=mesozoic")).toEqual({
       countryCode: "UK",
       era: "Mesozoic",
+      txn: null,
     });
   });
 });

@@ -1,4 +1,6 @@
 import type { TaxonCard, TaxonDetail } from "utils";
+import { serializeUrl } from "../url.ts";
+import { store } from "../store.ts";
 
 export function openTaxon(card: TaxonCard, detail: TaxonDetail, returnTo: HTMLElement): void {
   if (document.querySelector('[role="dialog"]')) return;
@@ -64,5 +66,10 @@ export function trap(event: KeyboardEvent, dialog: HTMLElement): void {
 export function closeTaxon(dialog: HTMLElement, returnTo: HTMLElement): void {
   dialog.remove();
   document.body.style.overflow = "";
+  history.replaceState(
+    null,
+    "",
+    `?${serializeUrl(store.getState().countryCode, store.getState().era)}`,
+  );
   returnTo.focus();
 }
