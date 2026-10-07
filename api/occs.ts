@@ -95,7 +95,7 @@ export async function GET(req: Request): Promise<Response> {
       },
       {
         headers: {
-          "Cache-Control": "public, max-age=60, stale-while-revalidate=86400",
+          "Cache-Control": "public, max-age=3600, stale-while-revalidate=86400",
         },
       },
     );
