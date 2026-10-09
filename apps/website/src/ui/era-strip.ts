@@ -83,6 +83,15 @@ export async function selectEra(era: Era): Promise<void> {
     });
     history.pushState(null, "", "?" + serializeUrl(countryCode, era));
   } catch {
+    if (countryCode === "US" && era === "Mesozoic") {
+      const seed = await fetch("/data/seed/US-Mesozoic.json").then((r) => r.json());
+      store.setState({
+        era,
+        payload: seed,
+        status: "degraded",
+      });
+      return;
+    }
     store.setState({
       era,
       status: "degraded",

@@ -160,3 +160,9 @@ export function groupByTid(rows: FossilSite[]): TaxonCard[] {
     (a, b) => b.sites.length - a.sites.length || b.eag - a.eag || a.tid.localeCompare(b.tid),
   );
 }
+
+export function filterBySfm(cards: TaxonCard[], sfm: string): TaxonCard[] {
+  const want = sfm.trim().toLowerCase();
+  if (!want) return cards;
+  return cards.filter((card) => card.sfm.toLowerCase() === want);
+}

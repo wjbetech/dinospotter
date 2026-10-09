@@ -5,7 +5,7 @@ import "@fontsource/inter/latin-400.css";
 import "@fontsource/inter/latin-500.css";
 
 import { parseUrl } from "./url.ts";
-
+import { filterBySfm } from "utils";
 import { store } from "./store.ts";
 import { renderCards, openCardModal } from "./ui/cards.ts";
 import { renderSkeleton } from "./ui/skeleton.ts";
@@ -34,6 +34,7 @@ if (drawer instanceof HTMLElement) {
         { countryCode: "DE", name: "Germany" },
         { countryCode: "FR", name: "France" },
         { countryCode: "SK", name: "South Korea" },
+        { countryCode: "CA", name: "Canada" },
       ],
       (c) => {
         console.log("onPick", c.countryCode);
@@ -54,6 +55,19 @@ if (drawer instanceof HTMLElement) {
       Cenozoic: "#DCEBF5",
     }),
   );
+
+  const input = document.createElement("input");
+  input.type = "search";
+  input.placeholder = "Filter by formation";
+  input.setAttribute("aria-label", "Filter by formation");
+  input.addEventListener("input", () => {
+    const { payload } = store.getState();
+    if (!payload) return;
+    drawer.querySelectorAll(".card").forEach((el) => el.remove());
+    renderCards(drawer, filterBySfm(payload.cards, input.value));
+  });
+
+  drawer.append(input);
 
   store.subscribe(() => {
     const { payload, status, countryCode, era } = store.getState();

@@ -1,5 +1,5 @@
 import { expect, test } from "vite-plus/test";
-import { buildOccsUrls, normalizeCc, parseOccs, groupByTid } from "../src/pbdb.ts";
+import { buildOccsUrls, normalizeCc, parseOccs, groupByTid, filterBySfm } from "../src/pbdb.ts";
 
 test("normalizeCc turns GB to UK, gb to UK, uk to UK", () => {
   expect(normalizeCc("GB")).toBe("UK");
@@ -82,4 +82,23 @@ test("groupByTid merges duplicates tid", () => {
 
   expect(cards).toHaveLength(2);
   expect(cards[0].sites).toHaveLength(2);
+});
+
+test("filterBySfm keeps Hell Creek, drops miss", () => {
+  const cards = groupByTid([
+    {
+      tid: "10",
+      tna: "T.rex",
+      eag: 70,
+      lag: 66,
+      lng: -104.5,
+      lat: 47.1,
+      oid: "1",
+      oei: "Maastrichtian",
+      sfm: "Hell Creek",
+    } as any,
+  ]);
+
+  expect(filterBySfm(cards, "Hell Creek")).toHaveLength(1);
+  expect(filterBySfm(cards, "Nope")).toHaveLength(0);
 });
