@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test("F4 GB  normalizes to the UK", async ({ page }) => {
-  await page.goto("http://localhost:3000/?cc=GB&era=Mesozoic");
+  await page.goto("/?cc=GB&era=Mesozoic");
   await expect(page).toHaveURL(/cc=UK/);
-  await expect(page.getByRole("radiogroup")).toBeVisible();
+  await expect(page.locator(".card").first()).toBeVisible();
 });
