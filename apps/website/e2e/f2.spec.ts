@@ -16,3 +16,13 @@ test("F2 era switch + back", async ({ page }) => {
   await page.goBack();
   await expect(page).toHaveURL(/era=Mesozoic/);
 });
+
+test("F2 era to Cenozoic + back", async ({ page }) => {
+  await page.goto("/?cc=US&era=Mesozoic");
+  page.getByRole("radio", {
+    name: /Cenozoic/,
+  });
+  await expect(page).toHaveURL(/era=Cenozoic/);
+  await page.goBack();
+  await expect(page).toHaveURL(/era=Mesozoic/);
+});

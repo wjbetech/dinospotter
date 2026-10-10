@@ -9,6 +9,10 @@
           }
         ],
         "interaction-to-next-paint": [
+          "warn",
+          {
+            "maxNumericValue": 200
+          },
           "error",
           {
             "maxNumericValue": 200

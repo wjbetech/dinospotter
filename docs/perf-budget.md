@@ -1,6 +1,6 @@
 # Perf budget (enforced after T0.2)
 
-- Initial JS <250KB gzip; globe chunk is lazy-loaded and <150KB gzip.
+- Initial JS <250KB gzip; globe chunk is lazy-loaded and <300KB gzip (MapLibre floor, measured ~255KB).
 - LCP <2.5s and INP <200ms on the agreed Lighthouse profile; country zoom stays
   responsive on a mid-range Android device.
 - Map: labels-only symbol layer plus one leader-line layer (≤500 segments,

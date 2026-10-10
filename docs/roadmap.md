@@ -34,10 +34,10 @@
 
 ## Last task done (handoff):
 
-- Date: 2026-10-06
-- Task: T4.1 M4.1.2 `selectEra` filter-or-fetch live — cache checks `payload.cards`, `url.test` `cc` → `countryCode`, UK verified 548 cards / 48 DOM
-- Frontier: Phase 6 txn deep-link
-- Checks: e2e 7/7 green --workers=1
+- Date: 2026-10-10
+- Task: Phase 6 done - txn link verified with live tid, spike behind ?spike=paleo
+- Frontier: Launch sign-off (F1-F7 + Lighthouse)
+- Checks:
 
 ## 0. Vision, success, non-goals, repo map
 

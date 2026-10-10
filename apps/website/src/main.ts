@@ -20,14 +20,33 @@ import { renderBadge } from "./ui/badge.ts";
 import { selectEra } from "./ui/era-strip.ts";
 import { copyFor } from "./ui/states.ts";
 
-document.querySelector("#app")!.innerHTML = `<div id="globe"></div><aside id="drawer"></aside>`;
+// type IdleWindow = Window & {
+//   requestIdleCallback?: (fn: () => void, opts?: { timeout: number }) => number;
+// };
 
-const globeEl = document.querySelector("#globe");
-if (globeEl instanceof HTMLElement) {
-  void import("./components/globe/index.ts").then((map) => map.initGlobe(globeEl));
+const app = document.querySelector("#app")!;
+if (!app.querySelector("#drawer")) {
+  app.insertAdjacentHTML("beforeend", `<aside id="drawer"></aside>`);
 }
 
+const globeEl = document.querySelector("#globe");
+const loadBtn = document.querySelector("#load-globe");
 const drawer = document.querySelector("#drawer");
+
+function loadGlobe(): void {
+  if (globeEl instanceof HTMLElement) {
+    void import("./components/globe/index.ts").then((m) => m.initGlobe(globeEl));
+    loadBtn?.remove();
+  }
+}
+
+if (parseUrl(location.search).countryCode) {
+  loadGlobe();
+} else {
+  loadBtn?.addEventListener("click", loadGlobe, {
+    once: true,
+  });
+}
 
 if (drawer instanceof HTMLElement) {
   drawer.append(

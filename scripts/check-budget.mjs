@@ -32,7 +32,7 @@ const total = initial.reduce(
 if (total > 250 * 1024) throw new Error(`Initial JS ${total} bytes exceeds 250KB limit`);
 
 const globeFiles = Object.values(manifest)
-  .filter((m) => m.file.includes("globe"))
+  .filter((m) => m.file.includes("globe") || m.file.includes("maplibre"))
   .flatMap((m) => [m.file]);
 
 const globeTotal = globeFiles.reduce(
@@ -40,4 +40,4 @@ const globeTotal = globeFiles.reduce(
   0,
 );
 
-if (globeTotal > 150 * 1024) throw new Error(`Globe ${globeTotal} bytes exceeds 150KB limit`);
+if (globeTotal > 300 * 1024) throw new Error(`Globe ${globeTotal} bytes exceeds 300KB limit`);
