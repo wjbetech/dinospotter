@@ -20,10 +20,6 @@ import { renderBadge } from "./ui/badge.ts";
 import { selectEra } from "./ui/era-strip.ts";
 import { copyFor } from "./ui/states.ts";
 
-// type IdleWindow = Window & {
-//   requestIdleCallback?: (fn: () => void, opts?: { timeout: number }) => number;
-// };
-
 const app = document.querySelector("#app")!;
 if (!app.querySelector("#drawer")) {
   app.insertAdjacentHTML("beforeend", `<aside id="drawer"></aside>`);
@@ -51,7 +47,6 @@ if (parseUrl(location.search).countryCode) {
 if (drawer instanceof HTMLElement) {
   drawer.append(
     renderCountryListBox([...COUNTRIES], (c) => {
-      console.log("onPick", c.countryCode);
       const era = store.getState().era;
       history.pushState(null, "", "?" + serializeUrl(c.countryCode, era));
       store.setState({
@@ -84,8 +79,6 @@ if (drawer instanceof HTMLElement) {
 
   store.subscribe(() => {
     const { payload, status, countryCode, era } = store.getState();
-
-    console.log("store", status, payload);
 
     drawer.querySelectorAll(".skeleton, .card").forEach((el) => el.remove());
 
