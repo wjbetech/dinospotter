@@ -1,8 +1,7 @@
-import type { Era } from "../url.ts";
+import { type Era, parseUrl, serializeUrl } from "../url.ts";
 import { toBlurb } from "utils";
 import type { EpochBlurb, SitePayload } from "utils";
 import { store } from "../store.ts";
-import { parseUrl, serializeUrl } from "../url.ts";
 
 type TimescaleJson = {
   records: {
@@ -55,6 +54,7 @@ export async function selectEra(era: Era): Promise<void> {
   const key = `${countryCode}:${era}`;
 
   const cached = store.loadSession(key) as { payload?: SitePayload | null } | null;
+  const txn = parseUrl(location.search).txn;
 
   if (cached?.payload?.cards?.length) {
     store.setState({
@@ -63,7 +63,7 @@ export async function selectEra(era: Era): Promise<void> {
       status: cached.payload.cards.length ? "ready" : "empty",
     });
 
-    history.pushState(null, "", "?" + serializeUrl(countryCode, era));
+    history.pushState(null, "", "?" + serializeUrl(countryCode, era, txn));
     return;
   }
 
@@ -81,7 +81,7 @@ export async function selectEra(era: Era): Promise<void> {
       payload,
       status: payload.cards.length ? "ready" : "empty",
     });
-    history.pushState(null, "", "?" + serializeUrl(countryCode, era));
+    history.pushState(null, "", "?" + serializeUrl(countryCode, era, txn));
   } catch {
     if (countryCode === "US" && era === "Mesozoic") {
       const seed = await fetch("/data/seed/US-Mesozoic.json").then((r) => r.json());
@@ -96,13 +96,13 @@ export async function selectEra(era: Era): Promise<void> {
       era,
       status: "degraded",
     });
-    history.pushState(null, "", "?" + serializeUrl(countryCode, era));
+    history.pushState(null, "", "?" + serializeUrl(countryCode, era, txn));
   }
 }
 
 const init = parseUrl(location.search);
 
-history.replaceState(null, "", "?" + serializeUrl(init.countryCode, init.era));
+history.replaceState(null, "", "?" + serializeUrl(init.countryCode, init.era, init.txn));
 
 window.addEventListener("popstate", () => {
   const { countryCode, era } = parseUrl(location.search);

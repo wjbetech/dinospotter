@@ -4,6 +4,7 @@ export * from "./taxon.ts";
 export * from "./leaders.ts";
 export * from "./paging.ts";
 export * from "./silhouette.ts";
+export * from "./countries.ts";
 
 export const gate = "utils/gate";
 

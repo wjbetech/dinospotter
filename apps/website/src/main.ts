@@ -1,18 +1,22 @@
+// styles
 import "./styles/tokens.css";
 import "@fontsource/space-grotesk/latin-500.css";
 import "@fontsource/space-grotesk/latin-700.css";
 import "@fontsource/inter/latin-400.css";
 import "@fontsource/inter/latin-500.css";
 
-import { parseUrl } from "./url.ts";
-import { filterBySfm } from "utils";
+// utils
 import { store } from "./store.ts";
+import { parseUrl } from "./url.ts";
+import { serializeUrl } from "./url.ts";
+import { COUNTRIES, filterBySfm } from "utils";
+
+// components
 import { renderCards, openCardModal } from "./ui/cards.ts";
 import { renderSkeleton } from "./ui/skeleton.ts";
 import { renderCountryListBox } from "./ui/country-listbox.ts";
 import { renderEraStrip } from "./ui/era-strip.ts";
 import { renderBadge } from "./ui/badge.ts";
-import { serializeUrl } from "./url.ts";
 import { selectEra } from "./ui/era-strip.ts";
 import { copyFor } from "./ui/states.ts";
 
@@ -27,25 +31,15 @@ const drawer = document.querySelector("#drawer");
 
 if (drawer instanceof HTMLElement) {
   drawer.append(
-    renderCountryListBox(
-      [
-        { countryCode: "US", name: "United States" },
-        { countryCode: "UK", name: "United Kingdom" },
-        { countryCode: "DE", name: "Germany" },
-        { countryCode: "FR", name: "France" },
-        { countryCode: "SK", name: "South Korea" },
-        { countryCode: "CA", name: "Canada" },
-      ],
-      (c) => {
-        console.log("onPick", c.countryCode);
-        const era = store.getState().era;
-        history.pushState(null, "", "?" + serializeUrl(c.countryCode, era));
-        store.setState({
-          countryCode: c.countryCode,
-        });
-        void selectEra(era);
-      },
-    ),
+    renderCountryListBox([...COUNTRIES], (c) => {
+      console.log("onPick", c.countryCode);
+      const era = store.getState().era;
+      history.pushState(null, "", "?" + serializeUrl(c.countryCode, era));
+      store.setState({
+        countryCode: c.countryCode,
+      });
+      void selectEra(era);
+    }),
   );
 
   drawer.append(

@@ -32,7 +32,7 @@ export async function openCardModal(taxonCard: TaxonCard, cardEl: HTMLElement): 
   history.replaceState(
     null,
     "",
-    `${serializeUrl(store.getState().countryCode, store.getState().era, taxonCard.tid)}`,
+    "?" + serializeUrl(store.getState().countryCode, store.getState().era, taxonCard.tid),
   );
 
   try {
