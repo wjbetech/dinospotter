@@ -1,0 +1,35 @@
+name: ci
+on: [push]
+jobs:
+  perf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 12.4.1 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: "pnpm" }
+      - uses: voidzero-dev/setup-vp@v1
+        with: { node-manager: false, cache: true, run-install: true }
+      - run: vp run -r build
+      - run: vp run website#check:budget
+
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with: { version: 12.4.1 }
+
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: "pnpm" }
+
+      - uses: voidzero-dev/setup-vp@v1
+        with: { node-manager: false, cache: true, run-install: true }
+      - run: vp run utils#build
+      - run: pnpm exec playwright install --with-deps
+      - run: vp check
+      - run: vp test
+      - run: vp run -r build
+      - run: node scripts/check-budget.mjs

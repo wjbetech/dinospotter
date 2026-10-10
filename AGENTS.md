@@ -14,3 +14,17 @@ Docs are local at `node_modules/vite-plus/docs` or online at https://viteplus.de
 - [ ] If setup, runtime, or package-manager behavior looks wrong, run `vp env doctor` and include its output when asking for help.
 
 <!--VITE PLUS END-->
+
+## Agent skills
+
+### Issue tracker
+
+GitHub Issues via `gh`. See `docs/agents/issue-tracker.md`.
+
+### Domain docs
+
+Single-context. See `docs/agents/domain.md` + `CONTEXT.md`.
+
+### Mentor mode
+
+You build, agent mentors (<200 words, 1 snippet, 1 doc link). See `docs/agents/code-mentor.md`.

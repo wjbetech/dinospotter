@@ -1,60 +1,105 @@
-import "./style.css";
-import heroImg from "./assets/hero.png";
-import typescriptLogo from "./assets/typescript.svg";
-import viteLogo from "./assets/vite.svg";
-import { setupCounter } from "./counter.ts";
+// styles
+import "./styles/tokens.css";
+import "@fontsource/space-grotesk/latin-500.css";
+import "@fontsource/space-grotesk/latin-700.css";
+import "@fontsource/inter/latin-400.css";
+import "@fontsource/inter/latin-500.css";
 
-document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
-<section id="center">
-  <div class="hero">
-    <img src="${heroImg}" class="base" width="170" height="179">
-    <img src="${typescriptLogo}" class="framework" alt="TypeScript logo"/>
-    <img src="${viteLogo}" class="vite" alt="Vite logo" />
-  </div>
-  <div>
-    <h1>Get started</h1>
-    <p>Edit <code>src/main.ts</code> and save to test <code>HMR</code></p>
-  </div>
-  <button id="counter" type="button" class="counter"></button>
-</section>
+// utils
+import { store } from "./store.ts";
+import { parseUrl } from "./url.ts";
+import { serializeUrl } from "./url.ts";
+import { COUNTRIES, filterBySfm } from "utils";
 
-<div class="ticks"></div>
+// components
+import { renderCards, openCardModal } from "./ui/cards.ts";
+import { renderSkeleton } from "./ui/skeleton.ts";
+import { renderCountryListBox } from "./ui/country-listbox.ts";
+import { renderEraStrip } from "./ui/era-strip.ts";
+import { renderBadge } from "./ui/badge.ts";
+import { selectEra } from "./ui/era-strip.ts";
+import { copyFor } from "./ui/states.ts";
 
-<section id="next-steps">
-  <div id="docs">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#documentation-icon"></use></svg>
-    <h2>Documentation</h2>
-    <p>Your questions, answered</p>
-    <ul>
-      <li>
-        <a href="https://vite.dev/" target="_blank">
-          <img class="logo" src="${viteLogo}" alt="" />
-          Explore Vite
-        </a>
-      </li>
-      <li>
-        <a href="https://www.typescriptlang.org" target="_blank">
-          <img class="button-icon" src="${typescriptLogo}" alt="">
-          Learn more
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div id="social">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#social-icon"></use></svg>
-    <h2>Connect with us</h2>
-    <p>Join the Vite community</p>
-    <ul>
-      <li><a href="https://github.com/vitejs/vite" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#github-icon"></use></svg>GitHub</a></li>
-      <li><a href="https://chat.vite.dev/" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#discord-icon"></use></svg>Discord</a></li>
-      <li><a href="https://x.com/vite_js" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#x-icon"></use></svg>X.com</a></li>
-      <li><a href="https://bsky.app/profile/vite.dev" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#bluesky-icon"></use></svg>Bluesky</a></li>
-    </ul>
-  </div>
-</section>
+document.querySelector("#app")!.innerHTML = `<div id="globe"></div><aside id="drawer"></aside>`;
 
-<div class="ticks"></div>
-<section id="spacer"></section>
-`;
+const globeEl = document.querySelector("#globe");
+if (globeEl instanceof HTMLElement) {
+  void import("./components/globe/index.ts").then((map) => map.initGlobe(globeEl));
+}
 
-setupCounter(document.querySelector<HTMLButtonElement>("#counter")!);
+const drawer = document.querySelector("#drawer");
+
+if (drawer instanceof HTMLElement) {
+  drawer.append(
+    renderCountryListBox([...COUNTRIES], (c) => {
+      console.log("onPick", c.countryCode);
+      const era = store.getState().era;
+      history.pushState(null, "", "?" + serializeUrl(c.countryCode, era));
+      store.setState({
+        countryCode: c.countryCode,
+      });
+      void selectEra(era);
+    }),
+  );
+
+  drawer.append(
+    renderEraStrip(store.getState().era, {
+      Paleozoic: "#2F7D62",
+      Mesozoic: "#D9A441",
+      Cenozoic: "#DCEBF5",
+    }),
+  );
+
+  const input = document.createElement("input");
+  input.type = "search";
+  input.placeholder = "Filter by formation";
+  input.setAttribute("aria-label", "Filter by formation");
+  input.addEventListener("input", () => {
+    const { payload } = store.getState();
+    if (!payload) return;
+    drawer.querySelectorAll(".card").forEach((el) => el.remove());
+    renderCards(drawer, filterBySfm(payload.cards, input.value));
+  });
+
+  drawer.append(input);
+
+  store.subscribe(() => {
+    const { payload, status, countryCode, era } = store.getState();
+
+    console.log("store", status, payload);
+
+    drawer.querySelectorAll(".skeleton, .card").forEach((el) => el.remove());
+
+    if (status === "loading") {
+      const s = renderSkeleton();
+      s.classList.add("skeleton");
+      drawer.append(s);
+    } else if (status === "empty") {
+      const emptyMessage = document.createElement("p");
+      emptyMessage.textContent = copyFor("empty", countryCode, era);
+      drawer.append(emptyMessage);
+    } else if (status === "degraded" || status === "error") {
+      const badge = renderBadge(status, () => void selectEra(store.getState().era));
+      if (badge) {
+        drawer.append(badge);
+      }
+      if (payload) renderCards(drawer, payload.cards);
+    } else if (payload) {
+      renderCards(drawer, payload.cards);
+    }
+
+    const txn = parseUrl(location.search).txn;
+
+    if (txn && payload) {
+      const hit = payload.cards.find((c) => c.tid === txn || c.tid === `txn:${txn}`);
+      if (hit) void openCardModal(hit, document.body);
+    }
+  });
+}
+
+const init = parseUrl(location.search);
+
+if (init.countryCode) {
+  store.setState({ countryCode: init.countryCode, era: init.era });
+  void selectEra(init.era);
+}

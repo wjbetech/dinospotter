@@ -1,0 +1,20 @@
+{
+  "ci": {
+    "assert": {
+      "assertions": {
+        "largest-contentful-paint": [
+          "error",
+          {
+            "maxNumericValue": 2500
+          }
+        ],
+        "interaction-to-next-paint": [
+          "error",
+          {
+            "maxNumericValue": 200
+          }
+        ]
+      }
+    }
+  }
+}
