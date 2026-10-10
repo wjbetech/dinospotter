@@ -38,6 +38,10 @@ export interface ParsedOccurrences {
   total: number;
 }
 
+function str(v: unknown, fallback = ""): string {
+  return typeof v === "string" || typeof v === "number" ? String(v) : fallback;
+}
+
 export function normalizeCc(cc: string): string {
   const val = cc.trim().toUpperCase();
   return val === "GB" ? "UK" : val;
@@ -82,15 +86,15 @@ export function parseOccs(json: { records: Record<string, unknown>[] }): ParsedO
       continue;
     }
     rows.push({
-      oid: String(r.oid ?? `${r.tid}:${rows.length}`),
-      tid: String(r.tid),
-      tna: String(r.tna),
-      oei: String(r.oei ?? ""),
+      oid: str(r.oid ?? `${str(r.tid)}:${rows.length}`),
+      tid: str(r.tid),
+      tna: str(r.tna),
+      oei: str(r.oei ?? ""),
       eag,
       lag,
       lng,
       lat,
-      sfm: String(r.sfm ?? ""),
+      sfm: str(r.sfm ?? ""),
     });
   }
   return { rows, dropped, total: json.records?.length ?? 0 };
