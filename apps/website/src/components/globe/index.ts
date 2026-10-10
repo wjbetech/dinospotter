@@ -57,6 +57,11 @@ export async function initGlobe(el: HTMLElement) {
       },
     });
 
+    if (new URLSearchParams(location.search).get("spike") === "paleo") {
+      const { togglePaleo } = await import("../../globe/paleo-spike.ts");
+      togglePaleo(map, true);
+    }
+
     map.on("click", (e) => {
       const countryCode = pickCountry([e.lngLat.lng, e.lngLat.lat], geo.features);
 
