@@ -1,5 +1,10 @@
-import { buildOccsUrls, parseOccs, groupByTid, normalizeCc } from "../packages/utils/src/index.ts";
-import type { Era } from "../packages/utils/src/timescale.ts";
+import {
+  buildOccsUrls,
+  parseOccs,
+  groupByTid,
+  normalizeCc,
+} from "../packages/utils/dist/index.mjs";
+import type { Era } from "../packages/utils/dist/index.mjs";
 
 export interface ApiError {
   error: "invalid_request" | "rate_limited" | "upstream" | "timeout" | "schema";

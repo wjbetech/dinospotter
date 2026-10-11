@@ -1,4 +1,4 @@
-import { taxonUrl, toTaxonDetail } from "../packages/utils/src/taxon.ts";
+import { taxonUrl, toTaxonDetail } from "../packages/utils/dist/index.mjs";
 
 export async function GET(_req: Request): Promise<Response> {
   const idParam = new URL(_req.url).searchParams.get("id") ?? "";
