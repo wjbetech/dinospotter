@@ -51,6 +51,8 @@ if (drawer instanceof HTMLElement) {
       history.pushState(null, "", "?" + serializeUrl(c.countryCode, era));
       store.setState({
         countryCode: c.countryCode,
+        payload: null,
+        status: "loading",
       });
       void selectEra(era);
     }),
@@ -99,6 +101,10 @@ if (drawer instanceof HTMLElement) {
     } else if (payload) {
       renderCards(drawer, payload.cards);
     }
+
+    drawer.querySelectorAll('[role="radio"]').forEach((btn) => {
+      btn.setAttribute("aria-checked", String(!!btn.textContent?.startsWith(era)));
+    });
 
     const txn = parseUrl(location.search).txn;
 

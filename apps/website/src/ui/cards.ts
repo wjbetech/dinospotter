@@ -71,6 +71,7 @@ export function renderCards(wrap: HTMLElement, cards: TaxonCard[]): void {
 
 export function renderCard(taxonCard: TaxonCard): HTMLElement {
   const cardEl = document.createElement("article");
+  cardEl.classList.add("card");
   cardEl.setAttribute("tabindex", "0");
   cardEl.setAttribute("role", "button");
   cardEl.addEventListener("click", () => void openCardModal(taxonCard, cardEl));
