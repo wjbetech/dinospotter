@@ -82,14 +82,17 @@ if (drawer instanceof HTMLElement) {
   store.subscribe(() => {
     const { payload, status, countryCode, era } = store.getState();
 
-    drawer.querySelectorAll(".skeleton, .card").forEach((el) => el.remove());
+    drawer
+      .querySelectorAll(".skeleton, .card, .empty-message, .badge")
+      .forEach((el) => el.remove());
 
     if (status === "loading") {
-      const s = renderSkeleton();
+      const s = renderSkeleton(15);
       s.classList.add("skeleton");
       drawer.append(s);
     } else if (status === "empty") {
       const emptyMessage = document.createElement("p");
+      emptyMessage.classList.add("empty-message");
       emptyMessage.textContent = copyFor("empty", countryCode, era);
       drawer.append(emptyMessage);
     } else if (status === "degraded" || status === "error") {
