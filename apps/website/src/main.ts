@@ -111,6 +111,10 @@ if (drawer instanceof HTMLElement) {
       btn.setAttribute("aria-checked", String(!!btn.textContent?.startsWith(era)));
     });
 
+    const picker = drawer.querySelector('select[aria-label="Country"]') as HTMLSelectElement | null;
+
+    if (picker && countryCode) picker.value = countryCode;
+
     const txn = parseUrl(location.search).txn;
 
     if (txn && payload) {
