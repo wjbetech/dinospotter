@@ -83,8 +83,10 @@ if (drawer instanceof HTMLElement) {
     const { payload, status, countryCode, era } = store.getState();
 
     drawer
-      .querySelectorAll(".skeleton, .card, .empty-message, .badge")
+      .querySelectorAll(".skeleton, .card, .empty-message, .badge, .sentinel")
       .forEach((el) => el.remove());
+
+    input.value = "";
 
     if (status === "loading") {
       const s = renderSkeleton(15);

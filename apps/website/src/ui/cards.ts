@@ -47,6 +47,7 @@ export async function openCardModal(taxonCard: TaxonCard, cardEl: HTMLElement): 
 export function renderCards(wrap: HTMLElement, cards: TaxonCard[]): void {
   let num = 0;
   const sentinel = document.createElement("div");
+  sentinel.classList.add("sentinel");
 
   function appendNext(): void {
     const next = page(cards, num++);
