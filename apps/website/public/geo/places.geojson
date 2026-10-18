@@ -1,0 +1,2678 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [12.4533865, 41.9032822] },
+      "properties": {
+        "NAME_EN": "Vatican City",
+        "NAME": "Vatican City",
+        "ISO_A2": "VA",
+        "ADM0CAP": 1,
+        "POP_MAX": 832
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [12.4417702, 43.9360958] },
+      "properties": {
+        "NAME_EN": "San Marino",
+        "NAME": "San Marino",
+        "ISO_A2": "SM",
+        "ADM0CAP": 1,
+        "POP_MAX": 29579
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [9.5166695, 47.1337238] },
+      "properties": {
+        "NAME_EN": "Vaduz",
+        "NAME": "Vaduz",
+        "ISO_A2": "LI",
+        "ADM0CAP": 1,
+        "POP_MAX": 36281
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [31.1999971, -26.4666675] },
+      "properties": {
+        "NAME_EN": "Lobamba",
+        "NAME": "Lobamba",
+        "ISO_A2": "SZ",
+        "ADM0CAP": 0,
+        "POP_MAX": 9782
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [6.1300028, 49.6116604] },
+      "properties": {
+        "NAME_EN": "Luxembourg",
+        "NAME": "Luxembourg",
+        "ISO_A2": "LU",
+        "ADM0CAP": 1,
+        "POP_MAX": 107260
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [158.1499743, 6.9166437] },
+      "properties": {
+        "NAME_EN": "Palikir",
+        "NAME": "Palikir",
+        "ISO_A2": "FM",
+        "ADM0CAP": 1,
+        "POP_MAX": 4645
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [171.3800002, 7.1030043] },
+      "properties": {
+        "NAME_EN": "Majuro",
+        "NAME": "Majuro",
+        "ISO_A2": "MH",
+        "ADM0CAP": 1,
+        "POP_MAX": 25400
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [179.2166471, -8.516652] },
+      "properties": {
+        "NAME_EN": "Funafuti",
+        "NAME": "Funafuti",
+        "ISO_A2": "TV",
+        "ADM0CAP": 1,
+        "POP_MAX": 4749
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [134.6265485, 7.4873962] },
+      "properties": {
+        "NAME_EN": "Melekeok",
+        "NAME": "Melekeok",
+        "ISO_A2": "PW",
+        "ADM0CAP": 1,
+        "POP_MAX": 7026
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-9.6525222, 26.1191667] },
+      "properties": {
+        "NAME_EN": "Bir Lehlou",
+        "NAME": "Bir Lehlou",
+        "ISO_A2": "EH",
+        "ADM0CAP": 0,
+        "POP_MAX": 500
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [7.4069132, 43.7396457] },
+      "properties": {
+        "NAME_EN": "Monaco",
+        "NAME": "Monaco",
+        "ISO_A2": "MC",
+        "ADM0CAP": 1,
+        "POP_MAX": 36371
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [173.0175708, 1.3381875] },
+      "properties": {
+        "NAME_EN": "South Tarawa",
+        "NAME": "Tarawa",
+        "ISO_A2": "KI",
+        "ADM0CAP": 1,
+        "POP_MAX": 28802
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [43.2402441, -11.7041577] },
+      "properties": {
+        "NAME_EN": "Moroni",
+        "NAME": "Moroni",
+        "ISO_A2": "KM",
+        "ADM0CAP": 1,
+        "POP_MAX": 128698
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [1.5265942551654812, 42.5107534941671] },
+      "properties": {
+        "NAME_EN": "Andorra la Vella",
+        "NAME": "Andorra",
+        "ISO_A2": "AD",
+        "ADM0CAP": 1,
+        "POP_MAX": 53998
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-61.5170309, 10.6519971] },
+      "properties": {
+        "NAME_EN": "Port of Spain",
+        "NAME": "Port-of-Spain",
+        "ISO_A2": "TT",
+        "ADM0CAP": 1,
+        "POP_MAX": 294934
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [30.0585859, -1.9516442] },
+      "properties": {
+        "NAME_EN": "Kigali",
+        "NAME": "Kigali",
+        "ISO_A2": "RW",
+        "ADM0CAP": 1,
+        "POP_MAX": 860000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [31.1333345, -26.3166508] },
+      "properties": {
+        "NAME_EN": "Mbabane",
+        "NAME": "Mbabane",
+        "ISO_A2": "SZ",
+        "ADM0CAP": 1,
+        "POP_MAX": 90138
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [31.5800256, 4.8299752] },
+      "properties": {
+        "NAME_EN": "Juba",
+        "NAME": "Juba",
+        "ISO_A2": "SS",
+        "ADM0CAP": 0,
+        "POP_MAX": 111975
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [4.2699613, 52.0800368] },
+      "properties": {
+        "NAME_EN": "The Hague",
+        "NAME": "The Hague",
+        "ISO_A2": "NL",
+        "ADM0CAP": 0,
+        "POP_MAX": 1406000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [14.514969, 46.0552883] },
+      "properties": {
+        "NAME_EN": "Ljubljana",
+        "NAME": "Ljubljana",
+        "ISO_A2": "SI",
+        "ADM0CAP": 1,
+        "POP_MAX": 314807
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [17.1169808, 48.1500183] },
+      "properties": {
+        "NAME_EN": "Bratislava",
+        "NAME": "Bratislava",
+        "ISO_A2": "SK",
+        "ADM0CAP": 1,
+        "POP_MAX": 423737
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [51.5329679, 25.286556] },
+      "properties": {
+        "NAME_EN": "Doha",
+        "NAME": "Doha",
+        "ISO_A2": "QA",
+        "ADM0CAP": 1,
+        "POP_MAX": 1450000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [19.2663069, 42.4659725] },
+      "properties": {
+        "NAME_EN": "Podgorica",
+        "NAME": "Podgorica",
+        "ISO_A2": "ME",
+        "ADM0CAP": 1,
+        "POP_MAX": 145850
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [79.949993, 6.9000039] },
+      "properties": {
+        "NAME_EN": "Sri Jayawardenepura Kotte",
+        "NAME": "Sri Jayawardenepura Kotte",
+        "ISO_A2": "LK",
+        "ADM0CAP": 0,
+        "POP_MAX": 115826
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [120.5699426, 16.4299907] },
+      "properties": {
+        "NAME_EN": "Baguio",
+        "NAME": "Baguio",
+        "ISO_A2": "PH",
+        "ADM0CAP": 0,
+        "POP_MAX": 447824
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [35.7500036, -6.1833061] },
+      "properties": {
+        "NAME_EN": "Dodoma",
+        "NAME": "Dodoma",
+        "ISO_A2": "TZ",
+        "ADM0CAP": 0,
+        "POP_MAX": 218269
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [7.4669755, 46.9166828] },
+      "properties": {
+        "NAME_EN": "Bern",
+        "NAME": "Bern",
+        "ISO_A2": "CH",
+        "ADM0CAP": 1,
+        "POP_MAX": 275329
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-13.2000059, 27.1499823] },
+      "properties": {
+        "NAME_EN": "Laayoune",
+        "NAME": "Laayoune",
+        "ISO_A2": "MA",
+        "ADM0CAP": 0,
+        "POP_MAX": 188084
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [21.1659843, 42.6667096] },
+      "properties": {
+        "NAME_EN": "Pristina",
+        "NAME": "Pristina",
+        "ISO_A2": "-99",
+        "ADM0CAP": 1,
+        "POP_MAX": 465186
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-61.387013, 15.3010156] },
+      "properties": {
+        "NAME_EN": "Roseau",
+        "NAME": "Roseau",
+        "ISO_A2": "DM",
+        "ADM0CAP": 1,
+        "POP_MAX": 23336
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [43.1480017, 11.5950145] },
+      "properties": {
+        "NAME_EN": "Djibouti",
+        "NAME": "Djibouti",
+        "ISO_A2": "DJ",
+        "ADM0CAP": 1,
+        "POP_MAX": 923000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [101.6950374044619, 2.9325152122667406] },
+      "properties": {
+        "NAME_EN": "Putrajaya",
+        "NAME": "Putrajaya",
+        "ISO_A2": "MY",
+        "ADM0CAP": 0,
+        "POP_MAX": 67964
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [135.7480521, 35.0319381] },
+      "properties": {
+        "NAME_EN": "Kyoto",
+        "NAME": "Kyoto",
+        "ISO_A2": "JP",
+        "ADM0CAP": 0,
+        "POP_MAX": 1805000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-16.5917015, 13.4538765] },
+      "properties": {
+        "NAME_EN": "Banjul",
+        "NAME": "Banjul",
+        "ISO_A2": "GM",
+        "ADM0CAP": 1,
+        "POP_MAX": 43094
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [21.4334615, 42.0000061] },
+      "properties": {
+        "NAME_EN": "Skopje",
+        "NAME": "Skopje",
+        "ISO_A2": "MK",
+        "ADM0CAP": 1,
+        "POP_MAX": 494087
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-59.6165267, 13.1020026] },
+      "properties": {
+        "NAME_EN": "Bridgetown",
+        "NAME": "Bridgetown",
+        "ISO_A2": "BB",
+        "ADM0CAP": 1,
+        "POP_MAX": 191152
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [2.6166255, 6.483311] },
+      "properties": {
+        "NAME_EN": "Porto-Novo",
+        "NAME": "Porto-Novo",
+        "ISO_A2": "BJ",
+        "ADM0CAP": 0,
+        "POP_MAX": 300000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [29.3600061, -3.3760872] },
+      "properties": {
+        "NAME_EN": "Bujumbura",
+        "NAME": "Bujumbura",
+        "ISO_A2": "BI",
+        "ADM0CAP": 1,
+        "POP_MAX": 331700
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-61.220236420747256, 13.155756013621149] },
+      "properties": {
+        "NAME_EN": "Kingstown",
+        "NAME": "Kingstown",
+        "ISO_A2": "VC",
+        "ADM0CAP": 1,
+        "POP_MAX": 49485
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-60.99287543435381, 14.007874585883364] },
+      "properties": {
+        "NAME_EN": "Castries",
+        "NAME": "Castries",
+        "ISO_A2": "LC",
+        "ADM0CAP": 1,
+        "POP_MAX": 37963
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-62.7170093, 17.3020305] },
+      "properties": {
+        "NAME_EN": "Basseterre",
+        "NAME": "Basseterre",
+        "ISO_A2": "KN",
+        "ADM0CAP": 1,
+        "POP_MAX": 21887
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [57.4999939, -20.1666386] },
+      "properties": {
+        "NAME_EN": "Port Louis",
+        "NAME": "Port Louis",
+        "ISO_A2": "MU",
+        "ADM0CAP": 1,
+        "POP_MAX": 595491
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-61.7416432, 12.0526334] },
+      "properties": {
+        "NAME_EN": "St. George's",
+        "NAME": "Saint George's",
+        "ISO_A2": "GD",
+        "ADM0CAP": 1,
+        "POP_MAX": 33734
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [50.5830517, 26.2361363] },
+      "properties": {
+        "NAME_EN": "Manama",
+        "NAME": "Manama",
+        "ISO_A2": "BH",
+        "ADM0CAP": 1,
+        "POP_MAX": 563920
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-61.8500338, 17.1180365] },
+      "properties": {
+        "NAME_EN": "Saint John's",
+        "NAME": "Saint John's",
+        "ISO_A2": "AG",
+        "ADM0CAP": 1,
+        "POP_MAX": 35499
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-56.18682337831074, -34.90537638970807] },
+      "properties": {
+        "NAME_EN": "Montevideo",
+        "NAME": "Montevideo",
+        "ISO_A2": "UY",
+        "ADM0CAP": 1,
+        "POP_MAX": 1513000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [1.2208113, 6.1338829] },
+      "properties": {
+        "NAME_EN": "Lomé",
+        "NAME": "Lomé",
+        "ISO_A2": "TG",
+        "ADM0CAP": 1,
+        "POP_MAX": 1452000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [10.1796781, 36.8027781] },
+      "properties": {
+        "NAME_EN": "Tunis",
+        "NAME": "Tunis",
+        "ISO_A2": "TN",
+        "ADM0CAP": 1,
+        "POP_MAX": 2412500
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [54.3665934, 24.4666836] },
+      "properties": {
+        "NAME_EN": "Abu Dhabi",
+        "NAME": "Abu Dhabi",
+        "ISO_A2": "AE",
+        "ADM0CAP": 1,
+        "POP_MAX": 603492
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [58.3832991, 37.9499949] },
+      "properties": {
+        "NAME_EN": "Ashgabat",
+        "NAME": "Ashgabat",
+        "ISO_A2": "TM",
+        "ADM0CAP": 1,
+        "POP_MAX": 727700
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [28.2813817, -15.4146984] },
+      "properties": {
+        "NAME_EN": "Lusaka",
+        "NAME": "Lusaka",
+        "ISO_A2": "ZM",
+        "ADM0CAP": 1,
+        "POP_MAX": 1328000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [31.0427636, -17.8158438] },
+      "properties": {
+        "NAME_EN": "Harare",
+        "NAME": "Harare",
+        "ISO_A2": "ZW",
+        "ADM0CAP": 1,
+        "POP_MAX": 1572000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [125.5794559, -8.5593884] },
+      "properties": {
+        "NAME_EN": "Dili",
+        "NAME": "Dili",
+        "ISO_A2": "TL",
+        "ADM0CAP": 1,
+        "POP_MAX": 234331
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [168.3166406, -17.7333504] },
+      "properties": {
+        "NAME_EN": "Port Vila",
+        "NAME": "Port Vila",
+        "ISO_A2": "VU",
+        "ADM0CAP": 1,
+        "POP_MAX": 44040
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-87.2194752, 14.1039908] },
+      "properties": {
+        "NAME_EN": "Tegucigalpa",
+        "NAME": "Tegucigalpa",
+        "ISO_A2": "HN",
+        "ADM0CAP": 1,
+        "POP_MAX": 946000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-58.1670286, 6.8019737] },
+      "properties": {
+        "NAME_EN": "Georgetown",
+        "NAME": "Georgetown",
+        "ISO_A2": "GY",
+        "ADM0CAP": 1,
+        "POP_MAX": 264350
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-21.936546009025054, 64.14345946317033] },
+      "properties": {
+        "NAME_EN": "Reykjavík",
+        "NAME": "Reykjavík",
+        "ISO_A2": "IS",
+        "ADM0CAP": 1,
+        "POP_MAX": 166212
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-72.3379804, 18.5429705] },
+      "properties": {
+        "NAME_EN": "Port-au-Prince",
+        "NAME": "Port-au-Prince",
+        "ISO_A2": "HT",
+        "ADM0CAP": 1,
+        "POP_MAX": 1998000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [32.5813777, 0.3186048] },
+      "properties": {
+        "NAME_EN": "Kampala",
+        "NAME": "Kampala",
+        "ISO_A2": "UG",
+        "ADM0CAP": 1,
+        "POP_MAX": 1420000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-55.1670309, 5.8350301] },
+      "properties": {
+        "NAME_EN": "Paramaribo",
+        "NAME": "Paramaribo",
+        "ISO_A2": "SR",
+        "ADM0CAP": 1,
+        "POP_MAX": 254169
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [2.1147102, 13.5186518] },
+      "properties": {
+        "NAME_EN": "Niamey",
+        "NAME": "Niamey",
+        "ISO_A2": "NE",
+        "ADM0CAP": 1,
+        "POP_MAX": 915000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [68.7738794, 38.5600352] },
+      "properties": {
+        "NAME_EN": "Dushanbe",
+        "NAME": "Dushanbe",
+        "ISO_A2": "TJ",
+        "ADM0CAP": 1,
+        "POP_MAX": 1086244
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-57.62583375528301, -25.29067083610963] },
+      "properties": {
+        "NAME_EN": "Asunción",
+        "NAME": "Asunción",
+        "ISO_A2": "PY",
+        "ADM0CAP": 1,
+        "POP_MAX": 1870000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-86.2704375, 12.1549624] },
+      "properties": {
+        "NAME_EN": "Managua",
+        "NAME": "Managua",
+        "ISO_A2": "NI",
+        "ADM0CAP": 1,
+        "POP_MAX": 920000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-13.2361616, 8.4719573] },
+      "properties": {
+        "NAME_EN": "Freetown",
+        "NAME": "Freetown",
+        "ISO_A2": "SL",
+        "ADM0CAP": 1,
+        "POP_MAX": 827000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [73.08063017764825, 33.689368483707085] },
+      "properties": {
+        "NAME_EN": "Islamabad",
+        "NAME": "Islamabad",
+        "ISO_A2": "PK",
+        "ADM0CAP": 1,
+        "POP_MAX": 780000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [85.3146964, 27.7186378] },
+      "properties": {
+        "NAME_EN": "Kathmandu",
+        "NAME": "Kathmandu",
+        "ISO_A2": "NP",
+        "ADM0CAP": 1,
+        "POP_MAX": 895000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [26.2299129, -29.1199939] },
+      "properties": {
+        "NAME_EN": "Bloemfontein",
+        "NAME": "Bloemfontein",
+        "ISO_A2": "ZA",
+        "ADM0CAP": 1,
+        "POP_MAX": 463064
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [28.2274832, -25.7049747] },
+      "properties": {
+        "NAME_EN": "Pretoria",
+        "NAME": "Pretoria",
+        "ISO_A2": "ZA",
+        "ADM0CAP": 1,
+        "POP_MAX": 1338000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [147.1925036, -9.4647078] },
+      "properties": {
+        "NAME_EN": "Port Moresby",
+        "NAME": "Port Moresby",
+        "ISO_A2": "PG",
+        "ADM0CAP": 1,
+        "POP_MAX": 283733
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [159.9497657, -9.4379943] },
+      "properties": {
+        "NAME_EN": "Honiara",
+        "NAME": "Honiara",
+        "ISO_A2": "SB",
+        "ADM0CAP": 1,
+        "POP_MAX": 76328
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-79.534983, 8.969963] },
+      "properties": {
+        "NAME_EN": "Panama City",
+        "NAME": "Panama City",
+        "ISO_A2": "PA",
+        "ADM0CAP": 1,
+        "POP_MAX": 1281000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-6.8364082, 34.0253073] },
+      "properties": {
+        "NAME_EN": "Rabat",
+        "NAME": "Rabat",
+        "ISO_A2": "MA",
+        "ADM0CAP": 1,
+        "POP_MAX": 1705000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [28.8577111, 47.0050236] },
+      "properties": {
+        "NAME_EN": "Chișinău",
+        "NAME": "Chișinău",
+        "ISO_A2": "MD",
+        "ADM0CAP": 1,
+        "POP_MAX": 688134
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [32.5872171, -25.9533316] },
+      "properties": {
+        "NAME_EN": "Maputo",
+        "NAME": "Maputo",
+        "ISO_A2": "MZ",
+        "ADM0CAP": 1,
+        "POP_MAX": 1446000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [45.3647318, 2.0686272] },
+      "properties": {
+        "NAME_EN": "Mogadishu",
+        "NAME": "Mogadishu",
+        "ISO_A2": "SO",
+        "ADM0CAP": 1,
+        "POP_MAX": 1100000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [58.37831058458708, 23.58517901476684] },
+      "properties": {
+        "NAME_EN": "Muscat",
+        "NAME": "Muscat",
+        "ISO_A2": "OM",
+        "ADM0CAP": 1,
+        "POP_MAX": 734697
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [79.8577506, 6.9319658] },
+      "properties": {
+        "NAME_EN": "Colombo",
+        "NAME": "Colombo",
+        "ISO_A2": "LK",
+        "ADM0CAP": 1,
+        "POP_MAX": 217000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [106.9146699, 47.9186193] },
+      "properties": {
+        "NAME_EN": "Ulaanbaatar",
+        "NAME": "Ulaanbaatar",
+        "ISO_A2": "MN",
+        "ADM0CAP": 1,
+        "POP_MAX": 885000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [17.0835461, -22.5700061] },
+      "properties": {
+        "NAME_EN": "Windhoek",
+        "NAME": "Windhoek",
+        "ISO_A2": "NA",
+        "ADM0CAP": 1,
+        "POP_MAX": 268132
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [7.489505042885861, 9.054620406360845] },
+      "properties": {
+        "NAME_EN": "Abuja",
+        "NAME": "Abuja",
+        "ISO_A2": "NG",
+        "ADM0CAP": 1,
+        "POP_MAX": 1576000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-15.5983608, 11.8650238] },
+      "properties": {
+        "NAME_EN": "Bissau",
+        "NAME": "Bissau",
+        "ISO_A2": "GW",
+        "ADM0CAP": 1,
+        "POP_MAX": 403339
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [35.9313541, 31.9519711] },
+      "properties": {
+        "NAME_EN": "Amman",
+        "NAME": "Amman",
+        "ISO_A2": "JO",
+        "ADM0CAP": 1,
+        "POP_MAX": 1060000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [25.3166353, 54.6833663] },
+      "properties": {
+        "NAME_EN": "Vilnius",
+        "NAME": "Vilnius",
+        "ISO_A2": "LT",
+        "ADM0CAP": 1,
+        "POP_MAX": 542366
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.0999654, 56.9500238] },
+      "properties": {
+        "NAME_EN": "Riga",
+        "NAME": "Riga",
+        "ISO_A2": "LV",
+        "ADM0CAP": 1,
+        "POP_MAX": 742572
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [74.5832584, 42.8750253] },
+      "properties": {
+        "NAME_EN": "Bishkek",
+        "NAME": "Bishkek",
+        "ISO_A2": "KG",
+        "ADM0CAP": 1,
+        "POP_MAX": 837000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [27.4832731, -29.3166744] },
+      "properties": {
+        "NAME_EN": "Maseru",
+        "NAME": "Maseru",
+        "ISO_A2": "LS",
+        "ADM0CAP": 1,
+        "POP_MAX": 361324
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [47.514678, -18.9146915] },
+      "properties": {
+        "NAME_EN": "Antananarivo",
+        "NAME": "Antananarivo",
+        "ISO_A2": "MG",
+        "ADM0CAP": 1,
+        "POP_MAX": 1697000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-78.501997, -0.2130423] },
+      "properties": {
+        "NAME_EN": "Quito",
+        "NAME": "Quito",
+        "ISO_A2": "EC",
+        "ADM0CAP": 1,
+        "POP_MAX": 1701000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-84.07881396964633, 9.930370727948475] },
+      "properties": {
+        "NAME_EN": "San José",
+        "NAME": "San José",
+        "ISO_A2": "CR",
+        "ADM0CAP": 1,
+        "POP_MAX": 1284000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-89.2155758045276, 13.703280259193864] },
+      "properties": {
+        "NAME_EN": "San Salvador",
+        "NAME": "San Salvador",
+        "ISO_A2": "SV",
+        "ADM0CAP": 1,
+        "POP_MAX": 1433000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-76.7674337, 17.9770766] },
+      "properties": {
+        "NAME_EN": "Kingston",
+        "NAME": "Kingston",
+        "ISO_A2": "JM",
+        "ADM0CAP": 1,
+        "POP_MAX": 937700
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [15.0472025, 12.1150424] },
+      "properties": {
+        "NAME_EN": "N'Djamena",
+        "NAME": "N'Djamena",
+        "ISO_A2": "TD",
+        "ADM0CAP": 1,
+        "POP_MAX": 989000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [8.7832775, 3.7500153] },
+      "properties": {
+        "NAME_EN": "Malabo",
+        "NAME": "Malabo",
+        "ISO_A2": "GQ",
+        "ADM0CAP": 1,
+        "POP_MAX": 155963
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [38.9333235, 15.3333393] },
+      "properties": {
+        "NAME_EN": "Asmara",
+        "NAME": "Asmara",
+        "ISO_A2": "ER",
+        "ADM0CAP": 1,
+        "POP_MAX": 620802
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [15.9999947, 45.8000067] },
+      "properties": {
+        "NAME_EN": "Zagreb",
+        "NAME": "Zagreb",
+        "ISO_A2": "HR",
+        "ADM0CAP": 1,
+        "POP_MAX": 722526
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.7280407, 59.4338774] },
+      "properties": {
+        "NAME_EN": "Tallinn",
+        "NAME": "Tallinn",
+        "ISO_A2": "EE",
+        "ADM0CAP": 1,
+        "POP_MAX": 394024
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [33.783302, -13.9832951] },
+      "properties": {
+        "NAME_EN": "Lilongwe",
+        "NAME": "Lilongwe",
+        "ISO_A2": "MW",
+        "ADM0CAP": 1,
+        "POP_MAX": 646750
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-90.5289114, 14.6230805] },
+      "properties": {
+        "NAME_EN": "Guatemala City",
+        "NAME": "Guatemala City",
+        "ISO_A2": "GT",
+        "ADM0CAP": 1,
+        "POP_MAX": 1024000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [9.457965, 0.3853886] },
+      "properties": {
+        "NAME_EN": "Libreville",
+        "NAME": "Libreville",
+        "ISO_A2": "GA",
+        "ADM0CAP": 1,
+        "POP_MAX": 578156
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [178.4417073, -18.1330159] },
+      "properties": {
+        "NAME_EN": "Suva",
+        "NAME": "Suva",
+        "ISO_A2": "FJ",
+        "ADM0CAP": 1,
+        "POP_MAX": 175399
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-71.61702619154609, -33.04773936269631] },
+      "properties": {
+        "NAME_EN": "Valparaíso",
+        "NAME": "Valparaíso",
+        "ISO_A2": "CL",
+        "ADM0CAP": 0,
+        "POP_MAX": 854000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-15.9753404, 18.086427] },
+      "properties": {
+        "NAME_EN": "Nouakchott",
+        "NAME": "Nouakchott",
+        "ISO_A2": "MR",
+        "ADM0CAP": 1,
+        "POP_MAX": 742144
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-8.001985, 12.6519605] },
+      "properties": {
+        "NAME_EN": "Bamako",
+        "NAME": "Bamako",
+        "ISO_A2": "ML",
+        "ADM0CAP": 1,
+        "POP_MAX": 1494000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [35.5077624, 33.873921] },
+      "properties": {
+        "NAME_EN": "Beirut",
+        "NAME": "Beirut",
+        "ISO_A2": "LB",
+        "ADM0CAP": 1,
+        "POP_MAX": 1846000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [44.7888496, 41.7269558] },
+      "properties": {
+        "NAME_EN": "Tbilisi",
+        "NAME": "Tbilisi",
+        "ISO_A2": "GE",
+        "ADM0CAP": 1,
+        "POP_MAX": 1100000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [71.4277742, 51.1811253] },
+      "properties": {
+        "NAME_EN": "Nur-Sultan",
+        "NAME": "Nur-Sultan",
+        "ISO_A2": "KZ",
+        "ADM0CAP": 1,
+        "POP_MAX": 345604
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [102.59998, 17.9666927] },
+      "properties": {
+        "NAME_EN": "Vientiane",
+        "NAME": "Vientiane",
+        "ISO_A2": "LA",
+        "ADM0CAP": 1,
+        "POP_MAX": 754000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [15.2827436, -4.2572399] },
+      "properties": {
+        "NAME_EN": "Brazzaville",
+        "NAME": "Brazzaville",
+        "ISO_A2": "CG",
+        "ADM0CAP": 1,
+        "POP_MAX": 1355000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-13.6821809, 9.5334687] },
+      "properties": {
+        "NAME_EN": "Conakry",
+        "NAME": "Conakry",
+        "ISO_A2": "GN",
+        "ADM0CAP": 1,
+        "POP_MAX": 1494000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.2755026, 6.818381] },
+      "properties": {
+        "NAME_EN": "Yamoussoukro",
+        "NAME": "Yamoussoukro",
+        "ISO_A2": "CI",
+        "ADM0CAP": 1,
+        "POP_MAX": 206499
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-75.7019612, 45.4186427] },
+      "properties": {
+        "NAME_EN": "Ottawa",
+        "NAME": "Ottawa",
+        "ISO_A2": "CA",
+        "ADM0CAP": 1,
+        "POP_MAX": 1145000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [20.4660448, 44.8205913] },
+      "properties": {
+        "NAME_EN": "Belgrade",
+        "NAME": "Belgrade",
+        "ISO_A2": "RS",
+        "ADM0CAP": 1,
+        "POP_MAX": 1099000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [114.9332841, 4.8833311] },
+      "properties": {
+        "NAME_EN": "Bandar Seri Begawan",
+        "NAME": "Bandar Seri Begawan",
+        "ISO_A2": "BN",
+        "ADM0CAP": 1,
+        "POP_MAX": 296500
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-65.2595156, -19.0409708] },
+      "properties": {
+        "NAME_EN": "Sucre",
+        "NAME": "Sucre",
+        "ISO_A2": "BO",
+        "ADM0CAP": 1,
+        "POP_MAX": 224838
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-88.767073, 17.2520335] },
+      "properties": {
+        "NAME_EN": "Belmopan",
+        "NAME": "Belmopan",
+        "ISO_A2": "BZ",
+        "ADM0CAP": 1,
+        "POP_MAX": 15220
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [18.5582881, 4.3666443] },
+      "properties": {
+        "NAME_EN": "Bangui",
+        "NAME": "Bangui",
+        "ISO_A2": "CF",
+        "ADM0CAP": 1,
+        "POP_MAX": 831925
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [11.5147049, 3.8686465] },
+      "properties": {
+        "NAME_EN": "Yaoundé",
+        "NAME": "Yaoundé",
+        "ISO_A2": "CM",
+        "ADM0CAP": 1,
+        "POP_MAX": 1611000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [19.818883, 41.3275407] },
+      "properties": {
+        "NAME_EN": "Tirana",
+        "NAME": "Tirana",
+        "ISO_A2": "AL",
+        "ADM0CAP": 1,
+        "POP_MAX": 895350
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [44.5116055, 40.1830966] },
+      "properties": {
+        "NAME_EN": "Yerevan",
+        "NAME": "Yerevan",
+        "ISO_A2": "AM",
+        "ADM0CAP": 1,
+        "POP_MAX": 1102000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [49.8602713, 40.3972179] },
+      "properties": {
+        "NAME_EN": "Baku",
+        "NAME": "Baku",
+        "ISO_A2": "AZ",
+        "ADM0CAP": 1,
+        "POP_MAX": 2122300
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [104.9146886, 11.551976] },
+      "properties": {
+        "NAME_EN": "Phnom Penh",
+        "NAME": "Phnom Penh",
+        "ISO_A2": "KH",
+        "ADM0CAP": 1,
+        "POP_MAX": 1466000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-68.151931, -16.4960278] },
+      "properties": {
+        "NAME_EN": "La Paz",
+        "NAME": "La Paz",
+        "ISO_A2": "BO",
+        "ADM0CAP": 1,
+        "POP_MAX": 1590000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [2.4043547908879517, 6.3629803922426715] },
+      "properties": {
+        "NAME_EN": "Cotonou",
+        "NAME": "Cotonou",
+        "ISO_A2": "BJ",
+        "ADM0CAP": 1,
+        "POP_MAX": 762000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [23.3147082, 42.6852953] },
+      "properties": {
+        "NAME_EN": "Sofia",
+        "NAME": "Sofia",
+        "ISO_A2": "BG",
+        "ADM0CAP": 1,
+        "POP_MAX": 1185000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [27.5646813, 53.9019233] },
+      "properties": {
+        "NAME_EN": "Minsk",
+        "NAME": "Minsk",
+        "ISO_A2": "BY",
+        "ADM0CAP": 1,
+        "POP_MAX": 1805000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [89.639014, 27.4729859] },
+      "properties": {
+        "NAME_EN": "Thimphu",
+        "NAME": "Thimphu",
+        "ISO_A2": "BT",
+        "ADM0CAP": 1,
+        "POP_MAX": 98676
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [25.9119478, -24.6463135] },
+      "properties": {
+        "NAME_EN": "Gaborone",
+        "NAME": "Gaborone",
+        "ISO_A2": "BW",
+        "ADM0CAP": 1,
+        "POP_MAX": 208411
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [149.1290262, -35.2830285] },
+      "properties": {
+        "NAME_EN": "Canberra",
+        "NAME": "Canberra",
+        "ISO_A2": "AU",
+        "ADM0CAP": 1,
+        "POP_MAX": 327700
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-1.5266696, 12.3722618] },
+      "properties": {
+        "NAME_EN": "Ouagadougou",
+        "NAME": "Ouagadougou",
+        "ISO_A2": "BF",
+        "ADM0CAP": 1,
+        "POP_MAX": 1149000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [18.3830017, 43.8500224] },
+      "properties": {
+        "NAME_EN": "Sarajevo",
+        "NAME": "Sarajevo",
+        "ISO_A2": "BA",
+        "ADM0CAP": 1,
+        "POP_MAX": 696731
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [96.1166727, 19.7685029] },
+      "properties": {
+        "NAME_EN": "Naypyidaw",
+        "NAME": "Naypyidaw",
+        "ISO_A2": "MM",
+        "ADM0CAP": 1,
+        "POP_MAX": 930000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-175.2205645, -21.1385124] },
+      "properties": {
+        "NAME_EN": "Nuku'alofa",
+        "NAME": "Nuku'alofa",
+        "ISO_A2": "TO",
+        "ADM0CAP": 1,
+        "POP_MAX": 42620
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [44.06531, 9.5600224] },
+      "properties": {
+        "NAME_EN": "Hargeisa",
+        "NAME": "Hargeisa",
+        "ISO_A2": "-99",
+        "ADM0CAP": 1,
+        "POP_MAX": 477876
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [55.4499898, -4.6166317] },
+      "properties": {
+        "NAME_EN": "Victoria",
+        "NAME": "Victoria",
+        "ISO_A2": "SC",
+        "ADM0CAP": 1,
+        "POP_MAX": 33576
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [6.729649806269851, 0.3374664069826239] },
+      "properties": {
+        "NAME_EN": "São Tomé",
+        "NAME": "São Tomé",
+        "ISO_A2": "ST",
+        "ADM0CAP": 1,
+        "POP_MAX": 88219
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-171.76859897688345, -13.835714958212938] },
+      "properties": {
+        "NAME_EN": "Apia",
+        "NAME": "Apia",
+        "ISO_A2": "WS",
+        "ADM0CAP": 1,
+        "POP_MAX": 61916
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [14.5147107, 35.8997325] },
+      "properties": {
+        "NAME_EN": "Valletta",
+        "NAME": "Valletta",
+        "ISO_A2": "MT",
+        "ADM0CAP": 1,
+        "POP_MAX": 368250
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [73.5089005260037, 4.17203699470936] },
+      "properties": {
+        "NAME_EN": "Malé",
+        "NAME": "Malé",
+        "ISO_A2": "MV",
+        "ADM0CAP": 1,
+        "POP_MAX": 112927
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [35.2066259, 31.7784078] },
+      "properties": {
+        "NAME_EN": "Jerusalem",
+        "NAME": "Jerusalem",
+        "ISO_A2": "IL",
+        "ADM0CAP": 1,
+        "POP_MAX": 1029300
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-23.5166889, 14.916698] },
+      "properties": {
+        "NAME_EN": "Praia",
+        "NAME": "Praia",
+        "ISO_A2": "CV",
+        "ADM0CAP": 1,
+        "POP_MAX": 113364
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-77.3500438, 25.0833901] },
+      "properties": {
+        "NAME_EN": "Nassau",
+        "NAME": "Nassau",
+        "ISO_A2": "BS",
+        "ADM0CAP": 1,
+        "POP_MAX": 227940
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [33.3666349, 35.1666765] },
+      "properties": {
+        "NAME_EN": "Nicosia",
+        "NAME": "Nicosia",
+        "ISO_A2": "CY",
+        "ADM0CAP": 1,
+        "POP_MAX": 224300
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [174.77720094690068, -41.2920679923151] },
+      "properties": {
+        "NAME_EN": "Wellington",
+        "NAME": "Wellington",
+        "ISO_A2": "NZ",
+        "ADM0CAP": 1,
+        "POP_MAX": 393400
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [105.8480683, 21.0352731] },
+      "properties": {
+        "NAME_EN": "Hanoi",
+        "NAME": "Hanoi",
+        "ISO_A2": "VN",
+        "ADM0CAP": 1,
+        "POP_MAX": 4378000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [32.8624458, 39.9291844] },
+      "properties": {
+        "NAME_EN": "Ankara",
+        "NAME": "Ankara",
+        "ISO_A2": "TR",
+        "ADM0CAP": 1,
+        "POP_MAX": 3716000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [19.0813748, 47.5019522] },
+      "properties": {
+        "NAME_EN": "Budapest",
+        "NAME": "Budapest",
+        "ISO_A2": "HU",
+        "ADM0CAP": 1,
+        "POP_MAX": 1679000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [44.2046475, 15.3566792] },
+      "properties": {
+        "NAME_EN": "Sanaa",
+        "NAME": "Sanaa",
+        "ISO_A2": "YE",
+        "ADM0CAP": 1,
+        "POP_MAX": 2008000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [26.0980008, 44.4353177] },
+      "properties": {
+        "NAME_EN": "Bucharest",
+        "NAME": "Bucharest",
+        "ISO_A2": "RO",
+        "ADM0CAP": 1,
+        "POP_MAX": 1942000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [36.29805, 33.5019799] },
+      "properties": {
+        "NAME_EN": "Damascus",
+        "NAME": "Damascus",
+        "ISO_A2": "SY",
+        "ADM0CAP": 1,
+        "POP_MAX": 2466000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-9.1468122, 38.7246687] },
+      "properties": {
+        "NAME_EN": "Lisbon",
+        "NAME": "Lisbon",
+        "ISO_A2": "PT",
+        "ADM0CAP": 1,
+        "POP_MAX": 2812000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [32.5322334, 15.5900241] },
+      "properties": {
+        "NAME_EN": "Khartoum",
+        "NAME": "Khartoum",
+        "ISO_A2": "SD",
+        "ADM0CAP": 1,
+        "POP_MAX": 4754000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [10.7480333, 59.9186361] },
+      "properties": {
+        "NAME_EN": "Oslo",
+        "NAME": "Oslo",
+        "ISO_A2": "NO",
+        "ADM0CAP": 1,
+        "POP_MAX": 835000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [21.005346737742283, 52.23087197353951] },
+      "properties": {
+        "NAME_EN": "Warsaw",
+        "NAME": "Warsaw",
+        "ISO_A2": "PL",
+        "ADM0CAP": 1,
+        "POP_MAX": 1707000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [125.7527449, 39.0213846] },
+      "properties": {
+        "NAME_EN": "Pyongyang",
+        "NAME": "Pyongyang",
+        "ISO_A2": "KP",
+        "ADM0CAP": 1,
+        "POP_MAX": 3300000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [39.266396, -6.7980667] },
+      "properties": {
+        "NAME_EN": "Dar es Salaam",
+        "NAME": "Dar es Salaam",
+        "ISO_A2": "TZ",
+        "ADM0CAP": 1,
+        "POP_MAX": 2930000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-6.256979517281132, 53.34673124898314] },
+      "properties": {
+        "NAME_EN": "Dublin",
+        "NAME": "Dublin",
+        "ISO_A2": "IE",
+        "ADM0CAP": 1,
+        "POP_MAX": 1059000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-10.7996604, 6.3145816] },
+      "properties": {
+        "NAME_EN": "Monrovia",
+        "NAME": "Monrovia",
+        "ISO_A2": "LR",
+        "ADM0CAP": 1,
+        "POP_MAX": 1041000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [101.68869929106194, 3.1397969439352504] },
+      "properties": {
+        "NAME_EN": "Kuala Lumpur",
+        "NAME": "Kuala Lumpur",
+        "ISO_A2": "MY",
+        "ADM0CAP": 1,
+        "POP_MAX": 1448000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-82.366128, 23.1339047] },
+      "properties": {
+        "NAME_EN": "Havana",
+        "NAME": "Havana",
+        "ISO_A2": "CU",
+        "ADM0CAP": 1,
+        "POP_MAX": 2174000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [14.422939486203868, 50.0869665373215] },
+      "properties": {
+        "NAME_EN": "Prague",
+        "NAME": "Prague",
+        "ISO_A2": "CZ",
+        "ADM0CAP": 1,
+        "POP_MAX": 1162000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [47.9763553, 29.3716635] },
+      "properties": {
+        "NAME_EN": "Kuwait City",
+        "NAME": "Kuwait City",
+        "ISO_A2": "KW",
+        "ADM0CAP": 1,
+        "POP_MAX": 2063000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-69.92974231579055, 18.470745058048376] },
+      "properties": {
+        "NAME_EN": "Santo Domingo",
+        "NAME": "Santo Domingo",
+        "ISO_A2": "DO",
+        "ADM0CAP": 1,
+        "POP_MAX": 2154000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-0.2186616, 5.5519805] },
+      "properties": {
+        "NAME_EN": "Accra",
+        "NAME": "Accra",
+        "ISO_A2": "GH",
+        "ADM0CAP": 1,
+        "POP_MAX": 2121000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.1800118, 32.8925] },
+      "properties": {
+        "NAME_EN": "Tripoli",
+        "NAME": "Tripoli",
+        "ISO_A2": "LY",
+        "ADM0CAP": 1,
+        "POP_MAX": 2189000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [34.7680659, 32.0819373] },
+      "properties": {
+        "NAME_EN": "Tel Aviv",
+        "NAME": "Tel Aviv",
+        "ISO_A2": "IL",
+        "ADM0CAP": 0,
+        "POP_MAX": 3112000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.932456915043964, 60.16380384948568] },
+      "properties": {
+        "NAME_EN": "Helsinki",
+        "NAME": "Helsinki",
+        "ISO_A2": "FI",
+        "ADM0CAP": 1,
+        "POP_MAX": 1115000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [12.5615399, 55.68051] },
+      "properties": {
+        "NAME_EN": "Copenhagen",
+        "NAME": "København",
+        "ISO_A2": "DK",
+        "ADM0CAP": 1,
+        "POP_MAX": 1085000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-4.020206835187587, 5.3231260722445715] },
+      "properties": {
+        "NAME_EN": "Abidjan",
+        "NAME": "Abidjan",
+        "ISO_A2": "CI",
+        "ADM0CAP": 1,
+        "POP_MAX": 3802000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-47.9179981, -15.7813944] },
+      "properties": {
+        "NAME_EN": "Brasília",
+        "NAME": "Brasília",
+        "ISO_A2": "BR",
+        "ADM0CAP": 1,
+        "POP_MAX": 3716996
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [4.3313707, 50.8352629] },
+      "properties": {
+        "NAME_EN": "Brussels",
+        "NAME": "Brussels",
+        "ISO_A2": "BE",
+        "ADM0CAP": 1,
+        "POP_MAX": 1743000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [90.4066336, 23.7250056] },
+      "properties": {
+        "NAME_EN": "Dhaka",
+        "NAME": "Dhaka",
+        "ISO_A2": "BD",
+        "ADM0CAP": 1,
+        "POP_MAX": 12797394
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.2324812, -8.8363403] },
+      "properties": {
+        "NAME_EN": "Luanda",
+        "NAME": "Luanda",
+        "ISO_A2": "AO",
+        "ADM0CAP": 1,
+        "POP_MAX": 5172900
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [3.0486067, 36.7650107] },
+      "properties": {
+        "NAME_EN": "Algiers",
+        "NAME": "Algiers",
+        "ISO_A2": "DZ",
+        "ADM0CAP": 1,
+        "POP_MAX": 3354000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [96.1647318, 16.7853] },
+      "properties": {
+        "NAME_EN": "Yangon",
+        "NAME": "Yangon",
+        "ISO_A2": "MM",
+        "ADM0CAP": 0,
+        "POP_MAX": 4088000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-122.39959956304557, 37.784262651527904] },
+      "properties": {
+        "NAME_EN": "San Francisco",
+        "NAME": "San Francisco",
+        "ISO_A2": "US",
+        "ADM0CAP": 0,
+        "POP_MAX": 3450000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-104.9859618, 39.7411339] },
+      "properties": {
+        "NAME_EN": "Denver",
+        "NAME": "Denver",
+        "ISO_A2": "US",
+        "ADM0CAP": 0,
+        "POP_MAX": 2313000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-95.34843625672217, 29.741272831862542] },
+      "properties": {
+        "NAME_EN": "Houston",
+        "NAME": "Houston",
+        "ISO_A2": "US",
+        "ADM0CAP": 0,
+        "POP_MAX": 4459000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-80.2260519, 25.7895566] },
+      "properties": {
+        "NAME_EN": "Miami",
+        "NAME": "Miami",
+        "ISO_A2": "US",
+        "ADM0CAP": 0,
+        "POP_MAX": 5585000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-84.36764186571386, 33.73945728378348] },
+      "properties": {
+        "NAME_EN": "Atlanta",
+        "NAME": "Atlanta",
+        "ISO_A2": "US",
+        "ADM0CAP": 0,
+        "POP_MAX": 4506000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-87.63523655322338, 41.847961283364114] },
+      "properties": {
+        "NAME_EN": "Chicago",
+        "NAME": "Chicago",
+        "ISO_A2": "US",
+        "ADM0CAP": 0,
+        "POP_MAX": 8990000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-66.9189831, 10.5029444] },
+      "properties": {
+        "NAME_EN": "Caracas",
+        "NAME": "Caracas",
+        "ISO_A2": "VE",
+        "ADM0CAP": 1,
+        "POP_MAX": 2985000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [30.5146821, 50.4353132] },
+      "properties": {
+        "NAME_EN": "Kyiv",
+        "NAME": "Kyiv",
+        "ISO_A2": "UA",
+        "ADM0CAP": 1,
+        "POP_MAX": 2709000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [55.28694561354246, 25.21491189371225] },
+      "properties": {
+        "NAME_EN": "Dubai",
+        "NAME": "Dubai",
+        "ISO_A2": "AE",
+        "ADM0CAP": 0,
+        "POP_MAX": 1379000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [69.26882294266261, 41.30382822156198] },
+      "properties": {
+        "NAME_EN": "Tashkent",
+        "NAME": "Tashkent",
+        "ISO_A2": "UZ",
+        "ADM0CAP": 1,
+        "POP_MAX": 2184000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-3.6852975, 40.4019721] },
+      "properties": {
+        "NAME_EN": "Madrid",
+        "NAME": "Madrid",
+        "ISO_A2": "ES",
+        "ADM0CAP": 1,
+        "POP_MAX": 5567000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [6.140028, 46.2100075] },
+      "properties": {
+        "NAME_EN": "Geneva",
+        "NAME": "Geneva",
+        "ISO_A2": "CH",
+        "ADM0CAP": 0,
+        "POP_MAX": 1240000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [18.066300168534497, 59.324127204007475] },
+      "properties": {
+        "NAME_EN": "Stockholm",
+        "NAME": "Stockholm",
+        "ISO_A2": "SE",
+        "ADM0CAP": 1,
+        "POP_MAX": 1264000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [100.5146988, 13.7519451] },
+      "properties": {
+        "NAME_EN": "Bangkok",
+        "NAME": "Bangkok",
+        "ISO_A2": "TH",
+        "ADM0CAP": 1,
+        "POP_MAX": 6704000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-77.052008, -12.0460668] },
+      "properties": {
+        "NAME_EN": "Lima",
+        "NAME": "Lima",
+        "ISO_A2": "PE",
+        "ADM0CAP": 1,
+        "POP_MAX": 8012000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-17.475076, 14.7177776] },
+      "properties": {
+        "NAME_EN": "Dakar",
+        "NAME": "Dakar",
+        "ISO_A2": "SN",
+        "ADM0CAP": 1,
+        "POP_MAX": 2604000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [28.0280639, -26.1680989] },
+      "properties": {
+        "NAME_EN": "Johannesburg",
+        "NAME": "Johannesburg",
+        "ISO_A2": "ZA",
+        "ADM0CAP": 0,
+        "POP_MAX": 3435000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [4.9146943, 52.3519145] },
+      "properties": {
+        "NAME_EN": "Amsterdam",
+        "NAME": "Amsterdam",
+        "ISO_A2": "NL",
+        "ADM0CAP": 1,
+        "POP_MAX": 1031000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-7.6183133, 33.6019221] },
+      "properties": {
+        "NAME_EN": "Casablanca",
+        "NAME": "Casablanca",
+        "ISO_A2": "MA",
+        "ADM0CAP": 0,
+        "POP_MAX": 3181000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [126.9977851, 37.568295] },
+      "properties": {
+        "NAME_EN": "Seoul",
+        "NAME": "Seoul",
+        "ISO_A2": "KR",
+        "ADM0CAP": 1,
+        "POP_MAX": 9796000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [120.9802713, 14.6061048] },
+      "properties": {
+        "NAME_EN": "Manila",
+        "NAME": "Manila",
+        "ISO_A2": "PH",
+        "ADM0CAP": 1,
+        "POP_MAX": 11100000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-100.3319306, 25.671941] },
+      "properties": {
+        "NAME_EN": "Monterrey",
+        "NAME": "Monterrey",
+        "ISO_A2": "MX",
+        "ADM0CAP": 0,
+        "POP_MAX": 3712000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.3996028, 52.5237645] },
+      "properties": {
+        "NAME_EN": "Berlin",
+        "NAME": "Berlin",
+        "ISO_A2": "DE",
+        "ADM0CAP": 1,
+        "POP_MAX": 3406000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [87.5730598, 43.8069581] },
+      "properties": {
+        "NAME_EN": "Ürümqi",
+        "NAME": "Ürümqi",
+        "ISO_A2": "CN",
+        "ADM0CAP": 0,
+        "POP_MAX": 3575000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [104.0680736, 30.6719459] },
+      "properties": {
+        "NAME_EN": "Chengdu",
+        "NAME": "Chengdu",
+        "ISO_A2": "CN",
+        "ADM0CAP": 0,
+        "POP_MAX": 4123000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [135.50375419006232, 34.691095244477914] },
+      "properties": {
+        "NAME_EN": "Osaka",
+        "NAME": "Ōsaka",
+        "ISO_A2": "JP",
+        "ADM0CAP": 0,
+        "POP_MAX": 11294000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [15.313026, -4.3277782] },
+      "properties": {
+        "NAME_EN": "Kinshasa",
+        "NAME": "Kinshasa",
+        "ISO_A2": "CD",
+        "ADM0CAP": 1,
+        "POP_MAX": 7843000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [77.19998, 28.600023] },
+      "properties": {
+        "NAME_EN": "New Delhi",
+        "NAME": "New Delhi",
+        "ISO_A2": "IN",
+        "ADM0CAP": 1,
+        "POP_MAX": 317797
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [77.5580639, 12.971941] },
+      "properties": {
+        "NAME_EN": "Bengaluru",
+        "NAME": "Bengaluru",
+        "ISO_A2": "IN",
+        "ADM0CAP": 0,
+        "POP_MAX": 6787000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [23.7313752, 37.9852721] },
+      "properties": {
+        "NAME_EN": "Athens",
+        "NAME": "Athens",
+        "ISO_A2": "GR",
+        "ADM0CAP": 1,
+        "POP_MAX": 3242000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [44.3919229, 33.3405944] },
+      "properties": {
+        "NAME_EN": "Baghdad",
+        "NAME": "Baghdad",
+        "ISO_A2": "IQ",
+        "ADM0CAP": 1,
+        "POP_MAX": 5054000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [38.6980586, 9.0352562] },
+      "properties": {
+        "NAME_EN": "Addis Ababa",
+        "NAME": "Addis Ababa",
+        "ISO_A2": "ET",
+        "ADM0CAP": 1,
+        "POP_MAX": 3100000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [51.4223982, 35.6738886] },
+      "properties": {
+        "NAME_EN": "Tehran",
+        "NAME": "Tehran",
+        "ISO_A2": "IR",
+        "ADM0CAP": 1,
+        "POP_MAX": 7873000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-123.1235901, 49.2753624] },
+      "properties": {
+        "NAME_EN": "Vancouver",
+        "NAME": "Vancouver",
+        "ISO_A2": "CA",
+        "ADM0CAP": 0,
+        "POP_MAX": 2313328
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-79.38945855491194, 43.66464454743429] },
+      "properties": {
+        "NAME_EN": "Toronto",
+        "NAME": "Toronto",
+        "ISO_A2": "CA",
+        "ADM0CAP": 0,
+        "POP_MAX": 5213000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-58.43251268766426, -34.61071459139255] },
+      "properties": {
+        "NAME_EN": "Buenos Aires",
+        "NAME": "Buenos Aires",
+        "ISO_A2": "AR",
+        "ADM0CAP": 1,
+        "POP_MAX": 12795000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [69.1813142, 34.5186361] },
+      "properties": {
+        "NAME_EN": "Kabul",
+        "NAME": "Kabul",
+        "ISO_A2": "AF",
+        "ADM0CAP": 1,
+        "POP_MAX": 3277000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [16.3646931, 48.2019611] },
+      "properties": {
+        "NAME_EN": "Vienna",
+        "NAME": "Vienna",
+        "ISO_A2": "AT",
+        "ADM0CAP": 1,
+        "POP_MAX": 2400000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [144.9730704, -37.8180855] },
+      "properties": {
+        "NAME_EN": "Melbourne",
+        "NAME": "Melbourne",
+        "ISO_A2": "AU",
+        "ADM0CAP": 0,
+        "POP_MAX": 4170000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [121.5683333, 25.0358333] },
+      "properties": {
+        "NAME_EN": "Taipei",
+        "NAME": "Taipei",
+        "ISO_A2": "TW",
+        "ADM0CAP": 1,
+        "POP_MAX": 6900273
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [174.763027, -36.8480549] },
+      "properties": {
+        "NAME_EN": "Auckland",
+        "NAME": "Auckland",
+        "ISO_A2": "NZ",
+        "ADM0CAP": 0,
+        "POP_MAX": 1377200
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-118.23198647223317, 34.049219260337075] },
+      "properties": {
+        "NAME_EN": "Los Angeles",
+        "NAME": "Los Angeles",
+        "ISO_A2": "US",
+        "ADM0CAP": 0,
+        "POP_MAX": 12500000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-77.0113644, 38.9014952] },
+      "properties": {
+        "NAME_EN": "Washington",
+        "NAME": "Washington,  D.C.",
+        "ISO_A2": "US",
+        "ADM0CAP": 1,
+        "POP_MAX": 4338000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-73.99571754361698, 40.72156174972766] },
+      "properties": {
+        "NAME_EN": "New York City",
+        "NAME": "New York",
+        "ISO_A2": "US",
+        "ADM0CAP": 0,
+        "POP_MAX": 19040000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-0.1186677, 51.5019406] },
+      "properties": {
+        "NAME_EN": "London",
+        "NAME": "London",
+        "ISO_A2": "GB",
+        "ADM0CAP": 1,
+        "POP_MAX": 8567000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [28.97427681675554, 41.01760173507249] },
+      "properties": {
+        "NAME_EN": "Istanbul",
+        "NAME": "Istanbul",
+        "ISO_A2": "TR",
+        "ADM0CAP": 0,
+        "POP_MAX": 10061000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [46.720487024887696, 24.634497474837755] },
+      "properties": {
+        "NAME_EN": "Riyadh",
+        "NAME": "Riyadh",
+        "ISO_A2": "SA",
+        "ADM0CAP": 1,
+        "POP_MAX": 4465000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [18.4330423, -33.9180651] },
+      "properties": {
+        "NAME_EN": "Cape Town",
+        "NAME": "Cape Town",
+        "ISO_A2": "ZA",
+        "ADM0CAP": 1,
+        "POP_MAX": 3215000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [37.613577, 55.75411] },
+      "properties": {
+        "NAME_EN": "Moscow",
+        "NAME": "Moscow",
+        "ISO_A2": "RU",
+        "ADM0CAP": 1,
+        "POP_MAX": 10452000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-99.1329341, 19.4443883] },
+      "properties": {
+        "NAME_EN": "Mexico City",
+        "NAME": "Mexico City",
+        "ISO_A2": "MX",
+        "ADM0CAP": 1,
+        "POP_MAX": 19028000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [3.3895852, 6.4452075] },
+      "properties": {
+        "NAME_EN": "Lagos",
+        "NAME": "Lagos",
+        "ISO_A2": "NG",
+        "ADM0CAP": 0,
+        "POP_MAX": 9466000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [12.4813126, 41.8979015] },
+      "properties": {
+        "NAME_EN": "Rome",
+        "NAME": "Rome",
+        "ISO_A2": "IT",
+        "ADM0CAP": 1,
+        "POP_MAX": 3339000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [116.39420089260611, 39.901720309862675] },
+      "properties": {
+        "NAME_EN": "Beijing",
+        "NAME": "Beijing",
+        "ISO_A2": "CN",
+        "ADM0CAP": 1,
+        "POP_MAX": 11106000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [36.814711, -1.2814009] },
+      "properties": {
+        "NAME_EN": "Nairobi",
+        "NAME": "Nairobi",
+        "ISO_A2": "KE",
+        "ADM0CAP": 1,
+        "POP_MAX": 3010000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [106.8274918, -6.1724718] },
+      "properties": {
+        "NAME_EN": "Jakarta",
+        "NAME": "Jakarta",
+        "ISO_A2": "ID",
+        "ADM0CAP": 1,
+        "POP_MAX": 9125000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-74.0852898, 4.5983694] },
+      "properties": {
+        "NAME_EN": "Bogotá",
+        "NAME": "Bogota",
+        "ISO_A2": "CO",
+        "ADM0CAP": 1,
+        "POP_MAX": 7772000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [31.2480224, 30.0519062] },
+      "properties": {
+        "NAME_EN": "Cairo",
+        "NAME": "Cairo",
+        "ISO_A2": "EG",
+        "ADM0CAP": 1,
+        "POP_MAX": 11893000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [121.4345588, 31.2183983] },
+      "properties": {
+        "NAME_EN": "Shanghai",
+        "NAME": "Shanghai",
+        "ISO_A2": "CN",
+        "ADM0CAP": 0,
+        "POP_MAX": 14987000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [139.7494616, 35.6869628] },
+      "properties": {
+        "NAME_EN": "Tokyo",
+        "NAME": "Tokyo",
+        "ISO_A2": "JP",
+        "ADM0CAP": 1,
+        "POP_MAX": 35676000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [72.8758393972653, 19.06840847529168] },
+      "properties": {
+        "NAME_EN": "Mumbai",
+        "NAME": "Mumbai",
+        "ISO_A2": "IN",
+        "ADM0CAP": 0,
+        "POP_MAX": 18978000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [2.3529924615392135, 48.85809231626911] },
+      "properties": {
+        "NAME_EN": "Paris",
+        "NAME": "Paris",
+        "ISO_A2": "FR",
+        "ADM0CAP": 1,
+        "POP_MAX": 9904000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-70.65050407285783, -33.44020506918074] },
+      "properties": {
+        "NAME_EN": "Santiago",
+        "NAME": "Santiago",
+        "ISO_A2": "CL",
+        "ADM0CAP": 1,
+        "POP_MAX": 5720000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [88.36912550443886, 22.569578883795778] },
+      "properties": {
+        "NAME_EN": "Kolkata",
+        "NAME": "Kolkata",
+        "ISO_A2": "IN",
+        "ADM0CAP": 0,
+        "POP_MAX": 14787000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-43.212117466834385, -22.907308056882364] },
+      "properties": {
+        "NAME_EN": "Rio de Janeiro",
+        "NAME": "Rio de Janeiro",
+        "ISO_A2": "BR",
+        "ADM0CAP": 0,
+        "POP_MAX": 11748000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-46.6269658, -23.5567337] },
+      "properties": {
+        "NAME_EN": "São Paulo",
+        "NAME": "São Paulo",
+        "ISO_A2": "BR",
+        "ADM0CAP": 0,
+        "POP_MAX": 18845000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [151.2125477744749, -33.87137339218338] },
+      "properties": {
+        "NAME_EN": "Sydney",
+        "NAME": "Sydney",
+        "ISO_A2": "AU",
+        "ADM0CAP": 0,
+        "POP_MAX": 4630000
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [103.8538748, 1.2949793] },
+      "properties": {
+        "NAME_EN": "Singapore",
+        "NAME": "Singapore",
+        "ISO_A2": "SG",
+        "ADM0CAP": 1,
+        "POP_MAX": 5183700
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [114.1830635, 22.3069268] },
+      "properties": {
+        "NAME_EN": "Hong Kong",
+        "NAME": "Hong Kong",
+        "ISO_A2": "HK",
+        "ADM0CAP": 0,
+        "POP_MAX": 7206000
+      }
+    }
+  ]
+}

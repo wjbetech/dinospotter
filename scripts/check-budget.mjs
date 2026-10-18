@@ -41,3 +41,7 @@ const globeTotal = globeFiles.reduce(
 );
 
 if (globeTotal > 300 * 1024) throw new Error(`Globe ${globeTotal} bytes exceeds 300KB limit`);
+
+const placesSize = fs.statSync(path.join(root, "apps/website/public/geo/places.geojson")).size;
+if (placesSize > 100 * 1024)
+  throw new Error(`places.geojson ${placesSize} bytes exceeds 100KB limit!`);

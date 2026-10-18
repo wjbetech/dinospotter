@@ -8,7 +8,7 @@ export type Leader = {
   callout: [number, number];
 };
 
-export function leaders(cards: TaxonCard[], max = 8): Leader[] {
+export function leaders(cards: TaxonCard[], max = 12): Leader[] {
   const group = new Map<string, Leader>();
 
   for (const card of cards)
