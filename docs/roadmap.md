@@ -1,12 +1,12 @@
 # DinoSpotter — End-to-End Roadmap (for mentor builds)
 
-> Status: v6.0 — planning review 2026-09-06 (no feature code). Design quirks are resolved on paper; implementation and verification are not. See `docs/implementation-readiness.md`, §§4, 8, 11.
+> Status: v7.0 — refurb planning 2026-10-18 (launch sign-off complete and merged to master; see "Last task done"). New frontier: Phase 7 CountryFocus refurb toward `docs/research/asset/example.png`. See `docs/implementation-readiness.md`, §§4, 8, 11.
 > Method: `to-tickets` (tracer bullets + blocking edges) + `tdd` (red→green per seam) + `setup-ts-deep-modules` (entry-point boundaries) + `implement-spec` (frontier execution). See §9.
 > How to use: you build, agent mentors. Each ticket is one mentor turn. Each micro-chunk (M0, M1…) is one TDD red→green cycle inside the ticket — do in order, commit per chunk.
-> Invoke per ticket: `mentor: <ticket-slug>` e.g. `mentor: globe click → country?`
+> Invoke per ticket: `mentor: <ticket-slug>` e.g. `mentor: globe click → country?`, `mentor: top-12 callouts?`
 > Mentor rules (from `docs/agents/code-mentor.md`): <200 words, 1 starter snippet, 1 doc URL, 1 task + 1 check (`vp check` / `vp test`), perf+CI note every ticket.
-> Read order before any ticket: `docs/implementation-readiness.md`, `CONTEXT.md`, the four ADRs, `docs/research/pbdb-api.md`, `docs/perf-budget.md`, then this file §§2–§3. Stop at a readiness blocker instead of making an infrastructure decision inside a feature ticket.
-> Current frontier: `T0.0` only. See Ticket tracker below for tick-off state. The starter build is still blocked by the missing tsgo dependency; do not invoke a feature mentor ticket until the readiness gate is green.
+> Read order before any ticket: `docs/implementation-readiness.md`, `CONTEXT.md`, the four ADRs, `docs/research/pbdb-api.md`, `docs/perf-budget.md`, `docs/research/asset/example.png`, then this file §§2–§3. Stop at a readiness blocker instead of making an infrastructure decision inside a feature ticket.
+> Current frontier: `R1`–`R6` (Phase 7 refurb) only. T0.0–T5.3 plus the Phase 6 ship are done, verified (E2E 11/11, LHCI LCP ~0.9s, budget green), and merged to master. Do not re-open shipped tickets; new work goes in Phase 7.
 
 ## Ticket tracker (tick these as you go — single source of truth)
 
@@ -31,21 +31,29 @@
 - [x] T5.1 `perf: budget audit`
 - [x] T5.2 `a11y: keyboard + motion + axe`
 - [x] T5.3 `test: e2e golden paths F1–F7`
+- [x] Phase 6 ship `launch sign-off: picker sync, deterministic e2e, LHCI, prod smoke`
+- [ ] R1 `feat(data): top-12 ranking + city dataset`
+- [ ] R2 `feat(map): paper-grain land texture`
+- [ ] R3 `feat(map): top-12 named callouts + leader wiring + modal`
+- [ ] R4 `feat(map): cities + scale + focus fit + era redraw + overflow`
+- [ ] R5 `feat(art): green silhouette batch + footprint companion`
+- [ ] R6 `test: KR proof drive-through + locked e2e`
 
 ## Last task done (handoff):
 
-- Date: 2026-10-10
-- Task: Phase 6 done - txn link verified with live tid, spike behind ?spike=paleo
-- Frontier: Launch sign-off (F1-F7 + Lighthouse)
-- Checks:
+- Date: 2026-10-19
+- Task: R1 data done, M7.1.1 leaders (dinos) caps at 12 per landmass, M7.1.2 majorCities seam (3-4 cap), M7.1.3 NE has places at 45KB inside the 100KB budget.
+- Frontier: R2 paper-grain land texture, starting at M7.2.1 (grain fill-pattern tile on the land fill)
+- Checks: all green and clean through `vp test` and `vp run website#check:budget`.
+- Laptop resume: `git pull` on dev, `vp install`, then M7.2.1 is the next step.
 
 ## 0. Vision, success, non-goals, repo map
 
-**Job (one sentence):** pick a country on a light globe → see fossil taxa found there in 3 era buckets with epoch blurbs → open a TaxonCard scale-grid modal.
+**Job (one sentence):** pick a country on a light globe → enter a CountryFocus fossil map (cities, top-12 named dinosaur callouts with leader lines to findspots, click → modal) → browse full taxa in 3 era buckets with epoch blurbs.
 
-**Glossary (canonical, do not rename):** Era (Paleozoic | Mesozoic | Cenozoic only), Epoch blurb (1–2 lines + Ma range + ICS dot), FossilSite (lat/lon + taxon ids), TaxonCard (silhouette + name → modal), CountryFocus (selected ISO2, camera centers it, leader lines point to findspots).
+**Glossary (canonical, do not rename):** Era (Paleozoic | Mesozoic | Cenozoic only), Epoch blurb (1–2 lines + Ma range + ICS dot), FossilSite (lat/lon + taxon ids), TaxonCard (silhouette + name → modal), CountryFocus (selected ISO2, camera frames it with sea margin, city labels + scale + ≤12 silhouette callouts with leader lines to findspot anchors), Callout (silhouette image + taxon name + footprint companion, button → same modal), Fame rank (site-count desc per `tid`, deterministic `tid` tiebreak — "most found", not curated fame).
 
-**Decisions (locked 2026-09-06, quirks resolved docs-only):** MapLibre globe renderer with a light style and labels-only + leader lines (ADR-001, ADR-004); live PBDB `data1.2` primary via thin cached proxy on Vercel (ADR-002), never browser-direct; modern borders + modern lat/lon with explicit copy; own flat silhouette set (ADR-003); perf budget enforced in CI; static frontend + serverless proxy; no auth/accounts/CMS/uploads; mobile = responsive floor only. The concrete basemap/style source, local API path, cache mechanism, and browser CI runner remain D4-D7 readiness decisions.
+**Decisions (locked 2026-10-18 refurb, grill Round 3 §§12; earlier locks 2026-09-06/07 stand):** MapLibre globe renderer with a light style, paper-grain land texture via style-only `fill-pattern` (no rivers/borders, no new sources); live PBDB `data1.2` primary via thin cached proxy on Vercel (ADR-002), never browser-direct; generic all-country CountryFocus engine from the start with South Korea as first proof (no KR-only code paths); top ~12 callouts by fame rank with seeded fan-out placement + one de-collision pass (stable per payload); capital + top 3–4 cities by population, English names, from bundled Natural Earth places; green single-fill silhouette art (`currentColor`, user-generated batch) + generic footprint companion; callouts reuse the existing taxon modal; drawer keeps the full TaxonCard list; modern borders + modern lat/lon with explicit copy; perf budget enforced in CI; static frontend + serverless proxy; no auth/accounts/CMS/uploads; mobile = responsive floor only (bottom-rail callouts on narrow screens).
 
 **MVP success criteria (measurable):**
 
@@ -55,16 +63,21 @@
 - S4: UK works (`GB→UK` mapping); empty country shows designed empty state, not blank.
 - S5: `vp check`, `vp test`, and `vp run -r build` green; measured initial JS <250KB gzip; Lighthouse CI passes; no PBDB-direct browser calls; zoomed-out zero dots (labels only), CountryFocus anchors per ADR-005.
 - S6: keyboard-only path (listbox → era → card → modal) works; reduced-motion respected.
+- R1: KR drive-through — globe → Korea → click centers + zooms with sea margin → city names + scale bar visible → ~12 named dino SVG callouts with leader lines to findspot dots → click callout → modal → Esc returns focus.
+- R2: same workflow on any country (large US, small island nation): ≤12 callouts, no overlaps, "+N more" beyond 12, drawer holds the full list; narrow screens use the bottom rail.
+- R3: era switch redraws callouts/lines for the new payload; identical payload renders identically (seeded placement, no unseeded randomness).
+- R4: `vp check`, `vp test`, `vp run -r build`, e2e (incl. locked mocked-KR test), and LHCI green; geo-data growth ≤100KB; no new runtime deps for the map.
 
-**Non-goals (explicit out):** auth, accounts, CMS, uploads, native mobile, paleogeographic reconstruction, i18n, analytics, PWA/offline-first, user-generated content, paid tiles.
+**Non-goals (explicit out):** auth, accounts, CMS, uploads, native mobile, paleogeographic reconstruction, i18n (English labels throughout), analytics, PWA/offline-first, user-generated content, paid tiles, rivers/admin-borders on the map, terrain/hillshade sources, per-country island inset boxes, curated "famous dinosaur" override lists, pixel-diff screenshot testing.
 
 **Repo map (where code lives):**
 
-- `apps/website/src/`: current starter files plus planned `globe/`, `data/`, `ui/`, and `styles/` modules.
-- `apps/website/public/` — planned country data, seed payload, and hand-drawn clade SVGs; none of these artifacts exist yet.
-- `packages/utils/src/` — current starter export plus planned pure logic. It must stay DOM-free and be consumed through its package export in Vitest and the website.
-- `api/` — planned root-level Vercel serverless proxy `GET /api/occs?cc=&era=` + `GET /api/taxon?id=`. It is not present yet; deployment and local execution are readiness items.
-- `docs/adr/` — 001 (globe) → 002 (proxy, done) → 003 (silhouettes, done) → 004 (labels + leaders, done).
+- `apps/website/src/` — boot shell (`main.ts`), `store.ts`, `url.ts`, `globe/` (pick/zoom math), `components/globe/` (index + leaders render), `ui/` (cards, modal, era-strip, skeleton, badge, states, country-listbox), `styles/tokens.css`.
+- `apps/website/public/` — `geo/countries.geojson` + `ATTRIBUTION.md` (add: `places.geojson`), `styles/light.json` (add: grain pattern), `sprites/*.svg` (8 clade + `footprint.svg`), `data/seed/`.
+- `packages/utils/src/` — pure logic (`pbdb.ts`, `timescale.ts`, `leaders.ts`, `silhouette.ts`, `paging.ts`, cities filter) consumed via package export, vitest-covered, DOM-free.
+- `api/` — root Vercel serverless proxy `GET /api/occs?cc=&era=` + `GET /api/taxon?id=`, importing from `packages/utils/dist/index.mjs`.
+- `apps/website/e2e/` — F1–F7 golden paths (mocked `/api/occs`, baseURL `playwright.config.ts`); add locked mocked-KR proof test.
+- `docs/adr/` — 001 (globe) → 002 (proxy) → 003 (silhouettes) → 004 (labels + leaders) → 005 (CountryFocus detail).
 
 ---
 
@@ -78,8 +91,8 @@ User constraints: default MapLibre light style, light + fun + easy on eyes; warm
 
 - `paper #FAF7F0` — app bg (warm paper, locked Q1)
 - `card #FFFFFF` — panels, drawer
-- `ink #1E242B` — primary text + silhouette fill (flat, locked Q5)
-- `moss #2F7D62` — primary accent: focus ring, active era, leader lines
+- `ink #1E242B` — primary text (flat, locked Q5)
+- `moss #2F7D62` — primary accent: focus ring, active era, leader lines, silhouette fill (flat green via `currentColor`, refurb Round 3)
 - `straw #D9A441` — secondary accent (locked Q2 + §11): warnings, cached badge, selected-country halo only. Never body text.
 - `sky #DCEBF5` — map water / secondary wash (matches default MapLibre light)
 - `sand #EDE6D6` — card figure wash + 8px grid backdrop (locked Q3)
@@ -107,7 +120,7 @@ User constraints: default MapLibre light style, light + fun + easy on eyes; warm
 
 **Era strip behavior (exact):** 3 buttons in one `radiogroup`, `aria-checked` reflects active era; click filters loaded payload client-side; if payload for `cc+era` not cached, fetch via proxy with skeleton cards; URL syncs `?cc=&era=` (shareable, back-button safe); default era on first load = `Mesozoic` (most engaging).
 
-**Card spec (exact):** 3:2 figure area (`sand` bg + 8px grid + human tick bar), flat ink silhouette SVG (§3.3, locked Q5–Q6), name (Inter 500), `eag–lag Ma` (Inter tabular-nums) + ICS dot, formation `sfm` truncated 1 line. Hover: 2px `moss` border (no layout shift via `box-shadow` inset). Selected card: `aria-selected`.
+**Card spec (exact):** 3:2 figure area (`sand` bg + 8px grid + human tick bar), flat green (`moss` via `currentColor`) silhouette SVG (§3.3, refurb Round 3), name (Inter 500), `eag–lag Ma` (Inter tabular-nums) + ICS dot, formation `sfm` truncated 1 line. Hover: 2px `moss` border (no layout shift via `box-shadow` inset). Selected card: `aria-selected`.
 
 **Modal spec (90% overlay):** `role=dialog aria-modal`, focus trap + return focus to card, Esc closes, backdrop click closes, PBDB source link (`paleobiodb.org`), silhouette large + scale ticks + stats table (Ma, formation, coords, `tid`), "sites at modern lat/lon" footnote. Mobile: full-sheet bottom.
 
@@ -132,14 +145,14 @@ User constraints: default MapLibre light style, light + fun + easy on eyes; warm
 +------------------------------------------------+
 ```
 
-**Globe labels + leader lines (locked Q8 — replaces all map dots/markers, amended by ADR-005 for CountryFocus detail):**
+**Globe labels + leader lines + callouts (locked Q8, refurb Round 3 — matches `docs/research/asset/example.png`, ADR-005):**
 
-- Zoomed out: country name labels only (MapLibre symbol layer from bundled polygons). Small countries hide labels until zoom ≥ threshold where label fits safely (collision-tested, no overlap). No dots at any zoom-out level.
-- On CountryFocus (see `docs/research/asset/example.png`, ADR-005): camera frames the country with sea-margin padding for callouts; show admin-1 (province/state) + major town/city labels, scale bar, and island-inset padding where the bbox needs it. `moss` 1.5px leader lines fan from 2–3px findspot anchor dots to silhouette callouts (moss silhouette + taxon short name, max 8 visible, rest grouped "+N more"); lines + anchors redraw on era change. Anchors are line endpoints in the single GeoJSON layer, not a marker layer.
-- Leader geometry (exact): callouts sit in sea/margin space around the focused nation (never covering its admin/city labels); on narrow screens they fall back to a bottom rail inside the globe panel. Desktop keeps the drawer-side rail only as overflow for "+N more" listing. Grouping = by `tid` count desc; overflow → "+N more" chip at rail bottom. Callouts and cards are buttons → open same modal.
-- Perf: labels via symbol layer (GPU), leader lines as single GeoJSON line layer (≤500 segments, cap visible callouts 8). Replaces `sites` marker module — see §2.1.
+- Zoomed out: country name labels only (MapLibre symbol layer from bundled polygons). Small countries hide labels until zoom ≥ threshold where label fits safely (collision-tested, no overlap). No dots at any zoom-out level. Land carries a subtle paper-grain `fill-pattern` (style JSON only, zoom-constant, no rivers/borders).
+- On CountryFocus: camera fit-bounds the country with sea-margin padding for callouts; show capital + top 3–4 cities by population (English, symbol layer, hide-until-safe-zoom) and a metric scale bar. `moss` 1.5px leader lines fan from 2–3px findspot anchor dots to silhouette callouts (green silhouette + taxon name + footprint companion, top ~12 by fame rank, rest grouped into a "+N more" chip that scrolls the drawer); lines + anchors + callouts redraw on era change. Anchors are line endpoints in the single GeoJSON layer, not a marker layer.
+- Callout geometry (exact): seeded fan-out — seed = hash(`tid`) + anchor coords → angle/radius steps — plus one de-collision pass, so placement feels organic, never overlaps, and is bit-for-bit stable per payload (no unseeded randomness; the locked mocked-KR e2e depends on it). Callouts sit in sea/margin space around the focused nation (never covering its city labels); on narrow screens they fall back to a bottom rail inside the globe panel. Grouping = by `tid` site-count desc, `tid` asc tiebreak. Callouts and cards are buttons → open the same modal.
+- Perf: labels via symbol layer (GPU), leader lines as single GeoJSON line layer (≤500 segments, ≤12 visible callouts). Replaces `sites` marker module — see §2.1.
 
-**Signature (one risk):** scale-grid TaxonCards. Each card shows a flat dark-ink 2D silhouette on `sand` grid (tick-bar scale, locked Q5–Q6), name + Ma in Inter tabular-nums. Justification: directly encodes the reference image language, ownable, fun. One orchestrated moment only (country zoom + card pop-in).
+**Signature (one risk):** green-silhouette CountryFocus callouts. Each callout shows a flat green 2D silhouette + name + footprint on the map itself, leader-lined to its findspot (locked refurb Round 3). Justification: directly encodes the reference artwork language, ownable, fun. One orchestrated moment only (country zoom + callout fan-in).
 
 ---
 
@@ -152,6 +165,7 @@ User constraints: default MapLibre light style, light + fun + easy on eyes; warm
 - F5 empty: pick MG + Paleozoic → "No recorded taxa…" + era suggestion (no lines drawn).
 - F6 failure: proxy down → cached/seed cards + "PBDB unavailable…" + Retry; Retry refetches same `cc+era`.
 - F7 labels: zoomed-out globe shows country labels, small ones hidden until safe zoom; no dots zoomed-out. CountryFocus adds admin/city labels + silhouette callouts per ADR-005.
+- R1 CountryFocus drive-through (test in R6): load `/` → navigate globe to Korea → click Korea → camera centers + zooms with sea margin → city names (capital + top 3–4) + scale bar visible → ~12 named dino SVG callouts with leader lines to findspot dots → click a callout → modal (silhouette + Ma + formation + PBDB link) → Esc → focus returns to callout. Repeat on a large (US) and a small country: ≤12 callouts, no overlaps, "+N more" beyond 12.
 
 ---
 
@@ -161,16 +175,18 @@ Design for depth (small interface, large implementation). Each module lists its 
 
 ### 2.1 Module table (with files + tests)
 
-| Module                                              | Interface (seam)                                                                                          | Files                                                                                                                             | Implementation notes                                                                                                                                                                                                                                                  | Test surface (exact)                                                                                                         |
-| --------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `timescale`                                         | `getEras(): Era[]`, `getEpochs(era): EpochBlurb[]`, `eraOf(ma): Era`                                      | planned `packages/utils/src/timescale.ts`, `apps/website/src/data/eras.ts`, and bundled `apps/website/public/data/timescale.json` | loads a versioned snapshot of `intervals/list.json`; maps `nam/itp/eag/lag/col/pid` → 3 buckets + blurbs; normalizes ICS `col` (§3.4); no browser-direct PBDB request                                                                                                 | vitest: bucket mapping for Triassic/Jurassic/Cretaceous → Mesozoic; Ma ordering desc; unknown interval → fallback era + warn |
-| `pbdb-client` (pure)                                | `buildOccsUrls(cc, era): string[]`, `parseOccs(json): ParsedOccurrences`, `groupByTid(rows): TaxonCard[]` | `packages/utils/src/pbdb.ts`                                                                                                      | `GB→UK` map; one URL per PBDB Period; `show=coords,ident,strat`; cap `limit=500` per request; drop invalid rows with counts; group by `tid`; aggregate age envelope and sites; sort desc `eag`                                                                        | vitest: GB→UK, period expansion, malformed rows, dup-tid site merge, age envelope, deterministic sort                        |
-| `pbdb-proxy` (server)                               | `GET /api/occs?cc=&era=` → `SitePayload`; `GET /api/taxon?id=` → `TaxonDetail`                            | planned `api/occs.ts`, `api/taxon.ts` (Vercel, ADR-002)                                                                           | validate allowlisted params; fetch all Periods with bounded concurrency; normalize and merge through the pure client; one 8s upstream attempt deadline; return typed JSON errors and `Retry-After` for 429; cache behavior follows D6                                 | contract test: mocked PBDB → payload shape; headers; validation; GB→UK; timeout/429/5xx                                      |
-| `globe`                                             | `initGlobe(el): Map`, `pickCountry(lng,lat): ISO2 \| null`, `zoomTo(cc): void` (centers country)          | planned `apps/website/src/globe/{index,pick,zoom,labels}.ts`                                                                      | MapLibre globe projection, selected light style from D4, lazy chunk; country polygons + label layer via bundled Natural Earth GeoJSON; zoomed-out = labels only, small labels hidden until safe zoom; ocean click → `null` (no-op + hint)                             | `vitest bench`: pick/zoom math; e2e: click US → `?cc=US`                                                                     |
-| `leaders` (replaces `sites` markers — Q8 + ADR-005) | `leaders(cards, max): Leader[]`, `render(leaders, layout): void`                                          | planned `apps/website/src/globe/leaders.ts`, `packages/utils/src/leaders.ts` + test                                               | flatten `TaxonCard.sites`; deterministic group/count order; single GeoJSON line + anchor layer (`moss` 1.5px, 2–3px anchors) from findspot to sea/margin silhouette callouts per ADR-005; max 8 + "+N more"; update on map move, resize, era change; cap 500 segments | vitest: grouping, cap, overflow, deterministic order; visual: redraw after pan/resize/era                                    |
-| `cards`                                             | `list(payload, page): TaxonCard[]` (page=48)                                                              | planned `apps/website/src/ui/cards.ts`                                                                                            | paginate + virtualize (only render viewport rows); render taxon cards, not individual occurrence sites; skeleton while loading; `aria-busy`                                                                                                                           | vitest: paging; DOM test: card selection and keyboard order                                                                  |
-| `modal`                                             | `openTaxon(card, detail): void`, `close(): void`                                                          | planned `apps/website/src/ui/modal.ts`                                                                                            | 90% overlay per §1 spec; focus trap; card supplies sites/formation while detail supplies taxonomic attributes                                                                                                                                                         | a11y test: trap, Esc, focus return                                                                                           |
-| `silhouettes`                                       | `silhouetteFor(tna): SvgId`                                                                               | planned `packages/utils/src/silhouette.ts`, `apps/website/public/sprites/*.svg`                                                   | clade keyword map (see §3.3); fallback glyph; lazy sprite                                                                                                                                                                                                             | vitest: mapping table incl. unknown → fallback                                                                               |
+| Module                                                              | Interface (seam)                                                                                          | Files                                                                                                                             | Implementation notes                                                                                                                                                                                                                                                                                                       | Test surface (exact)                                                                                                         |
+| ------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `timescale`                                                         | `getEras(): Era[]`, `getEpochs(era): EpochBlurb[]`, `eraOf(ma): Era`                                      | planned `packages/utils/src/timescale.ts`, `apps/website/src/data/eras.ts`, and bundled `apps/website/public/data/timescale.json` | loads a versioned snapshot of `intervals/list.json`; maps `nam/itp/eag/lag/col/pid` → 3 buckets + blurbs; normalizes ICS `col` (§3.4); no browser-direct PBDB request                                                                                                                                                      | vitest: bucket mapping for Triassic/Jurassic/Cretaceous → Mesozoic; Ma ordering desc; unknown interval → fallback era + warn |
+| `pbdb-client` (pure)                                                | `buildOccsUrls(cc, era): string[]`, `parseOccs(json): ParsedOccurrences`, `groupByTid(rows): TaxonCard[]` | `packages/utils/src/pbdb.ts`                                                                                                      | `GB→UK` map; one URL per PBDB Period; `show=coords,ident,strat`; cap `limit=500` per request; drop invalid rows with counts; group by `tid`; aggregate age envelope and sites; sort desc `eag`                                                                                                                             | vitest: GB→UK, period expansion, malformed rows, dup-tid site merge, age envelope, deterministic sort                        |
+| `pbdb-proxy` (server)                                               | `GET /api/occs?cc=&era=` → `SitePayload`; `GET /api/taxon?id=` → `TaxonDetail`                            | planned `api/occs.ts`, `api/taxon.ts` (Vercel, ADR-002)                                                                           | validate allowlisted params; fetch all Periods with bounded concurrency; normalize and merge through the pure client; one 8s upstream attempt deadline; return typed JSON errors and `Retry-After` for 429; cache behavior follows D6                                                                                      | contract test: mocked PBDB → payload shape; headers; validation; GB→UK; timeout/429/5xx                                      |
+| `globe`                                                             | `initGlobe(el): Map`, `pickCountry(lng,lat): ISO2 \| null`, `zoomTo(cc): void` (centers country)          | planned `apps/website/src/globe/{index,pick,zoom,labels}.ts`                                                                      | MapLibre globe projection, selected light style from D4, lazy chunk; country polygons + label layer via bundled Natural Earth GeoJSON; zoomed-out = labels only, small labels hidden until safe zoom; ocean click → `null` (no-op + hint)                                                                                  | `vitest bench`: pick/zoom math; e2e: click US → `?cc=US`                                                                     |
+| `leaders` (replaces `sites` markers — Q8 + ADR-005, refurb Round 3) | `leaders(cards, max = 12): Leader[]`, `render(leaders, layout): void`                                     | `apps/website/src/components/globe/leaders.ts`, `packages/utils/src/leaders.ts` + test                                            | flatten `TaxonCard.sites`; fame rank = site-count desc, `tid` asc tiebreak; top ~12, rest → "+N more" chip scrolling the drawer; single GeoJSON line + anchor layer (`moss` 1.5px, 2–3px anchors) from findspot to callout positions supplied by `placeCallouts`; update on map move, resize, era change; cap 500 segments | vitest: grouping, cap 12, overflow, deterministic order; visual: redraw after pan/resize/era                                 |
+| `placeCallouts` (new pure seam — refurb Round 3)                    | `placeCallouts(leaders, geo): PositionedCallout[]`                                                        | `packages/utils/src/place-callouts.ts` + test, consumed by globe render                                                           | seeded fan-out (seed = hash(`tid`) + anchor) → angle/radius steps into sea/margin space + one de-collision pass (never overlap, never cover city labels); narrow screens → bottom-rail positions; bit-for-bit stable per payload, no unseeded randomness                                                                   | vitest: determinism across runs, zero overlaps on fixture set, rail fallback, seed sensitivity                               |
+| `majorCities` (new pure seam — refurb Round 3)                      | `majorCities(places, iso2): City[]`                                                                       | `packages/utils/src/cities.ts` + test; data `apps/website/public/geo/places.geojson`                                              | Natural Earth `populated_places` (smallest scale carrying capitals + ranks) + `ATTRIBUTION.md`; capital first, then top 3–4 by population, English names; combined geo files <600KB                                                                                                                                        | vitest: capital-first, pop order, English names on fixture rows; size gate                                                   |
+| `cards`                                                             | `list(payload, page): TaxonCard[]` (page=48)                                                              | planned `apps/website/src/ui/cards.ts`                                                                                            | paginate + virtualize (only render viewport rows); render taxon cards, not individual occurrence sites; skeleton while loading; `aria-busy`                                                                                                                                                                                | vitest: paging; DOM test: card selection and keyboard order                                                                  |
+| `modal`                                                             | `openTaxon(card, detail): void`, `close(): void`                                                          | planned `apps/website/src/ui/modal.ts`                                                                                            | 90% overlay per §1 spec; focus trap; card supplies sites/formation while detail supplies taxonomic attributes                                                                                                                                                                                                              | a11y test: trap, Esc, focus return                                                                                           |
+| `silhouettes`                                                       | `silhouetteFor(tna): SvgId`                                                                               | planned `packages/utils/src/silhouette.ts`, `apps/website/public/sprites/*.svg`                                                   | clade keyword map (see §3.3); fallback glyph; lazy sprite                                                                                                                                                                                                                                                                  | vitest: mapping table incl. unknown → fallback                                                                               |
 
 **Seam discipline:** one adapter = hypothetical; two = real. `pbdb-proxy` starts as one serverless adapter; the planned seed JSON (`apps/website/public/data/seed/*.json` for US-Mesozoic only) is a second adapter used solely for first-paint/offline fallback — that justifies the seam.
 
@@ -340,6 +356,13 @@ Accept `#RRGGBB`, `#RGB`, `RRGGBB`, `rgb(r,g,b)`; output uppercase `#RRGGBB`; on
 - A successful fresh network payload sets `source=network` and `status=ready`; a network payload with `stale=true` sets `source=network` and `status=degraded`.
 - Seed fallback: planned `apps/website/public/data/seed/US-Mesozoic.json` (hand-verified snapshot, ≤50 occurrence rows) for first-paint demo + offline; loaded only for the exact `US` + `Mesozoic` key.
 
+### 3.6 CountryFocus data + art + determinism (normative, refurb Round 3)
+
+- `City`: `{ name: string; iso2: string; capital: boolean; pop: number; lng: number; lat: number }`. `PositionedCallout`: `{ tid, tna, anchor: [lng, lat], callout: [x, y], rail: boolean }` — `anchor` is the real findspot dot, `callout` the silhouette position, `rail` marks bottom-rail fallback on narrow screens.
+- Cities dataset: Natural Earth `populated_places`, smallest scale that carries capitals + population ranks (110m first try), checked into `apps/website/public/geo/places.geojson` with version/license in `ATTRIBUTION.md`. Combined `countries.geojson` + `places.geojson` <600KB. Selection (pure `majorCities`): filter by ISO2, capital first, then top 3–4 by population desc, English `NAME` (never local-language variants).
+- Silhouette art batch (user-generated): SVG, single flat fill via `currentColor` (never bake the hex in), `viewBox="0 0 100 100"`, filenames exactly the 8 existing `silhouetteFor` ids, plus one generic `footprint.svg`, all in `apps/website/public/sprites/`. Render tints `moss #2F7D62`; footprint renders small, `aria-hidden`, beside every callout silhouette.
+- Placement determinism (hard rule): callout positions derive from a seeded function of (`tid`, anchor) only. No `Math.random`, no wall-clock, no iteration-order dependence. Identical payload + viewport class → identical map. This is what makes the locked mocked-KR e2e meaningful; any unseeded jitter fails that test by design.
+
 ---
 
 ## 4. Quirks — design resolutions and verification
@@ -348,28 +371,32 @@ The resolutions below remove design ambiguity. A check in the final column is
 pending until the named ticket adds the implementation and test. Do not treat
 the checkmark as evidence that the current starter already supports the rule.
 
-| #   | Quirk                                                                        | Impact                                      | Resolution (locked) + ticket                                                                                                                          | Verify                             |
-| --- | ---------------------------------------------------------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
-| 1   | `cc=GB` returns warning + `[]`; must use `cc=UK`                             | UK shows empty                              | ✅ Resolved: `normalizeCc` trims + uppercases + `GB→UK` in `packages/utils` + URL parse; proxy contract covers it (T1.2, T0.3, T1.2b)                 | vitest: `GB`,`gb`,`UK` → `UK`      |
-| 2   | PBDB fair-use, no key, downtime/slow/429                                     | UI hangs, rate-limit                        | ✅ Design resolved ADR-002: Vercel thin proxy, never browser-direct; 8s deadline; bounded 429 retry; client fallback (T1.2b, T1.4)                    | contract test mocked 500/429       |
-| 3   | Modern borders vs paleogeography confusion                                   | user expects dinos where continents were    | ✅ Resolved: permanent footnote "Sites plotted at modern coordinates." under drawer + modal; paleo overlay explicit non-goal §0 (T4.3)                | copy review T4.3                   |
-| 4   | Missing/null `lng/lat`, 0,0 outliers                                         | stray line endpoints / crash                | ✅ Resolved §3.2: proxy drops missing/null/out-of-range/0,0 + counts `dropped` in `SitePayload`; client guards leader render (T1.2, T1.2b)            | vitest null + 0,0 dropped          |
-| 5   | Synonyms / duplicate `tna`, rank drift                                       | duplicate cards                             | ✅ Resolved §3.2: group by `tid` (not name), aggregate all sites and show `oei` (T1.2)                                                                | vitest dup-tid merge               |
-| 6   | No images in PBDB                                                            | blank cards                                 | ✅ Resolved ADR-003: own 8 flat clade SVGs + fallback, keyword order pinned §3.3 (T3.2)                                                               | visual T3.2                        |
-| 7   | Large `US` payloads                                                          | blows 250KB / slow cards / line soup        | ✅ Design resolved §3.2/§3.5: `limit=500` per Period, bounded merge, page 48 + virtualize, 500 segs + 8 callouts (T1.2, T1.2b, T2.3, T3.1)            | build artifact + bench             |
-| 8   | MapLibre globe: antimeridian, ocean clicks, pick precision, label collisions | wrong pick, dead clicks, overlapping labels | ✅ Resolved ADR-004: default light, ocean → `null` + hint, bench pick math, small labels hidden until safe zoom (T2.1, T2.2, F7)                      | e2e ocean + F7                     |
-| 9   | `eag/lag` inverted intuition                                                 | wrong sort/display                          | ✅ Resolved §3.2: aggregate age envelope, display `eag–lag Ma` 1dp Inter tabular-nums (T1.2)                                                          | vitest age envelope                |
-| 10  | ICS `col` format varies                                                      | broken chip tint                            | ✅ Resolved §3.4: `#RGB/#RRGGBB/RRGGBB/rgb()` → `#RRGGBB`, else `moss` + warn (T1.1)                                                                  | vitest color table                 |
-| 11  | Keyboard + reduced-motion                                                    | a11y fail                                   | ✅ Resolved §1: listbox alternative, 900ms zoom / 0ms reduced-motion, modal trap + focus return, `moss` 3px focus-visible, S6 path (T2.2, T3.3, T5.2) | manual + axe T5.2                  |
-| 12  | Starter template in `main.ts`/`counter.ts`                                   | confusion, dead code                        | ✅ Resolved: T0.1 deletes `counter.ts`/demo markup/unused assets, `tokens.css` replaces `style.css` (no code yet, docs locked)                        | `vp check` clean                   |
-| 13  | `pbdb-api.md` says "precompute" but roadmap says "live proxy"                | conflicting guidance                        | ✅ Resolved 2026-09-06: `pbdb-api.md` cache + era sections rewritten to live proxy + per-Period merge; ADR-002 + §3.5 win                             | docs agree; proxy contract pending |
-| 14  | No host chosen for serverless proxy                                          | proxy unbuildable                           | ✅ Vercel is the production host in ADR-002; project root, runtime, build settings, preview, and local execution remain T0.0/D5 work                  | deployment smoke test              |
-| 15  | Broad PBDB era matching may vary by endpoint                                 | incomplete or empty results                 | ✅ Resolved in the design: deterministic per-Period requests and merge in `pbdb-api.md` + §3.2                                                        | vitest era merge                   |
-| 16  | Country polygons source undecided                                            | globe pick unbuildable                      | ✅ Bundled Natural Earth country data is selected; ISO2/GB-to-UK mapping, license, attribution, and basemap style remain T0.3/D4 work                 | fixture and attribution check      |
-| 17  | Font loading blows budget                                                    | LCP regression                              | ✅ Resolved §1: Space Grotesk 500/700 + Inter 400/500 self-host, `swap`, tabular-nums, 4 files max (T0.1, T4.2)                                       | build manifest + Lighthouse        |
-| 18  | `sessionStorage` JSON corrupt / disabled                                     | crash on load                               | ✅ Resolved §2.2: versioned safe read/write + schema validation + fetch fallback contract (T0.3)                                                      | vitest guard                       |
-| 19  | Leader-line overload on fossil-rich countries (US/DE)                        | line soup, unreadable                       | ✅ Resolved ADR-004: cap 8 + "+N more", 500 segs, group by `tid` count; drawer keeps full list (T2.3)                                                 | vitest grouping + visual T2.3      |
-| 20  | Small-country labels collide at low zoom                                     | overlap, clutter                            | ✅ Resolved ADR-004: hide small labels until safe zoom, collision-tested symbol layer, F7 (T2.1)                                                      | F7 e2e                             |
+| #   | Quirk                                                                        | Impact                                      | Resolution (locked) + ticket                                                                                                                                 | Verify                             |
+| --- | ---------------------------------------------------------------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------- |
+| 1   | `cc=GB` returns warning + `[]`; must use `cc=UK`                             | UK shows empty                              | ✅ Resolved: `normalizeCc` trims + uppercases + `GB→UK` in `packages/utils` + URL parse; proxy contract covers it (T1.2, T0.3, T1.2b)                        | vitest: `GB`,`gb`,`UK` → `UK`      |
+| 2   | PBDB fair-use, no key, downtime/slow/429                                     | UI hangs, rate-limit                        | ✅ Design resolved ADR-002: Vercel thin proxy, never browser-direct; 8s deadline; bounded 429 retry; client fallback (T1.2b, T1.4)                           | contract test mocked 500/429       |
+| 3   | Modern borders vs paleogeography confusion                                   | user expects dinos where continents were    | ✅ Resolved: permanent footnote "Sites plotted at modern coordinates." under drawer + modal; paleo overlay explicit non-goal §0 (T4.3)                       | copy review T4.3                   |
+| 4   | Missing/null `lng/lat`, 0,0 outliers                                         | stray line endpoints / crash                | ✅ Resolved §3.2: proxy drops missing/null/out-of-range/0,0 + counts `dropped` in `SitePayload`; client guards leader render (T1.2, T1.2b)                   | vitest null + 0,0 dropped          |
+| 5   | Synonyms / duplicate `tna`, rank drift                                       | duplicate cards                             | ✅ Resolved §3.2: group by `tid` (not name), aggregate all sites and show `oei` (T1.2)                                                                       | vitest dup-tid merge               |
+| 6   | No images in PBDB                                                            | blank cards                                 | ✅ Resolved ADR-003: own 8 flat clade SVGs + fallback, keyword order pinned §3.3 (T3.2)                                                                      | visual T3.2                        |
+| 7   | Large `US` payloads                                                          | blows 250KB / slow cards / line soup        | ✅ Design resolved §3.2/§3.5: `limit=500` per Period, bounded merge, page 48 + virtualize, 500 segs + 8 callouts (T1.2, T1.2b, T2.3, T3.1)                   | build artifact + bench             |
+| 8   | MapLibre globe: antimeridian, ocean clicks, pick precision, label collisions | wrong pick, dead clicks, overlapping labels | ✅ Resolved ADR-004: default light, ocean → `null` + hint, bench pick math, small labels hidden until safe zoom (T2.1, T2.2, F7)                             | e2e ocean + F7                     |
+| 9   | `eag/lag` inverted intuition                                                 | wrong sort/display                          | ✅ Resolved §3.2: aggregate age envelope, display `eag–lag Ma` 1dp Inter tabular-nums (T1.2)                                                                 | vitest age envelope                |
+| 10  | ICS `col` format varies                                                      | broken chip tint                            | ✅ Resolved §3.4: `#RGB/#RRGGBB/RRGGBB/rgb()` → `#RRGGBB`, else `moss` + warn (T1.1)                                                                         | vitest color table                 |
+| 11  | Keyboard + reduced-motion                                                    | a11y fail                                   | ✅ Resolved §1: listbox alternative, 900ms zoom / 0ms reduced-motion, modal trap + focus return, `moss` 3px focus-visible, S6 path (T2.2, T3.3, T5.2)        | manual + axe T5.2                  |
+| 12  | Starter template in `main.ts`/`counter.ts`                                   | confusion, dead code                        | ✅ Resolved: T0.1 deletes `counter.ts`/demo markup/unused assets, `tokens.css` replaces `style.css` (no code yet, docs locked)                               | `vp check` clean                   |
+| 13  | `pbdb-api.md` says "precompute" but roadmap says "live proxy"                | conflicting guidance                        | ✅ Resolved 2026-09-06: `pbdb-api.md` cache + era sections rewritten to live proxy + per-Period merge; ADR-002 + §3.5 win                                    | docs agree; proxy contract pending |
+| 14  | No host chosen for serverless proxy                                          | proxy unbuildable                           | ✅ Vercel is the production host in ADR-002; project root, runtime, build settings, preview, and local execution remain T0.0/D5 work                         | deployment smoke test              |
+| 15  | Broad PBDB era matching may vary by endpoint                                 | incomplete or empty results                 | ✅ Resolved in the design: deterministic per-Period requests and merge in `pbdb-api.md` + §3.2                                                               | vitest era merge                   |
+| 16  | Country polygons source undecided                                            | globe pick unbuildable                      | ✅ Bundled Natural Earth country data is selected; ISO2/GB-to-UK mapping, license, attribution, and basemap style remain T0.3/D4 work                        | fixture and attribution check      |
+| 17  | Font loading blows budget                                                    | LCP regression                              | ✅ Resolved §1: Space Grotesk 500/700 + Inter 400/500 self-host, `swap`, tabular-nums, 4 files max (T0.1, T4.2)                                              | build manifest + Lighthouse        |
+| 18  | `sessionStorage` JSON corrupt / disabled                                     | crash on load                               | ✅ Resolved §2.2: versioned safe read/write + schema validation + fetch fallback contract (T0.3)                                                             | vitest guard                       |
+| 19  | Leader-line overload on fossil-rich countries (US/DE)                        | line soup, unreadable                       | ✅ Resolved ADR-004: cap 8 + "+N more", 500 segs, group by `tid` count; drawer keeps full list (T2.3)                                                        | vitest grouping + visual T2.3      |
+| 20  | Small-country labels collide at low zoom                                     | overlap, clutter                            | ✅ Resolved ADR-004: hide small labels until safe zoom, collision-tested symbol layer, F7 (T2.1)                                                             | F7 e2e                             |
+| 21  | No admin/city geography bundled (`public/geo` holds countries only)          | CountryFocus has no city labels             | ✅ Resolved refurb Round 3: bundle NE `populated_places` + `majorCities` pure filter (capital + top 3–4, English), size-gated <600KB combined (R1)           | vitest fixture rows + size gate    |
+| 22  | Hand-placed callouts don't generalize to all countries                       | KR-only layout, unmaintainable              | ✅ Resolved refurb Round 3: generic seeded fan-out + de-collision in `placeCallouts`; bit-for-bit stable per payload; no per-country layout (R3)             | vitest determinism + zero-overlap  |
+| 23  | "Organic feel" tempts unseeded randomness                                    | flaky map, untestable e2e                   | ✅ Resolved refurb Round 3 §3.6: seed = hash(`tid`) + anchor only; `Math.random`/wall-clock banned; locked mocked-KR e2e pins it (R6)                        | R6 e2e fails on unseeded jitter    |
+| 24  | Silhouette style drift (ink cards vs green reference)                        | map doesn't match `example.png`             | ✅ Resolved refurb Round 3: single-flat `currentColor` batch tinted `moss` at render + generic `footprint.svg`; filenames pinned to `silhouetteFor` ids (R5) | visual vs `example.png` (R6)       |
 
 ---
 
@@ -643,33 +670,89 @@ DoD: 7 flows green against a deterministic local API fixture; live PBDB is a sep
 
 Blocked by: T5.x sign-off. 1. `txn=` deep-link modal. 2. Longer TTLs + seeds. 3. `sfm` formation filter. 4. More countries. 5. Paleo-overlay spike (non-MVP).
 
+### Phase 7 — CountryFocus refurb — exit: KR drive-through (R1) passes on any country
+
+Blocked by: launch sign-off (done 2026-10-18). Data first (R1), then visuals (R2–R4), then art (R5), then proof (R6). Reference artwork: `docs/research/asset/example.png`. Seeded placement everywhere (§3.6); no unseeded randomness in any ticket.
+
+#### R1 `feat(data): top-12 ranking + city dataset` — Blocked by: none (new frontier).
+
+Mentor: `mentor: top-12 callouts?` Files: `packages/utils/src/leaders.ts`, new `packages/utils/src/cities.ts`, new `apps/website/public/geo/places.geojson` + `ATTRIBUTION.md`. DoD: `leaders(cards)` defaults to 12 in fame-rank order; `majorCities` returns capital + top 3–4 by pop in English; combined geo files <600KB. Check: `vp test`. Perf: pure fns, zero browser cost. Doc: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/
+
+- [ ] M7.1.1 `leaders` cap 12: change default `max` 8→12; extend vitest (15 groups in → 12 out, order pinned, stable across runs).
+- [ ] M7.1.2 `majorCities` seam (red: no fn; green: minimal): filter fixture rows by ISO2, capital first, pop desc, English names. Test pins order on literal fixtures.
+- [ ] M7.1.3 dataset: add NE `populated_places` 110m + attribution line; assert combined geo size gate in the same test run.
+
+#### R2 `feat(map): paper-grain land texture` — Blocked by: none. Independent of R1.
+
+Mentor: `mentor: land grain?` Files: `apps/website/public/styles/light.json` (+ land layer wherever it is defined). DoD: subtle zoom-constant grain on land, no rivers/borders, no new sources. Check: `vp check` + eyeball. Perf: one paint value, GPU-composited pattern. Doc: https://maplibre.org/maplibre-style-spec/layers/#fill-pattern
+
+- [ ] M7.2.1 grain tile: inline data-URI noise as `fill-pattern` on the land fill.
+- [ ] M7.2.2 tune: single paint-value pass if grain looks dirty at any zoom (eyeball only).
+
+#### R3 `feat(map): top-12 named callouts + leader wiring + modal` — Blocked by: R1.
+
+Mentor: `mentor: callout fan-out?` Files: new `packages/utils/src/place-callouts.ts` + test, `apps/website/src/components/globe/leaders.ts`, callout marker render. DoD: ≤12 callouts (silhouette + `tna` + footprint slot), seeded fan-out + de-collision, lines anchor at real findspots, click/Enter opens existing modal, "+N more" beyond 12 scrolls drawer. Check: `vp check` + keyboard pass. Perf: ≤12 markers + 1 line layer. Doc: https://maplibre.org/maplibre-gl-js/docs/
+
+- [ ] M7.3.1 `placeCallouts` pure (red: overlap fixture; green: seeded fan-out + one de-collision pass; stable across runs; rail positions on narrow viewports).
+- [ ] M7.3.2 render markers: silhouette `<img>` + name per positioned callout; wire line layer to new positions.
+- [ ] M7.3.3 click + keyboard: `role=button`, Enter/Space → existing `openCardModal`; focus returns on modal close.
+- [ ] M7.3.4 overflow: "+N more" chip → scrolls drawer full list.
+
+#### R4 `feat(map): cities + scale + focus fit + era redraw + overflow` — Blocked by: R1, R3.
+
+Mentor: `mentor: city labels?` Files: globe label layers, `ScaleControl` wiring, `zoomTo`, `selectEra`. DoD: capital + top 3–4 English city labels (hide-until-safe-zoom), metric scale bar, click-to-focus fit-bounds with sea margin on any country, era switch recomputes + repositions under skeleton discipline. Check: `vp check` + manual KR zoom. Perf: symbol layers GPU-side. Doc: https://maplibre.org/maplibre-gl-js/docs/
+
+- [ ] M7.4.1 city layer: symbol layer from R1 dataset + safe-zoom hiding.
+- [ ] M7.4.2 scale + fit: one-line `ScaleControl` (metric); verify/extend `zoomTo` sea-margin fit-bounds.
+- [ ] M7.4.3 era redraw: `selectEra` recomputes leaders + positions (no stale callouts).
+
+#### R5 `feat(art): green silhouette batch + footprint companion` — Blocked by: R3 (render slots exist).
+
+Mentor: `mentor: art drop-in?` Files: `apps/website/public/sprites/` (8 + `footprint.svg`). DoD: user-generated batch meets §3.6 specs, render tints `moss` via `currentColor`, footprint beside every callout (`aria-hidden`). Check: `vp check` + eyeball vs `example.png`. Perf: 9 small SVGs, lazy below fold. Doc: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/color
+
+- [ ] M7.5.1 drop-in: 8 SVGs + footprint, spec check (fill, viewBox, filenames).
+- [ ] M7.5.2 footprint companion render rule.
+
+#### R6 `test: KR proof drive-through + locked e2e` — Blocked by: R2, R4, R5.
+
+Mentor: `mentor: KR proof?` Files: `apps/website/e2e/` (new mocked-KR spec). DoD: R1 flow passes by human sign-off against `example.png`; deterministic e2e (mocked KR payload: 12 cards + cities) asserts callouts, names, modal open/close; unseeded jitter would fail it. Check: `pnpm exec playwright test` + `vp check`. Perf: full `vp run -r build` + budget + LHCI before PR. Doc: https://playwright.dev/docs/mock
+
+- [ ] M7.6.1 locked e2e: mocked KR payload, callout count/names, modal open/close, no live PBDB.
+- [ ] M7.6.2 human sign-off: KR + one large + one small country vs `example.png`.
+
 ---
 
-## 6. `gh` issue breakdown (19 issues, dependency order = creation order)
+## 6. `gh` issue breakdown (25 issues, dependency order = creation order)
 
 Labels: `ready-for-agent` (build), `ready-for-human` (decisions/docs), `needs-triage` (stretch). Branch: `dev` → PR to `master`. Body = What to build + Acceptance criteria (DoD §5) + Blocked by + Perf + Check + Doc. Native blocking links where supported, else "Blocked by" text (per `to-tickets`).
 
-| #     | Title                                                       | Label           | Blocked by                  | Perf                 | Check                                           |
-| ----- | ----------------------------------------------------------- | --------------- | --------------------------- | -------------------- | ----------------------------------------------- |
-| T0.0  | chore: make toolchain and deployment contract runnable      | ready-for-human | none                        | baseline report      | `vp check`, `vp run -r test`, `vp run -r build` |
-| T0.1  | chore: strip starter and install globe deps                 | ready-for-agent | T0.0                        | baseline comparison  | `vp check`                                      |
-| T0.2  | chore: CI perf + lint gates (250KB fail)                    | ready-for-agent | T0.0, T0.1                  | prove fail once      | `vp check`, `vp test`, `vp build`               |
-| T0.3  | chore: country polygons + URL state skeleton                | ready-for-agent | T0.0, T0.1                  | no fetch on parse    | `vp test`                                       |
-| T1.1  | feat(data): timescale adapter (3 eras + ICS normalize)      | ready-for-agent | T0.0, T0.2                  | static snapshot      | `vp test`                                       |
-| T1.2  | feat(data): PBDB pure client and aggregation                | ready-for-agent | T1.1, T0.2                  | bounded rows         | `vp test`                                       |
-| T1.2b | feat(api): PBDB occurrence proxy                            | ready-for-human | T0.0, T1.2                  | bounded requests/SWR | `vp test`                                       |
-| T1.3  | feat(data): taxon detail proxy                              | ready-for-agent | T1.2b                       | single-fetch modal   | `vp test`                                       |
-| T1.4  | feat(data): seed snapshot + skeletons + badge               | ready-for-agent | T1.2b                       | offline first-paint  | `vp check`                                      |
-| T2.1  | feat(globe): lazy globe chunk + labels layer, default light | ready-for-human | T0.3, D4                    | chunk <150KB         | `vp build`                                      |
-| T2.2  | feat(globe): pick + center-zoom + listbox + bench           | ready-for-agent | T2.1                        | zoom <1s             | `vp test`                                       |
-| T2.3  | feat(globe): leader lines + silhouette callouts (cap 8)     | ready-for-agent | T2.2, T1.2b                 | single layer         | `vp test`, benchmark                            |
-| T3.1  | feat(cards): grid + virtualize + paginate                   | ready-for-agent | T1.1, T1.2                  | no full-list DOM     | `vp test`                                       |
-| T3.2  | feat(cards): silhouette set (ADR-003 locked)                | ready-for-human | T3.1                        | lazy sprite          | `vp test`                                       |
-| T3.3  | feat(modal): 90% detail + a11y                              | ready-for-agent | T1.3, T3.1                  | axe 0                | `vp check`                                      |
-| T4.1  | feat(ui): era strip radiogroup + URL sync                   | ready-for-agent | T1.2b, T0.3                 | no refetch on hit    | `vp test`                                       |
-| T4.2  | feat(ui): segmented theme + 2 fonts (Space Grotesk + Inter) | ready-for-human | T0.1                        | a11y 100             | `vp check`                                      |
-| T4.3  | feat(ui): copy deck + 5 error states                        | ready-for-human | T1.4, T4.1                  | —                    | `vp check`                                      |
-| T5.x  | perf+a11y+e2e audit F1–F7 (S1–S6 sign-off)                  | ready-for-agent | all feature tickets, D5, D7 | LCP<2.5s             | matrix command                                  |
+| #     | Title                                                       | Label           | Blocked by                  | Perf                  | Check                                           |
+| ----- | ----------------------------------------------------------- | --------------- | --------------------------- | --------------------- | ----------------------------------------------- |
+| T0.0  | chore: make toolchain and deployment contract runnable      | ready-for-human | none                        | baseline report       | `vp check`, `vp run -r test`, `vp run -r build` |
+| T0.1  | chore: strip starter and install globe deps                 | ready-for-agent | T0.0                        | baseline comparison   | `vp check`                                      |
+| T0.2  | chore: CI perf + lint gates (250KB fail)                    | ready-for-agent | T0.0, T0.1                  | prove fail once       | `vp check`, `vp test`, `vp build`               |
+| T0.3  | chore: country polygons + URL state skeleton                | ready-for-agent | T0.0, T0.1                  | no fetch on parse     | `vp test`                                       |
+| T1.1  | feat(data): timescale adapter (3 eras + ICS normalize)      | ready-for-agent | T0.0, T0.2                  | static snapshot       | `vp test`                                       |
+| T1.2  | feat(data): PBDB pure client and aggregation                | ready-for-agent | T1.1, T0.2                  | bounded rows          | `vp test`                                       |
+| T1.2b | feat(api): PBDB occurrence proxy                            | ready-for-human | T0.0, T1.2                  | bounded requests/SWR  | `vp test`                                       |
+| T1.3  | feat(data): taxon detail proxy                              | ready-for-agent | T1.2b                       | single-fetch modal    | `vp test`                                       |
+| T1.4  | feat(data): seed snapshot + skeletons + badge               | ready-for-agent | T1.2b                       | offline first-paint   | `vp check`                                      |
+| T2.1  | feat(globe): lazy globe chunk + labels layer, default light | ready-for-human | T0.3, D4                    | chunk <150KB          | `vp build`                                      |
+| T2.2  | feat(globe): pick + center-zoom + listbox + bench           | ready-for-agent | T2.1                        | zoom <1s              | `vp test`                                       |
+| T2.3  | feat(globe): leader lines + silhouette callouts (cap 8)     | ready-for-agent | T2.2, T1.2b                 | single layer          | `vp test`, benchmark                            |
+| T3.1  | feat(cards): grid + virtualize + paginate                   | ready-for-agent | T1.1, T1.2                  | no full-list DOM      | `vp test`                                       |
+| T3.2  | feat(cards): silhouette set (ADR-003 locked)                | ready-for-human | T3.1                        | lazy sprite           | `vp test`                                       |
+| T3.3  | feat(modal): 90% detail + a11y                              | ready-for-agent | T1.3, T3.1                  | axe 0                 | `vp check`                                      |
+| T4.1  | feat(ui): era strip radiogroup + URL sync                   | ready-for-agent | T1.2b, T0.3                 | no refetch on hit     | `vp test`                                       |
+| T4.2  | feat(ui): segmented theme + 2 fonts (Space Grotesk + Inter) | ready-for-human | T0.1                        | a11y 100              | `vp check`                                      |
+| T4.3  | feat(ui): copy deck + 5 error states                        | ready-for-human | T1.4, T4.1                  | —                     | `vp check`                                      |
+| T5.x  | perf+a11y+e2e audit F1–F7 (S1–S6 sign-off)                  | ready-for-agent | all feature tickets, D5, D7 | LCP<2.5s              | matrix command                                  |
+| R1    | feat(data): top-12 ranking + city dataset                   | ready-for-agent | launch sign-off             | pure fns, +≤100KB geo | `vp test`                                       |
+| R2    | feat(map): paper-grain land texture                         | ready-for-agent | launch sign-off             | 1 paint value         | `vp check` + eyeball                            |
+| R3    | feat(map): top-12 callouts + leaders + modal                | ready-for-agent | R1                          | ≤12 markers           | `vp check` + keyboard                           |
+| R4    | feat(map): cities + scale + focus + era redraw              | ready-for-agent | R1, R3                      | GPU symbol layers     | `vp check` + manual KR                          |
+| R5    | feat(art): green batch + footprint (user-generated)         | ready-for-human | R3                          | 9 small SVGs          | `vp check` + vs example                         |
+| R6    | test: KR proof drive-through + locked e2e                   | ready-for-agent | R2, R4, R5                  | LCP<2.5s              | playwright + LHCI                               |
 
 Create in order (blockers first): `gh issue create --title "…" --label ready-for-agent --body "Blocked by: … DoD: … Perf: … Check: …"`. Frontier = any issue whose blockers are closed. Stretch stays `needs-triage` until MVP ships.
 
@@ -801,4 +884,92 @@ Certainty checklist (planning completeness, not implementation status):
 
 ---
 
-Next: create `gh` issues per §6, start Phase 0 via `mentor: strip starter?`
+## 12. Grill Round 3 — refurb alignment (answered 2026-10-18, locked)
+
+Reference: `docs/research/asset/example.png` (Korean fossil map: terrain land, admin labels, sea, scale bar, island inset, green dino/bird silhouettes with names + footprint companions, leader lines to findspot dots).
+
+❓ **Q1** - **Map feel**: flat light vs textured vs full terrain?
+
+✅ Locked: middle ground — flat light stays, subtle paper-grain `fill-pattern` on land, no rivers/regional borders, minimal MapLibre changes (R2).
+
+---
+
+❓ **Q2** - **Pilot vs generic**: hardcoded Korea first, or generic engine?
+
+✅ Locked: generic all-country engine from the start, KR as first proof, no KR-only code paths (R1–R4, proven in R6).
+
+---
+
+❓ **Q3** - **Callout click target**: new detail UI or existing modal?
+
+✅ Locked: existing taxon modal reused (`openCardModal`), no new modal UI (R3). Revisit later.
+
+---
+
+❓ **Q4** - **Drawer relationship**: hide drawer when callouts show?
+
+✅ Locked: drawer keeps the full TaxonCard list; callouts are the top-12 visual shortcut; "+N more" chip scrolls the drawer (R3).
+
+---
+
+❓ **Q5** - **Admin labels**: provinces, cities, scale, island insets?
+
+✅ Locked: capital + top 3–4 cities by population (English) + metric scale bar in scope (R1, R4). Admin-1 regions and island insets out for v1.
+
+---
+
+❓ **Q6** - **Silhouette art**: restyle now or later, and by whom?
+
+✅ Locked: user generates the batch (GPT sub) to §3.6 specs; render tints `moss` via `currentColor`; footprint companion included in the same batch (R5).
+
+---
+
+❓ **Q7** - **Top-12 metric**: most-found vs curated fame?
+
+✅ Locked: site-count desc, `tid` asc tiebreak ("most found"); cap ~12 (R1). Curated famous-override is a separate later ticket.
+
+---
+
+❓ **Q8** - **City data**: source, count, language, size?
+
+✅ Locked: NE `populated_places` 110m, capital + top 3–4 by pop, English, +~100KB budget (R1).
+
+---
+
+❓ **Q9** - **Texture technique**: how is the grain applied?
+
+✅ Locked: inline data-URI noise as `fill-pattern` on the land fill, zoom-constant, no new sources (R2).
+
+---
+
+❓ **Q10** - **Art specs**: format, naming, footprints?
+
+✅ Locked: SVG single-flat `currentColor`, `viewBox 0 0 100 100`, exact `silhouetteFor` filenames in `public/sprites/`, plus generic `footprint.svg` (R5).
+
+---
+
+❓ **Q11** - **KR proof acceptance**: what does "done" mean?
+
+✅ Locked: (a) human drive-through vs `example.png`, (b) deterministic mocked-KR e2e, no live PBDB, no pixel-diff (R6).
+
+---
+
+❓ **Q12** - **Placement algorithm**: hand layout vs rule, overlap policy?
+
+✅ Locked: seeded fan-out (hash(`tid`) + anchor) + one de-collision pass; organic feel, never overlaps, bit-for-bit stable; "+N more" beyond 12; bottom rail on narrow screens (R3, §3.6 hard rule against unseeded randomness).
+
+---
+
+❓ **Q13** - **Build order**: data or visuals first?
+
+✅ Locked: data first (R1), then visuals (R2–R4), then art (R5), then proof (R6).
+
+---
+
+❓ **Q14** - **Footprint companion**: beside every callout?
+
+✅ Locked: yes — small `aria-hidden` print beside each silhouette (R5).
+
+---
+
+Next: create `gh` issues per §6 (R1–R6), start Phase 7 via `mentor: top-12 callouts?`
