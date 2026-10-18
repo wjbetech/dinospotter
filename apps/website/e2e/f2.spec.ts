@@ -18,10 +18,17 @@ test("F2 era switch + back", async ({ page }) => {
 });
 
 test("F2 era to Cenozoic + back", async ({ page }) => {
+  await page.route("**/api/occs?*", async (r) =>
+    r.fulfill({
+      json: {
+        countryCode: "US",
+        era: "Cenozoic",
+        cards: [],
+      },
+    }),
+  );
   await page.goto("/?cc=US&era=Mesozoic");
-  page.getByRole("radio", {
-    name: /Cenozoic/,
-  });
+  await page.getByRole("radio", { name: /Cenozoic/ }).click();
   await expect(page).toHaveURL(/era=Cenozoic/);
   await page.goBack();
   await expect(page).toHaveURL(/era=Mesozoic/);

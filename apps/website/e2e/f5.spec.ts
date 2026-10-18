@@ -16,6 +16,15 @@ test("F5 empty era shows copy", async ({ page }) => {
 });
 
 test("F5 empty MG Paleozoic shows copy", async ({ page }) => {
+  await page.route("**/api/occs?*", async (r) =>
+    r.fulfill({
+      json: {
+        cc: "MG",
+        era: "Paleozoic",
+        cards: [],
+      },
+    }),
+  );
   await page.goto("/?cc=MG&era=Paleozoic");
-  await expect(page.getByText(/No recorded taxa/i)).toBeVisible();
+  await expect(page.getByText(/No recorded taxonomical data/i)).toBeVisible();
 });
