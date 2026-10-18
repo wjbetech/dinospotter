@@ -6,6 +6,7 @@
   "scripts": {
     "ready": "vp check && vp run -r test && vp run -r build",
     "dev": "vp run website#dev",
+    "dev:all": "node scripts/dev-all.mjs",
     "prepare": "vp config"
   },
   "devDependencies": {

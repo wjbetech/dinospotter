@@ -51,6 +51,8 @@ if (drawer instanceof HTMLElement) {
       history.pushState(null, "", "?" + serializeUrl(c.countryCode, era));
       store.setState({
         countryCode: c.countryCode,
+        payload: null,
+        status: "loading",
       });
       void selectEra(era);
     }),
@@ -80,14 +82,19 @@ if (drawer instanceof HTMLElement) {
   store.subscribe(() => {
     const { payload, status, countryCode, era } = store.getState();
 
-    drawer.querySelectorAll(".skeleton, .card").forEach((el) => el.remove());
+    drawer
+      .querySelectorAll(".skeleton, .card, .empty-message, .badge, .sentinel")
+      .forEach((el) => el.remove());
+
+    input.value = "";
 
     if (status === "loading") {
-      const s = renderSkeleton();
+      const s = renderSkeleton(15);
       s.classList.add("skeleton");
       drawer.append(s);
     } else if (status === "empty") {
       const emptyMessage = document.createElement("p");
+      emptyMessage.classList.add("empty-message");
       emptyMessage.textContent = copyFor("empty", countryCode, era);
       drawer.append(emptyMessage);
     } else if (status === "degraded" || status === "error") {
@@ -99,6 +106,10 @@ if (drawer instanceof HTMLElement) {
     } else if (payload) {
       renderCards(drawer, payload.cards);
     }
+
+    drawer.querySelectorAll('[role="radio"]').forEach((btn) => {
+      btn.setAttribute("aria-checked", String(!!btn.textContent?.startsWith(era)));
+    });
 
     const txn = parseUrl(location.search).txn;
 

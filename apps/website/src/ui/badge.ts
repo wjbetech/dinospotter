@@ -11,6 +11,7 @@ export function renderBadge(status: string, onRetry: () => void): HTMLElement | 
   btn.textContent = "Retry";
   btn.addEventListener("click", onRetry);
 
+  div.classList.add("badge");
   div.append(btn);
 
   return div;
