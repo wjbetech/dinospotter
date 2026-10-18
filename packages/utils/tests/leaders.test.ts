@@ -38,3 +38,33 @@ test("leaders: sorts by count, caps at max", () => {
   ];
   expect(leaders(cards as never, 8)[0].tid).toBe("1");
 });
+
+test("leaders: defaults to the top 12 in fame/popularity order", () => {
+  const cards = Array.from(
+    {
+      length: 15,
+    },
+    (_, i) => ({
+      tid: `t${i}`,
+      tna: `Taxon ${i}`,
+      oei: "",
+      eag: 70,
+      lag: 66,
+      sfm: "",
+      sites: Array.from(
+        {
+          length: 15 - i,
+        },
+        (_, j) => ({
+          lng: j,
+          lat: j,
+        }),
+      ),
+    }),
+  );
+
+  const got = leaders(cards as never);
+
+  expect(got).toHaveLength(12);
+  expect(got[0].tid).toBe("t0");
+});
