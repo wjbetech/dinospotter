@@ -5,6 +5,7 @@ export * from "./leaders.ts";
 export * from "./paging.ts";
 export * from "./silhouette.ts";
 export * from "./countries.ts";
+export * from "./cities.ts";
 
 export const gate = "utils/gate";
 
