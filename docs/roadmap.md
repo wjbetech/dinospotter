@@ -42,10 +42,10 @@
 ## Last task done (handoff):
 
 - Date: 2026-10-19
-- Task: R1 data done, M7.1.1 leaders (dinos) caps at 12 per landmass, M7.1.2 majorCities seam (3-4 cap), M7.1.3 NE has places at 45KB inside the 100KB budget.
-- Frontier: R2 paper-grain land texture, starting at M7.2.1 (grain fill-pattern tile on the land fill)
+- Task: R1 code done (12 leader dinos, majorCities) - M7.1.3 needs places attribution
+- Frontier: R2 M7.2.1 grain fill-pattern
 - Checks: all green and clean through `vp test` and `vp run website#check:budget`.
-- Laptop resume: `git pull` on dev, `vp install`, then M7.2.1 is the next step.
+- PC/Laptop Resume:
 
 ## 0. Vision, success, non-goals, repo map
 
@@ -678,8 +678,8 @@ Blocked by: launch sign-off (done 2026-10-18). Data first (R1), then visuals (R2
 
 Mentor: `mentor: top-12 callouts?` Files: `packages/utils/src/leaders.ts`, new `packages/utils/src/cities.ts`, new `apps/website/public/geo/places.geojson` + `ATTRIBUTION.md`. DoD: `leaders(cards)` defaults to 12 in fame-rank order; `majorCities` returns capital + top 3–4 by pop in English; combined geo files <600KB. Check: `vp test`. Perf: pure fns, zero browser cost. Doc: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/
 
-- [ ] M7.1.1 `leaders` cap 12: change default `max` 8→12; extend vitest (15 groups in → 12 out, order pinned, stable across runs).
-- [ ] M7.1.2 `majorCities` seam (red: no fn; green: minimal): filter fixture rows by ISO2, capital first, pop desc, English names. Test pins order on literal fixtures.
+- [x] M7.1.1 `leaders` cap 12: change default `max` 8→12; extend vitest (15 groups in → 12 out, order pinned, stable across runs).
+- [x] M7.1.2 `majorCities` seam (red: no fn; green: minimal): filter fixture rows by ISO2, capital first, pop desc, English names. Test pins order on literal fixtures.
 - [ ] M7.1.3 dataset: add NE `populated_places` 110m + attribution line; assert combined geo size gate in the same test run.
 
 #### R2 `feat(map): paper-grain land texture` — Blocked by: none. Independent of R1.

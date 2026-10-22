@@ -1,5 +1,5 @@
 import type { GeoJSONSource } from "maplibre-gl";
-import type { Leader } from "utils";
+import { placeCallouts, type Leader } from "utils";
 
 export function render(map: import("maplibre-gl").Map, leaders: Leader[]) {
   const lines = {
@@ -32,5 +32,38 @@ export function render(map: import("maplibre-gl").Map, leaders: Leader[]) {
         "line-width": 1.5,
       },
     });
+  }
+}
+
+export function renderCallouts(
+  _map: import("maplibre-gl").Map,
+  wrap: HTMLElement,
+  leaders: Leader[],
+  onPick: (tid: string) => void,
+): void {
+  const positioned = placeCallouts(leaders, wrap.clientWidth < 640);
+
+  for (const callout of positioned.slice(0, 12)) {
+    const button = document.createElement("button");
+    button.className = "callout";
+    button.innerHTML = `
+    <img src="/sprites/fallback.svg" alt="" />
+    <span>${callout.tna}</span>
+   `;
+    button.addEventListener("click", () => onPick(callout.tid));
+    button.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        onPick(callout.tid);
+      }
+    });
+    wrap.append(button);
+  }
+
+  if (leaders.length > 12) {
+    const more = document.createElement("button");
+    more.textContent = `+${leaders.length - 12} more`;
+    more.addEventListener("click", () => document.querySelector("#drawer")?.scrollIntoView());
+    wrap.append(more);
   }
 }

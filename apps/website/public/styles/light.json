@@ -1,6 +1,9 @@
 {
   "version": 8,
   "name": "Dinospotter Light",
+  "projection": {
+    "type": "globe"
+  },
   "sources": {},
   "layers": [
     {

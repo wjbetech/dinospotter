@@ -6,6 +6,7 @@ export * from "./paging.ts";
 export * from "./silhouette.ts";
 export * from "./countries.ts";
 export * from "./cities.ts";
+export * from "./place-callouts.ts";
 
 export const gate = "utils/gate";
 

@@ -36,6 +36,91 @@ export async function initGlobe(el: HTMLElement) {
       data: geo,
     });
 
+    const points = {
+      type: "FeatureCollection",
+      features: geo.features.map((f: any) => ({
+        type: "Feature",
+        properties: f.properties,
+        geometry: {
+          type: "Point",
+          coordinates: f.properties.LABEL_X
+            ? [f.properties.LABEL_X, f.properties.LABEL_Y]
+            : f.geometry.coordinates[0][0][0],
+        },
+      })),
+    };
+
+    map.addSource("labels", { type: "geojson", data: points as any });
+
+    const img = new Image(8, 8);
+    img.src =
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAFElEQVQYV2N49+7dfwYGBgZGBgYGBgYAZw8Hv0vWHwAAAABJRU5ErkJggg==";
+
+    await img.decode();
+
+    const size = 64;
+    const canva = document.createElement("canvas");
+    canva.width = canva.height = size;
+    const ctx = canva.getContext("2d")!;
+    const imgData = ctx.createImageData(size, size);
+    for (let i = 0; i < imgData.data.length; i += 4) {
+      imgData.data[i] = imgData.data[i + 1] = imgData.data[i + 2] = 30;
+      imgData.data[i + 3] = Math.random() > 0.5 ? 22 : 0;
+    }
+    map.addImage("grain", { width: size, height: size, data: imgData.data } as any);
+
+    map.addImage("grain", {
+      width: size,
+      height: size,
+      data: imgData.data,
+    } as any);
+
+    map.addLayer({
+      id: "land",
+      type: "fill",
+      source: "countries",
+      paint: { "fill-color": "#e7ffed" },
+    });
+
+    map.addLayer({
+      id: "grain",
+      type: "fill",
+      source: "countries",
+      paint: {
+        "fill-pattern": "grain",
+        "fill-opacity": 0.5,
+      },
+    });
+
+    map.addLayer({
+      id: "borders",
+      type: "line",
+      source: "countries",
+      paint: {
+        "line-color": [
+          "match",
+          ["get", "MAPCOLOR7"],
+          1,
+          "#f87171",
+          2,
+          "#60a5fa",
+          3,
+          "#34d399",
+          4,
+          "#fbbf24",
+          5,
+          "#a78bfa",
+          6,
+          "#f472b6",
+          7,
+          "#a3e635",
+          "#4A545E",
+        ],
+        "line-width": 2,
+        "line-opacity": 0.5,
+      },
+    });
+
     map.addLayer({
       id: "hit",
       type: "fill",
@@ -46,14 +131,44 @@ export async function initGlobe(el: HTMLElement) {
     });
 
     map.addLayer({
-      id: "labels",
+      id: "labels-big",
       type: "symbol",
-      source: "countries",
+      source: "labels",
+      minzoom: 3,
+      filter: ["<=", ["get", "LABELRANK"], 3],
       layout: {
-        "text-field": ["get", "name"],
+        "text-field": ["get", "NAME"],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 1, 10, 4, 12],
         "text-allow-overlap": false,
         "text-ignore-placement": false,
         "text-optional": true,
+        "symbol-sort-key": ["get", "LABELRANK"],
+      },
+      paint: {
+        "text-color": "#1E242B",
+        "text-halo-color": "#FAF7F0",
+        "text-halo-width": 1,
+      },
+    });
+
+    map.addLayer({
+      id: "labels-small",
+      type: "symbol",
+      source: "labels",
+      minzoom: 4,
+      filter: [">", ["get", "LABELRANK"], 3],
+      layout: {
+        "text-field": ["get", "NAME"],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 1, 10, 4, 12],
+        "text-allow-overlap": false,
+        "text-ignore-placement": false,
+        "text-optional": true,
+        "symbol-sort-key": ["get", "LABELRANK"],
+      },
+      paint: {
+        "text-color": "#1E242B",
+        "text-halo-color": "#FAF7F0",
+        "text-halo-width": 1,
       },
     });
 
