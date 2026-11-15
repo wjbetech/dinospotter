@@ -22,13 +22,21 @@ export function pickCountry(
       ISO2: string;
     };
     geometry: {
-      coordinates: number[][][];
+      type?: string;
+      coordinates: number[][][] | number[][][][];
     };
   }[],
 ): string | null {
   for (const feat of features) {
-    if (pointInPolygon(point, feat.geometry.coordinates[0] as [number, number][])) {
-      return feat.properties.ISO2;
+    const polys =
+      feat.geometry.type === "MultiPolygon"
+        ? (feat.geometry.coordinates as [number, number][][][])
+        : [feat.geometry.coordinates as [number, number][][]];
+    for (const poly of polys) {
+      const ring = poly[0];
+      if (ring && pointInPolygon(point, ring)) {
+        return feat.properties.ISO2;
+      }
     }
   }
   return null;

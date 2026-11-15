@@ -1,10 +1,11 @@
 import type { GeoJSONSource } from "maplibre-gl";
-import { placeCallouts, type Leader } from "utils";
+import { placeCallouts, silhouetteFor, type Leader } from "utils";
 
 export function render(map: import("maplibre-gl").Map, leaders: Leader[]) {
+  const positioned = placeCallouts(leaders, map.getContainer().clientWidth < 640);
   const lines = {
     type: "FeatureCollection",
-    features: leaders.map((leader) => ({
+    features: positioned.map((leader) => ({
       type: "Feature",
       geometry: {
         type: "LineString",
@@ -36,27 +37,33 @@ export function render(map: import("maplibre-gl").Map, leaders: Leader[]) {
 }
 
 export function renderCallouts(
-  _map: import("maplibre-gl").Map,
+  map: import("maplibre-gl").Map,
   wrap: HTMLElement,
   leaders: Leader[],
   onPick: (tid: string) => void,
 ): void {
+  wrap.querySelectorAll(".callout").forEach((el) => el.remove());
   const positioned = placeCallouts(leaders, wrap.clientWidth < 640);
 
   for (const callout of positioned.slice(0, 12)) {
     const button = document.createElement("button");
     button.className = "callout";
-    button.innerHTML = `
-    <img src="/sprites/fallback.svg" alt="" />
-    <span>${callout.tna}</span>
-   `;
+    const img = document.createElement("img");
+    img.src = `/sprites/${silhouetteFor(callout.tna)}.svg`;
+    img.alt = "";
+    const name = document.createElement("span");
+    name.textContent = callout.tna;
+    button.append(img, name);
+    const pt = map.project([callout.x, callout.y]);
+    button.dataset.lng = String(callout.x);
+    button.dataset.lat = String(callout.y);
+    button.style.cssText = `
+    position:absolute;
+    left:${pt.x}px;
+    top:${pt.y}px;
+    transform:translate(-50%, -50%)
+    `;
     button.addEventListener("click", () => onPick(callout.tid));
-    button.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        onPick(callout.tid);
-      }
-    });
     wrap.append(button);
   }
 

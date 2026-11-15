@@ -1,3 +1,5 @@
+import { statSync } from "node:fs";
+import { join } from "node:path";
 import { expect, test } from "vite-plus/test";
 import { majorCities } from "../src/cities.ts";
 
@@ -61,4 +63,13 @@ test("majorCities: capital first, then top 3 by population", () => {
     "Incheon",
     "Daegu",
   ]);
+});
+
+test("combined geo files stay under 600KB", () => {
+  const geoFiles = join(import.meta.dirname, "../../../apps/website/public/geo");
+
+  expect(
+    statSync(join(geoFiles, "countries.geojson")).size +
+      statSync(join(geoFiles, "places.geojson")).size,
+  ).toBeLessThan(600 * 1024);
 });

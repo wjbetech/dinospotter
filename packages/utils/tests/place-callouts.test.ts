@@ -11,6 +11,20 @@ test("placeCallouts is deterministic", () => {
       callout: [1, 1] as [number, number],
     },
   ];
-
   expect(placeCallouts(input)).toEqual(placeCallouts(input));
+});
+
+test("narrow viewports mark rail position", () => {
+  const input = [
+    {
+      tid: "t1",
+      tna: "A",
+      count: 2,
+      anchor: [0, 0] as [number, number],
+      callout: [1, 1] as [number, number],
+    },
+  ];
+
+  const got = placeCallouts(input, true);
+  expect(got[0]?.rail).toBe(true);
 });

@@ -3,6 +3,7 @@ import type { Leader } from "./leaders.ts";
 export interface PositionedCallout extends Leader {
   x: number;
   y: number;
+  rail: boolean;
 }
 
 function hash(input: string): number {
@@ -14,16 +15,14 @@ function hash(input: string): number {
 }
 
 export function placeCallouts(leaders: Leader[], narrow = false): PositionedCallout[] {
-  if (narrow) return leaders.map((l, i) => ({ ...l, x: i * 4, y: 0 }));
+  if (narrow) return leaders.map((l, i) => ({ ...l, x: i * 4, y: 0, rail: true }));
 
-  const placed = leaders.map((leader) => {
-    const angle = (hash(leader.tid) % 360) * (Math.PI / 100);
-    return {
-      ...leader,
-      x: leader.anchor[0] + Math.cos(angle) * 2,
-      y: leader.anchor[1] + Math.sin(angle) * 2,
-    };
-  });
+  const placed = leaders.map((leader) => ({
+    ...leader,
+    x: leader.anchor[0] + Math.cos(hash(leader.tid) * (Math.PI / 100)) * 2,
+    y: leader.anchor[1] + Math.sin(hash(leader.tid) * (Math.PI / 100)) * 2,
+    rail: false,
+  }));
 
   for (let i = 1; i < placed.length; i++) {
     if (

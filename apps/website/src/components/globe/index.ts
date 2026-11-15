@@ -1,18 +1,32 @@
-import { createStore } from "../../store";
+import { leaders } from "utils";
+import { render, renderCallouts } from "./leaders.ts";
+import { store } from "../../store.ts";
 import { pickCountry } from "../../globe/pick.ts";
 import { zoomTo } from "../../globe/zoom.ts";
 import { serializeUrl } from "../../url";
+import { selectEra } from "../../ui/era-strip.ts";
+import { openCardModal } from "../../ui/cards.ts";
 
-const store = createStore({
-  countryCode: null,
-  payload: null,
-  era: "Mesozoic",
-  status: "idle",
-});
 const hint = document.querySelector<HTMLElement>("#hint");
 
-function bboxFor(_countryCode: string): [number, number, number, number] {
-  return [-125, 24, -66, 49];
+function bboxFor(coords: unknown): [number, number, number, number] {
+  let west = Infinity,
+    south = Infinity,
+    east = -Infinity,
+    north = -Infinity;
+  const visit = (node: unknown): void => {
+    if (!Array.isArray(node) || node.length === 0) return;
+    if (typeof node[0] === "number" && typeof node[1] === "number") {
+      west = Math.min(west, node[0]);
+      south = Math.min(south, node[1]);
+      east = Math.max(east, node[0]);
+      north = Math.max(north, node[1]);
+      return;
+    }
+    for (const child of node) visit(child);
+  };
+  visit(coords);
+  return [west, south, east, north];
 }
 
 export async function initGlobe(el: HTMLElement) {
@@ -57,29 +71,13 @@ export async function initGlobe(el: HTMLElement) {
       "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAFElEQVQYV2N49+7dfwYGBgZGBgYGBgYAZw8Hv0vWHwAAAABJRU5ErkJggg==";
 
     await img.decode();
-
-    const size = 64;
-    const canva = document.createElement("canvas");
-    canva.width = canva.height = size;
-    const ctx = canva.getContext("2d")!;
-    const imgData = ctx.createImageData(size, size);
-    for (let i = 0; i < imgData.data.length; i += 4) {
-      imgData.data[i] = imgData.data[i + 1] = imgData.data[i + 2] = 30;
-      imgData.data[i + 3] = Math.random() > 0.5 ? 22 : 0;
-    }
-    map.addImage("grain", { width: size, height: size, data: imgData.data } as any);
-
-    map.addImage("grain", {
-      width: size,
-      height: size,
-      data: imgData.data,
-    } as any);
+    map.addImage("grain", img);
 
     map.addLayer({
       id: "land",
       type: "fill",
       source: "countries",
-      paint: { "fill-color": "#e7ffed" },
+      paint: { "fill-color": "#FAF7F0" },
     });
 
     map.addLayer({
@@ -88,7 +86,7 @@ export async function initGlobe(el: HTMLElement) {
       source: "countries",
       paint: {
         "fill-pattern": "grain",
-        "fill-opacity": 0.5,
+        "fill-opacity": 0.18,
       },
     });
 
@@ -185,9 +183,51 @@ export async function initGlobe(el: HTMLElement) {
         return;
       }
 
+      const feat = geo.features.find(
+        (f: {
+          properties: {
+            ISO2: string;
+          };
+        }) => f.properties.ISO2 === countryCode,
+      );
+
+      if (feat) zoomTo(map, bboxFor(feat.geometry.coordinates));
+
+      store.setState({
+        countryCode,
+        payload: null,
+        status: "loading",
+      });
+
+      void selectEra(store.getState().era);
+
       store.setState({ countryCode });
-      zoomTo(map, bboxFor(countryCode));
       history.pushState(null, "", "?" + serializeUrl(countryCode, store.getState().era));
+    });
+
+    map.on("move", () => {
+      const wrap = map.getContainer();
+      wrap.querySelectorAll<HTMLButtonElement>(".callout").forEach((btn) => {
+        const lng = Number(btn.dataset.lng);
+        const lat = Number(btn.dataset.lat);
+        if (!Number.isFinite(lng) || !Number.isFinite(lat)) return;
+        const pt = map.project([lng, lat]);
+        btn.style.left = `${pt.x}px`;
+        btn.style.top = `${pt.y}px`;
+      });
+    });
+
+    store.subscribe(() => {
+      const { payload } = store.getState();
+
+      if (!payload?.cards.length) return;
+
+      const items = leaders(payload.cards);
+      render(map, items);
+      renderCallouts(map, map.getContainer(), items, (tid) => {
+        const card = payload.cards.find((c) => c.tid === tid);
+        if (card) void openCardModal(card, map.getContainer());
+      });
     });
 
     return geo;
