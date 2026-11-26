@@ -19,6 +19,7 @@ catalog:
   vite: npm:@voidzero-dev/vite-plus-core@0.2.4
   vite-plus: 0.2.4
   "@playwright/test": 1.48.0
+  "@types/geojson": ^7946.0.16
 overrides:
   vite: "catalog:"
 peerDependencyRules:

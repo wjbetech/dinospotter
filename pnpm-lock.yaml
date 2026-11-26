@@ -179,6 +179,9 @@ catalogs:
     '@playwright/test':
       specifier: 1.48.0
       version: 1.48.0
+    '@types/geojson':
+      specifier: ^7946.0.16
+      version: 7946.0.16
     maplibre-gl:
       specifier: ^6.7.0
       version: 6.7.0
@@ -236,6 +239,9 @@ importers:
       '@playwright/test':
         specifier: 'catalog:'
         version: 1.48.0
+      '@types/geojson':
+        specifier: 'catalog:'
+        version: 7946.0.16
       '@types/node':
         specifier: ^26.1.1
         version: 26.4.1

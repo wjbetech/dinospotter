@@ -9,7 +9,7 @@ export default defineConfig({
   staged: {
     "*": "vp check --fix",
   },
-  fmt: {},
+  fmt: { ignorePatterns: [".lighthouseci/**", "apps/website/public/geo/places.geojson"] },
   lint: {
     jsPlugins: [
       {

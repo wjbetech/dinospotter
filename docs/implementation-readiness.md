@@ -1,84 +1,75 @@
 # Implementation readiness
 
-Status: review required before feature implementation. This document records the
-preflight gaps found on 2026-09-06. The roadmap is the execution plan; this file
-is the go/no-go gate and the source of truth for unresolved infrastructure.
+Updated 2026-11-27. The starter-era preflight has been superseded by the
+implemented application. The current feature frontier is R5 art and R6 final
+acceptance; see the roadmap handoff for exact progress.
 
 ## Current baseline
 
-- The repository is still the Vite+ starter. `apps/website/src/main.ts` and
-  `packages/utils/src/index.ts` are not DinoSpotter implementations.
-- `vp check` currently reports Markdown formatting failures in the roadmap and
-  ADR-002 through ADR-004. Format the docs before using `vp check` as a gate.
-- `vp run -r test` currently runs only the starter utility test. It does not
-  prove the planned browser, proxy, contract, or performance tests.
-- `vp run -r build` currently fails in `packages/utils` because `tsgo: true`
-  requires the missing `@typescript/native-preview` package. T0.0 must either
-  install the compatible package or remove the experimental tsgo setting, then
-  record the choice.
-- There is no `api/`, `vercel.json`, `.github/workflows/`, browser-test config,
-  Lighthouse configuration, country GeoJSON, seed payload, or sprite directory.
-  All references to these are planned artifacts, not existing infrastructure.
+- The website, shared utilities, Vercel `/api/occs` and `/api/taxon`, country
+  geography, seed, sprites, browser runner, and CI configuration all exist.
+- `vp install` succeeds. Build `utils` before checking a fresh checkout: its
+  workspace public export points to `dist/index.mjs`, with generated declarations.
+- `vp check` passes after the utility build. `vp test` passes 30 tests across
+  13 files. The browser suite passes 12 tests, including mocked KR CountryFocus
+  at desktop and 390px widths and an axe WCAG check.
+- `vp run --no-cache -r build` and `vp run website#check:budget` pass. Normal
+  cached task execution can fail on this Windows host with OS error 123 even
+  after compilation succeeds; this is a local Vite+ cache limitation.
+- `vp env doctor` resolves managed Node 26.13.1 and pnpm 12.4.1, but reports
+  that PATH's `node`, `npm`, and `npx` point at the system installation rather
+  than Vite+ shims. Vercel CLI reports Node 24.13.0. CI currently uses Node 22.
 
-## T0.0 go/no-go gate
+## Recorded infrastructure choices
 
-Do this before T0.1 and before asking the mentor to build a feature:
+| ID  | Recorded decision                                                                                                                             | Current evidence                                                                                                                                                                 |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| D4  | Self-host the light style, country polygons, and trimmed Natural Earth places; no external tiles, rivers, regional borders, or island insets. | Style and geography load locally. Phase 7 uses 50m places because the 110m file only contained Seoul for KR. See `public/geo/ATTRIBUTION.md`.                                    |
+| D5  | Use `vercel dev --listen 3000` from the repository root for full-stack work; `vp run dev` is frontend-only.                                   | Live KR occurrence and taxon routes responded successfully. `vercel.json` invokes Vite+ with the website root directly.                                                          |
+| D6  | CDN cache headers do not prove a stale payload. Proxy returns `stale=false`; matching session/seed fallback belongs to the client.            | This is the existing proxy/client design, not a persistent stale-response cache. Broader retry/cache guarantees have not been re-certified in this refurb.                       |
+| D7  | Vitest for pure/proxy tests; pinned Playwright for browser paths; axe for DOM checks; Lighthouse against a production preview.                | Playwright now starts its own frontend on port 4175, uses mocked API responses for the new feature, and is invoked in CI. Lighthouse was run locally; CI does not yet invoke it. |
 
-1. Run `vp install` and make `vp check`, `vp run -r test`, and
-   `vp run -r build` green on the unmodified starter. A toolchain failure is
-   not a feature ticket failure.
-2. Decide whether `packages/utils` is consumed as a workspace package or by a
-   source alias. Prefer a workspace dependency and its public package export;
-   never make application code deep-import another package's `src` directory.
-   Make the build/test task order explicit.
-3. Choose the local full-stack development path. The production API is under
-   Vercel's root `api/` directory; `vp dev` alone does not execute those
-   functions. Recommended: document a `vercel dev` path or provide an
-   equivalent local adapter and test it before T1.2b.
-4. Add a typed API check covering `api/` and document the Vercel project root,
-   build command, output directory, Node runtime, and preview environment.
+## Reproducible local checks
 
-Completion criterion: a clean starter can be installed, checked, tested, and
-built using documented commands, and the mentor can run the same commands.
+Run these from `C:\WebDev\my-apps\dinospotter` in this order:
 
-## Decisions that remain open
+```powershell
+vp install
+vp run utils#build
+vp check
+vp test
+vp exec playwright test --config apps/website/playwright.config.ts
+vp run --no-cache -r build
+vp run website#check:budget
+```
 
-| ID  | Decision required                                                                                                        | Why it blocks                                                        | Recommended default                                                                                   |
-| --- | ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| D4  | Production MapLibre style and basemap source (now incl. ADR-005: admin-1/city labels, rivers/wash, scale, island insets) | A renderer and country polygons do not provide a complete map style. | Self-host a minimal light style and approved public geography data; document attribution and license. |
+The browser runner starts its own server; it does not require live PBDB. The
+new KR fixture covers stable placement, 12 named callouts, overflow, city
+selection, metric scale, keyboard modal/focus return, era clearing, and the
+mobile rail. The existing navigation-only F1 smoke can still use seed fallback.
 
-D4 closed 2026-09-28: self-host `apps/website/public/styles/light.json` (sky #DCEBF5 bg, no external tiles) + bundled NE 110m countries/admin-1/places; license in `public/geo/ATTRIBUTION.md`; offline = style + labels load from bundle.
-|
-| D5 | Local execution of `/api/*` | The frontend's `/api` calls cannot reach root Vercel functions through the current `vp run dev` script. | Use `vercel dev` for full-stack work, with a separate frontend-only mode if useful. |
-| D6 | Proxy stale-data mechanism | CDN `stale-while-revalidate` can serve an old response but cannot by itself set a payload `stale` field. | Let the client own session/seed fallback; reserve `stale=true` for a proxy cache that can actually return stale data. |
-| D7 | Browser test runner and CI environment | Vitest, axe, Lighthouse, and F1-F7 need different runners and a running app. | Use a pinned browser runner for E2E, Vitest for pure logic, and Lighthouse CI against a preview build. |
+## Deployment contract
 
-No feature ticket may silently decide D4-D7. Close each decision in this file
-or an ADR, then update the affected ticket's blocker list.
+- Vercel project root: repository root; production frontend output:
+  `apps/website/dist`.
+- Build: utilities first, website second, as recorded in `vercel.json`.
+- API functions remain under root `api/`, importing the built utility export.
+- Frontend requests are relative `/api/*`; the browser never requests PBDB directly.
+- The local server is not a production deployment or proof of preview settings.
+  Remote project runtime/environment settings were not changed or re-certified.
 
-T0.0 gate: D4-D7 remain open blockers (9/14/2026)
+## Remaining release checks
 
-D5 closed: frontend-only uses `vp run dev`, full-stack uses `vercel dev`.
-
-## Test matrix
-
-| Concern                   | Runner                                      | Fixture/target                                         | Gate                                                                     |
-| ------------------------- | ------------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------ |
-| Pure data and state logic | Vitest in `packages/utils` and website      | Literal PBDB fixtures, including malformed rows        | `vp test`                                                                |
-| Proxy contract            | Vitest with mocked `fetch`                  | 200, empty, malformed, timeout, 429, and 5xx responses | `vp test`                                                                |
-| Pick and leader geometry  | Vitest benchmark plus unit tests            | Bundled polygon fixture and deterministic site set     | benchmark is reported; correctness tests fail on regression              |
-| DOM accessibility         | Browser runner plus axe                     | Empty, loading, error, card, and modal states          | zero axe violations and keyboard path                                    |
-| Golden paths              | Pinned browser runner                       | Local full-stack server and deterministic API stub     | F1-F7 pass without live PBDB dependency                                  |
-| Performance               | Lighthouse CI and build artifact inspection | Preview build, US/Mesozoic fixture                     | LCP <2.5s, INP <200ms, initial JS <250 KB gzip, globe chunk <150 KB gzip |
-
-F1-F7 must use a deterministic API fixture or service worker. Live PBDB is an
-integration smoke check, not the only E2E test, because availability and data
-change are outside CI's control.
-
-## Handoff rule
-
-The mentor may start only at the current frontier in `roadmap.md`. A ticket is
-ready when its blockers are closed, its files are marked planned, its acceptance
-criteria name a runnable check, and its contract tests use fixed expected
-values. “Decision locked” means the design is chosen; it does not mean the
-implementation or verification exists.
+- R5 requires the user's final eight single-fill clade SVGs plus `footprint.svg`.
+  Existing art is provisionally tinted moss using a CSS mask. The footprint
+  companion is not implemented until that asset is supplied.
+- R6's final human comparison against `docs/research/asset/example.png` remains
+  open. Agent live checks of KR, US, and CH do not substitute for that sign-off.
+- The exact version of the original country-polygon extract is not recorded.
+  Its Natural Earth provenance is documented; exact version confirmation remains.
+- A local Lighthouse mobile-profile homepage run measured LCP 1.37s, TBT 0ms,
+  and CLS 0.0052. INP was absent from the navigation-only report, so neither this
+  run nor the existing Lighthouse config proves the INP threshold.
+- Repeat the production build, budgets, browser/axe checks, and Lighthouse after
+  the art batch. Verify remote preview settings and perform a production smoke
+  check before release. No deployment was performed in this session.

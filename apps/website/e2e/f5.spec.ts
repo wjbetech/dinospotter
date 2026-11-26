@@ -11,7 +11,7 @@ test("F5 empty era shows copy", async ({ page }) => {
     }),
   );
 
-  await page.goto("http://localhost:3000/?cc=MG&era=Paleozoic");
+  await page.goto("/?cc=MG&era=Paleozoic");
   await expect(page.getByText(/No recorded taxonomical data/)).toBeVisible();
 });
 

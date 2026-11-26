@@ -1,37 +1,38 @@
 import type { Leader } from "./leaders.ts";
 
 export interface PositionedCallout extends Leader {
-  x: number;
-  y: number;
   rail: boolean;
 }
 
 function hash(input: string): number {
-  let hashed = 0;
-  for (const char of input) {
-    hashed = (hashed * 31 + char.charCodeAt(0)) | 0;
-  }
-  return Math.abs(hashed);
+  let value = 0;
+  for (const char of input) value = (value * 31 + char.charCodeAt(0)) | 0;
+  return value >>> 0;
 }
 
-export function placeCallouts(leaders: Leader[], narrow = false): PositionedCallout[] {
-  if (narrow) return leaders.map((l, i) => ({ ...l, x: i * 4, y: 0, rail: true }));
-
-  const placed = leaders.map((leader) => ({
-    ...leader,
-    x: leader.anchor[0] + Math.cos(hash(leader.tid) * (Math.PI / 100)) * 2,
-    y: leader.anchor[1] + Math.sin(hash(leader.tid) * (Math.PI / 100)) * 2,
-    rail: false,
-  }));
-
-  for (let i = 1; i < placed.length; i++) {
-    if (
-      Math.abs(placed[i].x - placed[i - 1].x) < 1 &&
-      Math.abs(placed[i].y - placed[i - 1].y) < 1
-    ) {
-      placed[i].x += 1.5;
-    }
+export function placeCallouts(
+  leaders: Leader[],
+  viewport = { width: 960, height: 720 },
+): PositionedCallout[] {
+  const rail = viewport.width < 640 || viewport.height < 600;
+  const sorted = [...leaders].slice(0, 12).sort((a, b) => a.tid.localeCompare(b.tid));
+  const used = new Set<number>();
+  const positions = new Map<string, PositionedCallout>();
+  // ponytail: twelve bounded slots keep collision handling small; expand only if the cap changes.
+  for (const [i, leader] of sorted.entries()) {
+    const seed = hash(`${leader.tid}:${leader.anchor.join(":")}`);
+    let slot = seed % 12;
+    while (used.has(slot)) slot = (slot + 1) % 12;
+    used.add(slot);
+    const row = Math.floor(slot / 2);
+    const jitter = (seed % 17) - 8;
+    const callout: [number, number] = rail
+      ? [80 + i * 144, viewport.height - 64]
+      : [
+          slot % 2 ? viewport.width - 88 - (seed % 13) : 88 + (seed % 13),
+          72 + (row * (viewport.height - 144)) / 5 + jitter,
+        ];
+    positions.set(leader.tid, { ...leader, callout, rail });
   }
-
-  return placed;
+  return leaders.slice(0, 12).map((leader) => positions.get(leader.tid)!);
 }

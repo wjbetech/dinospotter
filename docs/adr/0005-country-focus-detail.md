@@ -14,3 +14,7 @@ anchors are endpoints of the single line layer (≤500 segments), not a
 marker layer, so ADR-004 perf rationale holds.
 Open: D4 must pick the global basemap/admin/city source, license,
 attribution, and offline behavior; cards/modal keep `ink` (ADR-003).
+
+Phase 7 amendment (roadmap Round 3, implemented 2026-11-27): cap is 12;
+English major cities and metric scale remain, admin-1 and island insets are out.
+Bundled 50m places replaces the sparse 110m cities extract; see geo attribution.

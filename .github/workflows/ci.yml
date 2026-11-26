@@ -31,5 +31,6 @@ jobs:
       - run: pnpm exec playwright install --with-deps
       - run: vp check
       - run: vp test
+      - run: vp exec playwright test --config apps/website/playwright.config.ts
       - run: vp run -r build
       - run: node scripts/check-budget.mjs

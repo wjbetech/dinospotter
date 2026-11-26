@@ -4,13 +4,28 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>website</title>
+    <meta
+      name="description"
+      content="Explore fossil discoveries by country and era with DinoSpotter."
+    />
+    <title>DinoSpotter — A fossil field guide</title>
   </head>
   <body>
-    <div id="app">
-      <div id="globe" style="height: 800px"></div>
-      <button id="load-globe">Load Globe</button>
-    </div>
+    <header class="site-header">
+      <a href="/">DinoSpotter<span>A fossil field guide</span></a>
+      <p>Pick a place. Travel through time.</p>
+    </header>
+    <main id="app">
+      <section id="map-panel" aria-label="Fossil map">
+        <div id="globe" aria-label="Interactive fossil map"></div>
+        <p id="hint">Modern borders · fossil sites at their present-day coordinates</p>
+        <button id="load-globe">Load Globe</button>
+      </section>
+      <aside id="drawer" aria-label="Fossil records">
+        <h1>Explore the fossil record</h1>
+        <p class="drawer-intro">Choose a country and an era to see what was found.</p>
+      </aside>
+    </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

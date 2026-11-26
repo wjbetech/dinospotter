@@ -73,3 +73,30 @@ test("combined geo files stay under 600KB", () => {
       statSync(join(geoFiles, "places.geojson")).size,
   ).toBeLessThan(600 * 1024);
 });
+import { readFileSync } from "node:fs";
+
+test("bundled geography supplies the KR capital and three major English city names", () => {
+  const geo = JSON.parse(
+    readFileSync(
+      join(import.meta.dirname, "../../../apps/website/public/geo/places.geojson"),
+      "utf8",
+    ),
+  );
+  const cities = geo.features.map(
+    (f: {
+      properties: { name: string; iso2: string; capital: boolean; pop: number };
+      geometry: { coordinates: number[] };
+    }) => ({
+      ...f.properties,
+      lng: f.geometry.coordinates[0],
+      lat: f.geometry.coordinates[1],
+    }),
+  );
+  expect(majorCities(cities, "KR").map((city) => city.name)).toEqual([
+    "Seoul",
+    "Busan",
+    "Incheon",
+    "Daejeon",
+  ]);
+  expect(majorCities(cities, "UK")[0].name).toBe("London");
+});

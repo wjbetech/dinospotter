@@ -36,12 +36,14 @@ export function renderEraStrip(active: Era, dots: Record<Era, string>): HTMLElem
   const group = document.createElement("div");
 
   group.setAttribute("role", "radiogroup");
+  group.setAttribute("aria-label", "Geological era");
 
   for (const era of ["Paleozoic", "Mesozoic", "Cenozoic"] as Era[]) {
     const btn = document.createElement("button");
     btn.setAttribute("role", "radio");
     btn.setAttribute("aria-checked", String(era === active));
-    btn.textContent = `${era} ${dots[era]}`;
+    btn.textContent = era;
+    btn.style.setProperty("--era-color", dots[era]);
     group.append(btn);
     btn.addEventListener("click", () => void selectEra(era));
   }
@@ -49,66 +51,53 @@ export function renderEraStrip(active: Era, dots: Record<Era, string>): HTMLElem
   return group;
 }
 
-export async function selectEra(era: Era): Promise<void> {
+export async function selectEra(era: Era, pushHistory = true): Promise<void> {
   const { countryCode } = store.getState();
+  const sequence = store.nextSeq();
   const key = `${countryCode}:${era}`;
-
+  const current = parseUrl(location.search);
+  const txn = current.countryCode === countryCode && current.era === era ? current.txn : null;
+  if (pushHistory && (current.countryCode !== countryCode || current.era !== era)) {
+    history.pushState(null, "", "?" + serializeUrl(countryCode, era, txn));
+  }
   const cached = store.loadSession(key) as { payload?: SitePayload | null } | null;
-  const txn = parseUrl(location.search).txn;
-
-  if (cached?.payload?.cards?.length) {
+  store.setState({ era, payload: null, status: countryCode ? "loading" : "idle", sequence });
+  if (!countryCode) return;
+  if (Array.isArray(cached?.payload?.cards)) {
     store.setState({
       era,
-      payload: cached.payload as SitePayload,
+      payload: cached.payload,
       status: cached.payload.cards.length ? "ready" : "empty",
+      sequence,
     });
-
-    history.pushState(null, "", "?" + serializeUrl(countryCode, era, txn));
     return;
   }
-
-  store.setState({
-    era,
-    status: "loading",
-  });
-
   try {
     const res = await fetch(`/api/occs?cc=${countryCode}&era=${era}`);
     if (!res.ok) throw new Error("upstream");
     const payload = (await res.json()) as SitePayload;
-    store.setState({
-      era,
-      payload,
-      status: payload.cards.length ? "ready" : "empty",
-    });
-    history.pushState(null, "", "?" + serializeUrl(countryCode, era, txn));
+    if (!Array.isArray(payload.cards)) throw new Error("schema");
+    store.setState({ era, payload, status: payload.cards.length ? "ready" : "empty", sequence });
   } catch {
     if (countryCode === "US" && era === "Mesozoic") {
-      const seed = await fetch("/data/seed/US-Mesozoic.json").then((r) => r.json());
-      store.setState({
-        era,
-        payload: seed,
-        status: "degraded",
-      });
-      return;
+      try {
+        const seed = (await fetch("/data/seed/US-Mesozoic.json").then((r) =>
+          r.json(),
+        )) as SitePayload;
+        store.setState({ era, payload: seed, status: "degraded", sequence });
+        return;
+      } catch {
+        /* The regular error state also covers a missing seed. */
+      }
     }
-    store.setState({
-      era,
-      status: "degraded",
-    });
-    history.pushState(null, "", "?" + serializeUrl(countryCode, era, txn));
+    store.setState({ era, payload: null, status: "degraded", sequence });
   }
 }
 
 const init = parseUrl(location.search);
-
 history.replaceState(null, "", "?" + serializeUrl(init.countryCode, init.era, init.txn));
-
 window.addEventListener("popstate", () => {
   const { countryCode, era } = parseUrl(location.search);
-  store.setState({
-    countryCode,
-    era,
-    status: "idle",
-  });
+  store.setState({ countryCode, payload: null, status: "idle" });
+  void selectEra(era, false);
 });

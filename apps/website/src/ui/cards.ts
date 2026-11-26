@@ -1,46 +1,43 @@
-import { page, silhouetteFor, type TaxonCard } from "utils";
+import { page, silhouetteFor, type TaxonCard, type TaxonDetail } from "utils";
 import { openTaxon } from "./modal.ts";
-import type { TaxonDetail } from "utils";
 import { store } from "../store";
 import { serializeUrl } from "../url";
 
-const pending = new Set<string>();
 const detailCache = new Map<string, TaxonDetail>();
 
-export async function openCardModal(taxonCard: TaxonCard, cardEl: HTMLElement): Promise<void> {
-  if (pending.has(taxonCard.tid)) return;
-  const cached = detailCache.get(taxonCard.tid);
-  if (cached) {
-    openTaxon(taxonCard, cached, cardEl);
-    return;
-  }
-  pending.add(taxonCard.tid);
-  openTaxon(
-    taxonCard,
-    {
-      tid: taxonCard.tid,
-      tna: taxonCard.tna,
-      rank: "Loading...",
+export async function openCardModal(card: TaxonCard, returnTo: HTMLElement): Promise<void> {
+  const cached = detailCache.get(card.tid);
+  const dialog = openTaxon(
+    card,
+    cached ?? {
+      tid: card.tid,
+      tna: card.tna,
+      rank: "Loading taxon details…",
       authority: "",
       parentTid: "",
       occurrenceCount: null,
-      pbdbUrl: "#",
+      pbdbUrl: "",
     },
-    cardEl,
+    returnTo,
   );
-
+  if (!dialog) return;
   history.replaceState(
     null,
     "",
-    "?" + serializeUrl(store.getState().countryCode, store.getState().era, taxonCard.tid),
+    "?" + serializeUrl(store.getState().countryCode, store.getState().era, card.tid),
   );
-
+  if (cached) return;
+  const metadata = dialog.querySelector<HTMLElement>(".taxon-metadata")!;
   try {
-    const response = await fetch(`/api/taxon?id=${encodeURIComponent(taxonCard.tid)}`);
-    if (!response.ok) return;
-    detailCache.set(taxonCard.tid, (await response.json()) as TaxonDetail);
-  } finally {
-    pending.delete(taxonCard.tid);
+    const response = await fetch(`/api/taxon?id=${encodeURIComponent(card.tid)}`);
+    if (!response.ok) throw new Error("upstream");
+    const detail = (await response.json()) as TaxonDetail;
+    detailCache.set(card.tid, detail);
+    metadata.textContent =
+      [detail.rank, detail.authority].filter(Boolean).join(" · ") || "Taxon details loaded.";
+  } catch {
+    metadata.textContent =
+      "Additional details are unavailable. You can still view the PBDB source.";
   }
 }
 
@@ -48,57 +45,50 @@ export function renderCards(wrap: HTMLElement, cards: TaxonCard[]): void {
   let num = 0;
   const sentinel = document.createElement("div");
   sentinel.classList.add("sentinel");
-
   function appendNext(): void {
+    if (!sentinel.isConnected && num > 0) {
+      io.disconnect();
+      return;
+    }
     const next = page(cards, num++);
     if (!next.length) {
       io.disconnect();
       return;
     }
-
     wrap.append(...next.map(renderCard));
     if (num * 48 >= cards.length) io.disconnect();
   }
-
   const io = new IntersectionObserver((entries) => {
-    if (!entries[0].isIntersecting) return;
-    appendNext();
+    if (entries[0].isIntersecting) appendNext();
   });
-
   appendNext();
-  io.observe(sentinel);
   wrap.append(sentinel);
+  io.observe(sentinel);
 }
 
-export function renderCard(taxonCard: TaxonCard): HTMLElement {
-  const cardEl = document.createElement("article");
-  cardEl.classList.add("card");
-  cardEl.setAttribute("tabindex", "0");
-  cardEl.setAttribute("role", "button");
-  cardEl.addEventListener("click", () => void openCardModal(taxonCard, cardEl));
-  cardEl.addEventListener("keydown", (event) => {
+export function renderCard(card: TaxonCard): HTMLElement {
+  const el = document.createElement("article");
+  el.classList.add("card");
+  el.tabIndex = 0;
+  el.setAttribute("role", "button");
+  el.addEventListener("click", () => void openCardModal(card, el));
+  el.addEventListener("keydown", (event) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      void openCardModal(taxonCard, cardEl);
+      void openCardModal(card, el);
     }
   });
-
-  cardEl.innerHTML = `
-    <div class="figure"></div>
-    <h3>${taxonCard.tna}</h3>
-  `;
-
-  const figureEl = cardEl.querySelector(".figure");
-  const silhouetteImage = document.createElement("img");
-
-  silhouetteImage.loading = "lazy";
-  silhouetteImage.src = `/sprites/${silhouetteFor(taxonCard.tna)}.svg`;
-
-  if (figureEl) {
-    figureEl.append(silhouetteImage, renderTickBar());
-  }
-
-  return cardEl;
+  const figure = document.createElement("div");
+  figure.className = "figure";
+  const img = document.createElement("img");
+  img.loading = "lazy";
+  img.alt = "";
+  img.src = `/sprites/${silhouetteFor(card.tna)}.svg`;
+  figure.append(img, renderTickBar());
+  const title = document.createElement("h3");
+  title.textContent = card.tna;
+  el.append(figure, title);
+  return el;
 }
 
 export function renderTickBar(): HTMLElement {

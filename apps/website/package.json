@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@playwright/test": "catalog:",
+    "@types/geojson": "catalog:",
     "@types/node": "^26.1.1",
     "sax": "catalog:",
     "typescript": "~6.0.2",

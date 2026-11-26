@@ -8,7 +8,6 @@ import "@fontsource/inter/latin-500.css";
 // utils
 import { store } from "./store.ts";
 import { parseUrl } from "./url.ts";
-import { serializeUrl } from "./url.ts";
 import { COUNTRIES, filterBySfm } from "utils";
 
 // components
@@ -28,9 +27,11 @@ if (!app.querySelector("#drawer")) {
 const globeEl = document.querySelector("#globe");
 const loadBtn = document.querySelector("#load-globe");
 const drawer = document.querySelector("#drawer");
+let globeLoaded = false;
 
 function loadGlobe(): void {
-  if (globeEl instanceof HTMLElement) {
+  if (globeEl instanceof HTMLElement && !globeLoaded) {
+    globeLoaded = true;
     void import("./components/globe/index.ts").then((m) => m.initGlobe(globeEl));
     loadBtn?.remove();
   }
@@ -48,7 +49,7 @@ if (drawer instanceof HTMLElement) {
   drawer.append(
     renderCountryListBox([...COUNTRIES], (c) => {
       const era = store.getState().era;
-      history.pushState(null, "", "?" + serializeUrl(c.countryCode, era));
+      loadGlobe();
       store.setState({
         countryCode: c.countryCode,
         payload: null,
@@ -73,7 +74,7 @@ if (drawer instanceof HTMLElement) {
   input.addEventListener("input", () => {
     const { payload } = store.getState();
     if (!payload) return;
-    drawer.querySelectorAll(".card").forEach((el) => el.remove());
+    drawer.querySelectorAll(".card, .sentinel").forEach((el) => el.remove());
     renderCards(drawer, filterBySfm(payload.cards, input.value));
   });
 
@@ -113,7 +114,7 @@ if (drawer instanceof HTMLElement) {
 
     const picker = drawer.querySelector('select[aria-label="Country"]') as HTMLSelectElement | null;
 
-    if (picker && countryCode) picker.value = countryCode;
+    if (picker) picker.value = countryCode ?? "";
 
     const txn = parseUrl(location.search).txn;
 

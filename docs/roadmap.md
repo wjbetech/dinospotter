@@ -6,7 +6,7 @@
 > Invoke per ticket: `mentor: <ticket-slug>` e.g. `mentor: globe click → country?`, `mentor: top-12 callouts?`
 > Mentor rules (from `docs/agents/code-mentor.md`): <200 words, 1 starter snippet, 1 doc URL, 1 task + 1 check (`vp check` / `vp test`), perf+CI note every ticket.
 > Read order before any ticket: `docs/implementation-readiness.md`, `CONTEXT.md`, the four ADRs, `docs/research/pbdb-api.md`, `docs/perf-budget.md`, `docs/research/asset/example.png`, then this file §§2–§3. Stop at a readiness blocker instead of making an infrastructure decision inside a feature ticket.
-> Current frontier: `R1`–`R6` (Phase 7 refurb) only. T0.0–T5.3 plus the Phase 6 ship are done, verified (E2E 11/11, LHCI LCP ~0.9s, budget green), and merged to master. Do not re-open shipped tickets; new work goes in Phase 7.
+> Current frontier: `R5` user-supplied art, then `R6` final human visual sign-off. R1–R4 are implemented and locally checked (2026-11-27). T0.0–T5.3 plus the Phase 6 ship are done, verified (E2E 11/11, LHCI LCP ~0.9s, budget green), and merged to master. Do not re-open shipped tickets; new work goes in Phase 7.
 
 ## Ticket tracker (tick these as you go — single source of truth)
 
@@ -32,20 +32,32 @@
 - [x] T5.2 `a11y: keyboard + motion + axe`
 - [x] T5.3 `test: e2e golden paths F1–F7`
 - [x] Phase 6 ship `launch sign-off: picker sync, deterministic e2e, LHCI, prod smoke`
-- [ ] R1 `feat(data): top-12 ranking + city dataset`
-- [ ] R2 `feat(map): paper-grain land texture`
-- [ ] R3 `feat(map): top-12 named callouts + leader wiring + modal`
-- [ ] R4 `feat(map): cities + scale + focus fit + era redraw + overflow`
+- [x] R1 `feat(data): top-12 ranking + city dataset`
+- [x] R2 `feat(map): paper-grain land texture`
+- [x] R3 `feat(map): top-12 named callouts + leader wiring + modal`
+- [x] R4 `feat(map): cities + scale + focus fit + era redraw + overflow`
 - [ ] R5 `feat(art): green silhouette batch + footprint companion`
 - [ ] R6 `test: KR proof drive-through + locked e2e`
 
 ## Last task done (handoff):
 
-- Date: 2026-10-19
-- Task: R1 code done (12 leader dinos, majorCities) - M7.1.3 needs places attribution
-- Frontier: R2 M7.2.1 grain fill-pattern
-- Checks: all green and clean through `vp test` and `vp run website#check:budget`.
-- PC/Laptop Resume:
+- Date: 2026-11-27
+- Task: R1–R4 complete locally: deterministic top-12 placement, matching leaders,
+  responsive bottom rail, overflow to drawer, native modal focus return, city
+  labels, metric scale, padded focus from URL/picker/map, and era cleanup.
+- R1 data follow-up: 110m places had only Seoul. A reproducible, version-pinned
+  50m extract supplies the capital + three other major cities at 75,119 bytes.
+- R6 M7.6.1 is complete: deterministic mocked-KR desktop/mobile tests, stable
+  positions, modal keyboard path, overflow, era clearing, and axe WCAG checks.
+- Checks: 30 unit tests and 12 browser tests pass; format/lint/types pass;
+  production build (`--no-cache` on Windows) and artifact budget pass.
+  Lighthouse homepage LCP 1.37s (one mobile-profile run); INP unmeasured.
+- Agent live checks: KR, US, CH; KR taxon metadata loaded through the local API.
+  These checks are not the final human acceptance required by R6.
+- Frontier: R5 artwork batch (eight clade SVGs + `footprint.svg`), then R6 human
+  comparison against `example.png` and repeat release checks with final assets.
+- Stay on `dev` while finishing this refurb. No commit, PR, merge, or deployment
+  was made in this session. GitHub issue #15 remains the open umbrella issue.
 
 ## 0. Vision, success, non-goals, repo map
 
@@ -393,7 +405,7 @@ the checkmark as evidence that the current starter already supports the rule.
 | 18  | `sessionStorage` JSON corrupt / disabled                                     | crash on load                               | ✅ Resolved §2.2: versioned safe read/write + schema validation + fetch fallback contract (T0.3)                                                             | vitest guard                       |
 | 19  | Leader-line overload on fossil-rich countries (US/DE)                        | line soup, unreadable                       | ✅ Resolved ADR-004: cap 8 + "+N more", 500 segs, group by `tid` count; drawer keeps full list (T2.3)                                                        | vitest grouping + visual T2.3      |
 | 20  | Small-country labels collide at low zoom                                     | overlap, clutter                            | ✅ Resolved ADR-004: hide small labels until safe zoom, collision-tested symbol layer, F7 (T2.1)                                                             | F7 e2e                             |
-| 21  | No admin/city geography bundled (`public/geo` holds countries only)          | CountryFocus has no city labels             | ✅ Resolved refurb Round 3: bundle NE `populated_places` + `majorCities` pure filter (capital + top 3–4, English), size-gated <600KB combined (R1)           | vitest fixture rows + size gate    |
+| 21  | No admin/city geography bundled (`public/geo` holds countries only)          | CountryFocus has no city labels             | ✅ Resolved refurb Round 3: bundle trimmed NE `populated_places` + `majorCities` pure filter (capital + top 3–4, English), size-gated <600KB combined (R1)   | vitest fixture rows + size gate    |
 | 22  | Hand-placed callouts don't generalize to all countries                       | KR-only layout, unmaintainable              | ✅ Resolved refurb Round 3: generic seeded fan-out + de-collision in `placeCallouts`; bit-for-bit stable per payload; no per-country layout (R3)             | vitest determinism + zero-overlap  |
 | 23  | "Organic feel" tempts unseeded randomness                                    | flaky map, untestable e2e                   | ✅ Resolved refurb Round 3 §3.6: seed = hash(`tid`) + anchor only; `Math.random`/wall-clock banned; locked mocked-KR e2e pins it (R6)                        | R6 e2e fails on unseeded jitter    |
 | 24  | Silhouette style drift (ink cards vs green reference)                        | map doesn't match `example.png`             | ✅ Resolved refurb Round 3: single-flat `currentColor` batch tinted `moss` at render + generic `footprint.svg`; filenames pinned to `silhouetteFor` ids (R5) | visual vs `example.png` (R6)       |
@@ -680,31 +692,31 @@ Mentor: `mentor: top-12 callouts?` Files: `packages/utils/src/leaders.ts`, new `
 
 - [x] M7.1.1 `leaders` cap 12: change default `max` 8→12; extend vitest (15 groups in → 12 out, order pinned, stable across runs).
 - [x] M7.1.2 `majorCities` seam (red: no fn; green: minimal): filter fixture rows by ISO2, capital first, pop desc, English names. Test pins order on literal fixtures.
-- [ ] M7.1.3 dataset: add NE `populated_places` 110m + attribution line; assert combined geo size gate in the same test run.
+- [x] M7.1.3 dataset: add the trimmed NE `populated_places` 50m v5.1.2 extract + attribution (110m lacked enough KR cities); assert combined geo size gate in the same test run.
 
 #### R2 `feat(map): paper-grain land texture` — Blocked by: none. Independent of R1.
 
 Mentor: `mentor: land grain?` Files: `apps/website/public/styles/light.json` (+ land layer wherever it is defined). DoD: subtle zoom-constant grain on land, no rivers/borders, no new sources. Check: `vp check` + eyeball. Perf: one paint value, GPU-composited pattern. Doc: https://maplibre.org/maplibre-style-spec/layers/#fill-pattern
 
-- [ ] M7.2.1 grain tile: inline data-URI noise as `fill-pattern` on the land fill.
-- [ ] M7.2.2 tune: single paint-value pass if grain looks dirty at any zoom (eyeball only).
+- [x] M7.2.1 grain tile: inline data-URI noise as `fill-pattern` on the land fill.
+- [x] M7.2.2 tune: single paint-value pass if grain looks dirty at any zoom (eyeball only).
 
 #### R3 `feat(map): top-12 named callouts + leader wiring + modal` — Blocked by: R1.
 
 Mentor: `mentor: callout fan-out?` Files: new `packages/utils/src/place-callouts.ts` + test, `apps/website/src/components/globe/leaders.ts`, callout marker render. DoD: ≤12 callouts (silhouette + `tna` + footprint slot), seeded fan-out + de-collision, lines anchor at real findspots, click/Enter opens existing modal, "+N more" beyond 12 scrolls drawer. Check: `vp check` + keyboard pass. Perf: ≤12 markers + 1 line layer. Doc: https://maplibre.org/maplibre-gl-js/docs/
 
-- [ ] M7.3.1 `placeCallouts` pure (red: overlap fixture; green: seeded fan-out + one de-collision pass; stable across runs; rail positions on narrow viewports).
-- [ ] M7.3.2 render markers: silhouette `<img>` + name per positioned callout; wire line layer to new positions.
-- [ ] M7.3.3 click + keyboard: `role=button`, Enter/Space → existing `openCardModal`; focus returns on modal close.
-- [ ] M7.3.4 overflow: "+N more" chip → scrolls drawer full list.
+- [x] M7.3.1 `placeCallouts` pure (red: overlap fixture; green: seeded fan-out + one de-collision pass; stable across runs; rail positions on narrow viewports).
+- [x] M7.3.2 render markers: silhouette `<img>` + name per positioned callout; wire line layer to new positions.
+- [x] M7.3.3 click + keyboard: `role=button`, Enter/Space → existing `openCardModal`; focus returns on modal close.
+- [x] M7.3.4 overflow: "+N more" chip → scrolls drawer full list.
 
 #### R4 `feat(map): cities + scale + focus fit + era redraw + overflow` — Blocked by: R1, R3.
 
 Mentor: `mentor: city labels?` Files: globe label layers, `ScaleControl` wiring, `zoomTo`, `selectEra`. DoD: capital + top 3–4 English city labels (hide-until-safe-zoom), metric scale bar, click-to-focus fit-bounds with sea margin on any country, era switch recomputes + repositions under skeleton discipline. Check: `vp check` + manual KR zoom. Perf: symbol layers GPU-side. Doc: https://maplibre.org/maplibre-gl-js/docs/
 
-- [ ] M7.4.1 city layer: symbol layer from R1 dataset + safe-zoom hiding.
-- [ ] M7.4.2 scale + fit: one-line `ScaleControl` (metric); verify/extend `zoomTo` sea-margin fit-bounds.
-- [ ] M7.4.3 era redraw: `selectEra` recomputes leaders + positions (no stale callouts).
+- [x] M7.4.1 city layer: symbol layer from R1 dataset + safe-zoom hiding.
+- [x] M7.4.2 scale + fit: one-line `ScaleControl` (metric); verify/extend `zoomTo` sea-margin fit-bounds.
+- [x] M7.4.3 era redraw: `selectEra` recomputes leaders + positions (no stale callouts).
 
 #### R5 `feat(art): green silhouette batch + footprint companion` — Blocked by: R3 (render slots exist).
 
@@ -717,7 +729,7 @@ Mentor: `mentor: art drop-in?` Files: `apps/website/public/sprites/` (8 + `footp
 
 Mentor: `mentor: KR proof?` Files: `apps/website/e2e/` (new mocked-KR spec). DoD: R1 flow passes by human sign-off against `example.png`; deterministic e2e (mocked KR payload: 12 cards + cities) asserts callouts, names, modal open/close; unseeded jitter would fail it. Check: `pnpm exec playwright test` + `vp check`. Perf: full `vp run -r build` + budget + LHCI before PR. Doc: https://playwright.dev/docs/mock
 
-- [ ] M7.6.1 locked e2e: mocked KR payload, callout count/names, modal open/close, no live PBDB.
+- [x] M7.6.1 locked e2e: mocked KR payload, callout count/names, modal open/close, no live PBDB.
 - [ ] M7.6.2 human sign-off: KR + one large + one small country vs `example.png`.
 
 ---
@@ -771,7 +783,7 @@ Mentor invocations: `mentor: strip starter?`, `mentor: era buckets from interval
 
 Non-goals (locked 2026-09-06, amended 2026-09-07 by ADR-005): auth, CMS, uploads, native mobile, paleogeographic reconstruction, i18n, analytics, PWA, paid tiles, zoomed-out map dots (labels only). CountryFocus alone uses 2–3px anchor dots as leader endpoints. Static frontend + serverless proxy. Risk: PBDB schema drift → pin `data1.2`, validate in proxy, fail CI loudly. Risk: PBDB slowness/429 → client fallback plus bounded proxy retries (§2.3). Risk: proxy cache semantics → implement only the stale behavior the chosen cache can prove (§3.5, D6). Risk: silhouette licensing → own art only (ADR-003). Risk: leader-line overload → cap 8 callouts + grouping (§2.1). Risk: scope creep → any new ask needs a `gh` issue + ADR before code.
 
-Closed decisions: D1 (host → Vercel, ADR-002), D2 (8-clade list, ADR-003), D3 (`straw #D9A441` final, §1). Open readiness decisions D4-D7 are listed in `docs/implementation-readiness.md`; they block only the tickets named in §6.
+Closed decisions: D1 (host → Vercel, ADR-002), D2 (8-clade list, ADR-003), D3 (`straw #D9A441` final, §1). Readiness decisions D4-D7 and remaining release limitations are listed in `docs/implementation-readiness.md`; they block only the tickets named in §6.
 
 ## 9. Skills, docs, traceability, certainty checklist
 
@@ -789,10 +801,10 @@ Certainty checklist (planning completeness, not implementation status):
 - [x] Quirks have design resolutions and pending verification — §4.
 - [x] Tickets have explicit blockers, micro-chunks, checks, and perf notes — §5–§6.
 - [x] TDD seams are named — §7.
-- [ ] Toolchain/deployment baseline is green — `docs/implementation-readiness.md` T0.0.
-- [ ] D4-D7 are closed — `docs/implementation-readiness.md`.
+- [x] Toolchain/deployment baseline is green locally (Windows build uses `--no-cache`) — `docs/implementation-readiness.md` T0.0.
+- [x] D4-D7 design choices are recorded; see remaining verification limits — `docs/implementation-readiness.md`.
 - [x] Grill Round 1 Q1–Q4 + style Round 2 Q1–Q10 — §§10–11.
-      Remaining fog: T0.0 and D4-D7; Phase 6 stretch stays `needs-triage`.
+      Remaining Phase 7 work: R5 artwork and R6 human acceptance; see readiness for release verification limits.
 
 ---
 
@@ -972,4 +984,4 @@ Reference: `docs/research/asset/example.png` (Korean fossil map: terrain land, a
 
 ---
 
-Next: create `gh` issues per §6 (R1–R6), start Phase 7 via `mentor: top-12 callouts?`
+Next: supply the R5 SVG batch, finish its render wiring, then complete R6 human visual acceptance. Track the refurb in GitHub issue #15.
