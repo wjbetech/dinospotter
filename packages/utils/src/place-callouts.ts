@@ -14,7 +14,7 @@ export function placeCallouts(
   leaders: Leader[],
   viewport = { width: 960, height: 720 },
 ): PositionedCallout[] {
-  const rail = viewport.width < 500 || viewport.height < 480;
+  const rail = viewport.width < 500 || viewport.height < 560;
   const sorted = [...leaders].slice(0, 12).sort((a, b) => a.tid.localeCompare(b.tid));
   const used = new Set<number>();
   const positions = new Map<string, PositionedCallout>();
@@ -25,12 +25,11 @@ export function placeCallouts(
     while (used.has(slot)) slot = (slot + 1) % 12;
     used.add(slot);
     const row = Math.floor(slot / 2);
-    const jitter = (seed % 17) - 8;
     const callout: [number, number] = rail
       ? [80 + i * 144, viewport.height - 64]
       : [
           slot % 2 ? viewport.width - 88 - (seed % 13) : 88 + (seed % 13),
-          72 + (row * (viewport.height - 144)) / 5 + jitter,
+          112 + (row * (viewport.height - 176)) / 5,
         ];
     positions.set(leader.tid, { ...leader, callout, rail });
   }

@@ -1,7 +1,12 @@
 import type { GeoJSONSource, Map } from "maplibre-gl";
 import { placeCallouts, silhouetteFor, type Leader, type PositionedCallout } from "utils";
 
-export function render(map: Map, items: PositionedCallout[], wrap: HTMLElement) {
+export function render(
+  map: Map,
+  items: PositionedCallout[],
+  wrap: HTMLElement,
+  activeTid: string | null = null,
+) {
   const bounds = wrap.getBoundingClientRect();
   const features = items.flatMap((item) => {
     const button = [...wrap.querySelectorAll<HTMLElement>(".callout")].find(
@@ -15,7 +20,7 @@ export function render(map: Map, items: PositionedCallout[], wrap: HTMLElement) 
     return [
       {
         type: "Feature" as const,
-        properties: { tid: item.tid },
+        properties: { tid: item.tid, active: item.tid === activeTid },
         geometry: {
           type: "LineString" as const,
           coordinates: [item.anchor, map.unproject([x, y]).toArray()],
@@ -32,7 +37,11 @@ export function render(map: Map, items: PositionedCallout[], wrap: HTMLElement) 
       id: "leaders",
       type: "line",
       source: "leaders",
-      paint: { "line-color": "#2F7D62", "line-width": 1.5, "line-opacity": 0.65 },
+      paint: {
+        "line-color": "#2F7D62",
+        "line-width": ["case", ["get", "active"], 2, 1],
+        "line-opacity": ["case", ["get", "active"], 0.78, 0.18],
+      },
     });
   const anchors = {
     type: "FeatureCollection" as const,
@@ -68,6 +77,12 @@ export function renderCallouts(
   const rail = document.createElement("div");
   rail.className = "callout-rail";
   if (positioned[0]?.rail) wrap.append(rail);
+  let activeTid: string | null = null;
+  const redraw = () => render(map, positioned, wrap, activeTid);
+  const highlight = (tid: string | null) => {
+    activeTid = tid;
+    redraw();
+  };
   for (const item of positioned) {
     const button = document.createElement("button");
     button.type = "button";
@@ -75,21 +90,33 @@ export function renderCallouts(
     button.dataset.tid = item.tid;
     const art = document.createElement("span");
     art.className = "callout-art";
-    art.style.setProperty("--silhouette", `url('/sprites/${silhouetteFor(item.tna)}.svg')`);
+    const kind = silhouetteFor(item.tna);
+    art.dataset.kind = kind;
+    art.style.setProperty("--silhouette", `url('/sprites/${kind}.svg')`);
     art.setAttribute("aria-hidden", "true");
     const footprint = document.createElement("span");
-    footprint.className = "callout-footprint";
-    footprint.style.setProperty("--footprint", "url('/sprites/footprint.svg')");
-    footprint.setAttribute("aria-hidden", "true");
+    if (
+      ["trace", "sauropod", "theropod", "ornithischian", "pterosaur", "fallback"].includes(kind)
+    ) {
+      footprint.className = "callout-footprint";
+      footprint.style.setProperty("--footprint", "url('/sprites/footprint.svg')");
+      footprint.setAttribute("aria-hidden", "true");
+    }
     const name = document.createElement("span");
     name.className = "callout-name";
     name.textContent = item.tna;
-    button.append(art, footprint, name);
+    button.append(art);
+    if (footprint.className) button.append(footprint);
+    button.append(name);
     button.addEventListener("click", (event) => {
       event.stopPropagation();
       onPick(item.tid, button);
     });
     button.addEventListener("dblclick", (event) => event.stopPropagation());
+    button.addEventListener("mouseenter", () => highlight(item.tid));
+    button.addEventListener("mouseleave", () => highlight(null));
+    button.addEventListener("focus", () => highlight(item.tid));
+    button.addEventListener("blur", () => highlight(null));
     if (item.rail) rail.append(button);
     else {
       button.style.left = `${item.callout[0]}px`;
@@ -97,7 +124,6 @@ export function renderCallouts(
       wrap.append(button);
     }
   }
-  const redraw = () => render(map, positioned, wrap);
   rail.addEventListener("scroll", redraw);
   redraw();
   return redraw;

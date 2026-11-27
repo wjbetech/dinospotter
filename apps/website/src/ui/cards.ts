@@ -80,11 +80,13 @@ export function renderCard(card: TaxonCard): HTMLElement {
   });
   const figure = document.createElement("div");
   figure.className = "figure";
-  const img = document.createElement("img");
-  img.loading = "lazy";
-  img.alt = "";
-  img.src = `/sprites/${silhouetteFor(card.tna)}.svg`;
-  figure.append(img, renderTickBar());
+  const art = document.createElement("span");
+  const kind = silhouetteFor(card.tna);
+  art.className = "taxon-art";
+  art.dataset.kind = kind;
+  art.setAttribute("aria-hidden", "true");
+  art.style.setProperty("--silhouette", `url('/sprites/${kind}.svg')`);
+  figure.append(art, renderTickBar());
   const title = document.createElement("h3");
   title.textContent = card.tna;
   el.append(figure, title);

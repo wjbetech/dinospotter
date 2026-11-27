@@ -8,5 +8,10 @@ test("silhouetteFor pins order", () => {
   expect(silhouetteFor("Sauropoda")).toBe("sauropod");
   expect(silhouetteFor("Dinosauria")).toBe("fallback");
   expect(silhouetteFor("Stegosaurus")).toBe("ornithischian");
+  expect(silhouetteFor("Podozamites")).toBe("plant");
+  expect(silhouetteFor("Brontopodus")).toBe("trace");
+  expect(silhouetteFor("Aves")).toBe("bird");
+  expect(silhouetteFor("Koreanaornis hamanensis")).toBe("bird");
+  expect(silhouetteFor("Trigonioides")).toBe("invertebrate");
   expect(silhouetteFor("Mystery animal")).toBe("fallback");
 });

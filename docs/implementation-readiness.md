@@ -68,6 +68,10 @@ mobile rail. The existing navigation-only F1 smoke can still use seed fallback.
 - R6.3 visual adjustments are implemented: dimensional atlas surface, stronger
   colored borders, globe return control, top-12-only map and drawer, and desktop
   floating cards. R6.2 still needs human comparison against `example.png`.
+- Visual refinement follow-up adds plant, bird, trace-fossil, and invertebrate
+  silhouettes, context-appropriate footprint marks, map contour textures,
+  collision-safe callout spacing, active leader highlighting, and compact shared
+  specimen artwork in the map and drawer.
 - `places.geojson` retains all 494 features and is compacted to 75,120 bytes;
   the JSON content is semantically identical to the checked-in source.
 - R6's final human comparison against `docs/research/asset/example.png` remains

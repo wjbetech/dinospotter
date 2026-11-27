@@ -3,7 +3,23 @@ import AxeBuilder from "@axe-core/playwright";
 
 const cards = Array.from({ length: 15 }, (_, i) => ({
   tid: `txn:${i + 1}`,
-  tna: `Koreasaurus ${i + 1}`,
+  tna: [
+    "Brontopodus",
+    "Podozamites",
+    "Caririchnium",
+    "Aves",
+    "Ornithopoda",
+    "Trigonioides",
+    "Cladophlebis",
+    "Koreanaornis hamanensis",
+    "Sauropoda",
+    "Dinosauria",
+    "Theropoda",
+    "Dictyophyllum",
+    "Koreasaurus 13",
+    "Koreasaurus 14",
+    "Koreasaurus 15",
+  ][i]!,
   oei: "Cretaceous",
   eag: 100,
   lag: 90,
@@ -39,6 +55,30 @@ test("KR: top taxa, floating callouts, cities, scale, modal and globe return", a
   await expect(page.locator(".callout-more")).toHaveCount(0);
   await expect(page.locator(".callout-rail")).toHaveCount(0);
   await expect(page.locator(".card")).toHaveCount(12);
+  await expect(page.locator('.callout-art[data-kind="plant"]')).toHaveCount(3);
+  await expect(page.locator('.callout-art[data-kind="bird"]')).toHaveCount(2);
+  await expect(page.locator('.callout-art[data-kind="trace"]')).toHaveCount(2);
+  await expect(page.locator('.callout-art[data-kind="invertebrate"]')).toHaveCount(1);
+  await expect(page.locator(".callout-footprint")).toHaveCount(6);
+  const backBox = await page.getByRole("button", { name: "Back to globe" }).evaluate((node) => {
+    const { x, y, width, height } = node.getBoundingClientRect();
+    return { x, y, width, height };
+  });
+  const calloutBoxes = await callouts.evaluateAll((nodes) =>
+    nodes.map((node) => {
+      const { x, y, width, height } = node.getBoundingClientRect();
+      return { x, y, width, height };
+    }),
+  );
+  expect(
+    calloutBoxes.every(
+      (box) =>
+        backBox.x + backBox.width <= box.x ||
+        backBox.y + backBox.height <= box.y ||
+        backBox.x >= box.x + box.width ||
+        backBox.y >= box.y + box.height,
+    ),
+  ).toBe(true);
   const heights = await callouts.evaluateAll(
     (nodes) => new Set(nodes.map((node) => (node as HTMLElement).style.top)).size,
   );
@@ -59,7 +99,7 @@ test("KR: top taxa, floating callouts, cities, scale, modal and globe return", a
   );
   await page.reload();
   await expect(callouts).toHaveCount(12);
-  await expect(page.locator(".callout-footprint[aria-hidden='true']")).toHaveCount(12);
+  await expect(page.locator(".callout-footprint[aria-hidden='true']")).toHaveCount(6);
   expect(
     await callouts.evaluateAll((nodes) =>
       nodes.map((n) => [n.getAttribute("data-tid"), n.getAttribute("style")]),

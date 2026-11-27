@@ -62,6 +62,15 @@ export async function initGlobe(el: HTMLElement) {
       feature.properties.BORDER_COLOR = borderPalette[index % borderPalette.length]!;
     });
     map.addSource("countries", { type: "geojson", data: geo });
+    const waterContours = new Image(192, 192);
+    waterContours.src = "/styles/water-contours.svg";
+    await waterContours.decode();
+    map.addImage("water-contours", waterContours);
+    map.setPaintProperty("bg", "background-pattern", "water-contours");
+    const landRelief = new Image(192, 192);
+    landRelief.src = "/styles/land-relief.svg";
+    await landRelief.decode();
+    map.addImage("land-relief", landRelief);
     map.addLayer({
       id: "land",
       type: "fill",
@@ -81,6 +90,12 @@ export async function initGlobe(el: HTMLElement) {
       paint: { "fill-pattern": "grain", "fill-opacity": 0.35 },
     });
     map.addLayer({
+      id: "land-relief",
+      type: "fill",
+      source: "countries",
+      paint: { "fill-pattern": "land-relief", "fill-opacity": 0.65 },
+    });
+    map.addLayer({
       id: "country-borders",
       type: "line",
       source: "countries",
@@ -91,8 +106,8 @@ export async function initGlobe(el: HTMLElement) {
           "#765D40",
           ["get", "BORDER_COLOR"],
         ],
-        "line-width": ["interpolate", ["linear"], ["zoom"], 0, 0.45, 4, 1.1],
-        "line-opacity": 0.9,
+        "line-width": ["interpolate", ["linear"], ["zoom"], 0, 0.7, 4, 1.6],
+        "line-opacity": 0.95,
       },
     });
     map.addLayer({ id: "hit", type: "fill", source: "countries", paint: { "fill-opacity": 0 } });
