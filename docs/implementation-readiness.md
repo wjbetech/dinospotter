@@ -11,7 +11,7 @@ handoff for exact progress.
   geography, seed, sprites, browser runner, and CI configuration all exist.
 - `vp install` succeeds. Build `utils` before checking a fresh checkout: its
   workspace public export points to `dist/index.mjs`, with generated declarations.
-- `vp check` passes after the utility build. `vp test` passes 30 tests across
+- `vp check` passes after the utility build. `vp test` passes 31 tests across
   13 files. The browser suite passes 12 tests, including mocked KR CountryFocus
   at desktop and 390px widths and an axe WCAG check.
 - `vp run --no-cache -r build` and `vp run website#check:budget` pass. Normal
@@ -45,7 +45,7 @@ vp run website#check:budget
 ```
 
 The browser runner starts its own server; it does not require live PBDB. The
-new KR fixture covers stable placement, 12 named callouts, overflow, city
+new KR fixture covers stable placement, 12 named callouts with no overflow chip, city
 selection, metric scale, keyboard modal/focus return, era clearing, and the
 mobile rail. The existing navigation-only F1 smoke can still use seed fallback.
 
@@ -64,7 +64,10 @@ mobile rail. The existing navigation-only F1 smoke can still use seed fallback.
 - R5 is implemented with eight original single-fill clade SVGs plus
   `footprint.svg`; each callout renders a moss silhouette and an `aria-hidden`
   footprint. CountryFocus switches to Mercator and uses extra sea-margin
-  padding to keep the selected country framed above the callout rail.
+  padding to keep the selected country framed among floating desktop callouts.
+- R6.3 visual adjustments are implemented: dimensional atlas surface, stronger
+  colored borders, globe return control, top-12-only map and drawer, and desktop
+  floating cards. R6.2 still needs human comparison against `example.png`.
 - `places.geojson` retains all 494 features and is compacted to 75,120 bytes;
   the JSON content is semantically identical to the checked-in source.
 - R6's final human comparison against `docs/research/asset/example.png` remains

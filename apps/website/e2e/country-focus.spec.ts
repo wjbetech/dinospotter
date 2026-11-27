@@ -32,13 +32,17 @@ test.beforeEach(async ({ page }) => {
   );
 });
 
-test("KR: named callouts, overflow, city labels, scale, keyboard modal and era cleanup", async ({
-  page,
-}) => {
+test("KR: top taxa, floating callouts, cities, scale, modal and globe return", async ({ page }) => {
   await page.goto("/?cc=KR&era=Mesozoic");
   const callouts = page.locator(".callout");
   await expect(callouts).toHaveCount(12);
-  await expect(page.getByRole("button", { name: "+3 more" })).toBeVisible();
+  await expect(page.locator(".callout-more")).toHaveCount(0);
+  await expect(page.locator(".callout-rail")).toHaveCount(0);
+  await expect(page.locator(".card")).toHaveCount(12);
+  const heights = await callouts.evaluateAll(
+    (nodes) => new Set(nodes.map((node) => (node as HTMLElement).style.top)).size,
+  );
+  expect(heights).toBeGreaterThan(2);
   await expect(page.locator(".maplibregl-ctrl-scale")).toBeVisible();
   await expect(page.locator("#globe")).toHaveAttribute("data-country", "KR");
   await expect(page.locator("#globe")).toHaveAttribute("data-projection", "mercator");
@@ -70,11 +74,13 @@ test("KR: named callouts, overflow, city labels, scale, keyboard modal and era c
   await first.press("Space");
   await expect(page.getByRole("dialog")).toBeVisible();
   await page.getByRole("button", { name: "Close", exact: true }).click();
-  await page.getByRole("button", { name: "+3 more" }).click();
-  await expect(page.locator(".card").first()).toBeFocused();
   await page.getByRole("radio", { name: /Cenozoic/ }).click();
   await expect(callouts).toHaveCount(0);
-  await expect(page.locator(".callout-more")).toHaveCount(0);
+  await page.getByRole("button", { name: "Back to globe" }).click();
+  await expect(page.locator("#globe")).toHaveAttribute("data-country", "");
+  await expect(page.locator("#globe")).toHaveAttribute("data-projection", "globe");
+  await expect(page.getByRole("button", { name: "Back to globe" })).toBeHidden();
+  await expect(page).not.toHaveURL(/cc=/);
 });
 
 test("narrow country focus uses a scrollable rail with no overlapping buttons", async ({

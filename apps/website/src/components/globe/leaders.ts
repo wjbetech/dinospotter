@@ -59,9 +59,8 @@ export function renderCallouts(
   wrap: HTMLElement,
   items: Leader[],
   onPick: (tid: string, button: HTMLButtonElement) => void,
-  total = items.length,
 ): () => void {
-  wrap.querySelectorAll(".callout, .callout-rail, .callout-more").forEach((el) => el.remove());
+  wrap.querySelectorAll(".callout, .callout-rail").forEach((el) => el.remove());
   const positioned = placeCallouts(items.slice(0, 12), {
     width: wrap.clientWidth,
     height: wrap.clientHeight,
@@ -97,18 +96,6 @@ export function renderCallouts(
       button.style.top = `${item.callout[1]}px`;
       wrap.append(button);
     }
-  }
-  if (total > 12) {
-    const more = document.createElement("button");
-    more.className = "callout-more";
-    more.textContent = `+${total - 12} more`;
-    more.addEventListener("click", (event) => {
-      event.stopPropagation();
-      const first = document.querySelector<HTMLElement>("#drawer .card");
-      first?.scrollIntoView({ block: "nearest" });
-      first?.focus({ preventScroll: true });
-    });
-    wrap.append(more);
   }
   const redraw = () => render(map, positioned, wrap);
   rail.addEventListener("scroll", redraw);

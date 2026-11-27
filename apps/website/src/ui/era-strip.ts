@@ -64,10 +64,11 @@ export async function selectEra(era: Era, pushHistory = true): Promise<void> {
   store.setState({ era, payload: null, status: countryCode ? "loading" : "idle", sequence });
   if (!countryCode) return;
   if (Array.isArray(cached?.payload?.cards)) {
+    const payload = { ...cached.payload, cards: cached.payload.cards.slice(0, 12) };
     store.setState({
       era,
-      payload: cached.payload,
-      status: cached.payload.cards.length ? "ready" : "empty",
+      payload,
+      status: payload.cards.length ? "ready" : "empty",
       sequence,
     });
     return;
@@ -75,8 +76,9 @@ export async function selectEra(era: Era, pushHistory = true): Promise<void> {
   try {
     const res = await fetch(`/api/occs?cc=${countryCode}&era=${era}`);
     if (!res.ok) throw new Error("upstream");
-    const payload = (await res.json()) as SitePayload;
-    if (!Array.isArray(payload.cards)) throw new Error("schema");
+    const response = (await res.json()) as SitePayload;
+    if (!Array.isArray(response.cards)) throw new Error("schema");
+    const payload = { ...response, cards: response.cards.slice(0, 12) };
     store.setState({ era, payload, status: payload.cards.length ? "ready" : "empty", sequence });
   } catch {
     if (countryCode === "US" && era === "Mesozoic") {
@@ -84,7 +86,12 @@ export async function selectEra(era: Era, pushHistory = true): Promise<void> {
         const seed = (await fetch("/data/seed/US-Mesozoic.json").then((r) =>
           r.json(),
         )) as SitePayload;
-        store.setState({ era, payload: seed, status: "degraded", sequence });
+        store.setState({
+          era,
+          payload: { ...seed, cards: seed.cards.slice(0, 12) },
+          status: "degraded",
+          sequence,
+        });
         return;
       } catch {
         /* The regular error state also covers a missing seed. */

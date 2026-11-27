@@ -5,6 +5,7 @@ import { pickCountry } from "../../globe/pick.ts";
 import { zoomTo } from "../../globe/zoom.ts";
 import { selectEra } from "../../ui/era-strip.ts";
 import { openCardModal } from "../../ui/cards.ts";
+import { serializeUrl } from "../../url.ts";
 import type { FeatureCollection, Point, MultiPolygon, Polygon } from "geojson";
 import type { GeoJSONSource } from "maplibre-gl";
 
@@ -14,7 +15,10 @@ type CountryProperties = {
   LABEL_X: number;
   LABEL_Y: number;
   LABELRANK: number;
+  BORDER_COLOR: string;
 };
+
+const borderPalette = ["#347F91", "#C46F50", "#B18A2D", "#527B55", "#8065A4"];
 
 function bboxFor(coords: unknown): [number, number, number, number] {
   let west = Infinity,
@@ -54,6 +58,9 @@ export async function initGlobe(el: HTMLElement) {
       lng: f.geometry.coordinates[0],
       lat: f.geometry.coordinates[1],
     }));
+    geo.features.forEach((feature, index) => {
+      feature.properties.BORDER_COLOR = borderPalette[index % borderPalette.length]!;
+    });
     map.addSource("countries", { type: "geojson", data: geo });
     map.addLayer({
       id: "land",
@@ -72,6 +79,21 @@ export async function initGlobe(el: HTMLElement) {
       type: "fill",
       source: "countries",
       paint: { "fill-pattern": "grain", "fill-opacity": 0.35 },
+    });
+    map.addLayer({
+      id: "country-borders",
+      type: "line",
+      source: "countries",
+      paint: {
+        "line-color": [
+          "case",
+          ["==", ["get", "ISO2"], store.getState().countryCode ?? ""],
+          "#765D40",
+          ["get", "BORDER_COLOR"],
+        ],
+        "line-width": ["interpolate", ["linear"], ["zoom"], 0, 0.45, 4, 1.1],
+        "line-opacity": 0.9,
+      },
     });
     map.addLayer({ id: "hit", type: "fill", source: "countries", paint: { "fill-opacity": 0 } });
     map.addSource("labels", {
@@ -126,13 +148,31 @@ export async function initGlobe(el: HTMLElement) {
         map.setPaintProperty("land", "fill-color", [
           "case",
           ["==", ["get", "ISO2"], countryCode ?? ""],
-          "#EDE6D6",
+          "#E5C58D",
           "#FAF7F0",
+        ]);
+        map.setPaintProperty("country-borders", "line-color", [
+          "case",
+          ["==", ["get", "ISO2"], countryCode ?? ""],
+          "#765D40",
+          ["get", "BORDER_COLOR"],
         ]);
         const country = geo.features.find((f) => f.properties.ISO2 === countryCode);
         if (country) zoomTo(map, bboxFor(country.geometry.coordinates));
         else map.easeTo({ center: [0, 20], zoom: 1.5, duration: 0 });
         el.dataset.country = countryCode ?? "";
+        const backButton = el
+          .closest("#map-panel")
+          ?.querySelector<HTMLButtonElement>("#back-to-globe");
+        if (backButton) {
+          backButton.hidden = !countryCode;
+          backButton.onclick = (event) => {
+            event.stopPropagation();
+            const { era } = store.getState();
+            history.pushState(null, "", "?" + serializeUrl(null, era));
+            store.setState({ countryCode: null, payload: null, status: "idle" });
+          };
+        }
         const selected = countryCode ? majorCities(cities, countryCode) : [];
         el.dataset.cities = selected.map((city) => city.name).join(", ");
         void (map.getSource("cities") as GeoJSONSource).setData({
@@ -145,16 +185,10 @@ export async function initGlobe(el: HTMLElement) {
         });
       }
       const cards = status === "loading" || status === "idle" ? [] : (payload?.cards ?? []);
-      redraw = renderCallouts(
-        map,
-        el,
-        leaders(cards),
-        (tid, button) => {
-          const card = cards.find((c) => c.tid === tid);
-          if (card) void openCardModal(card, button);
-        },
-        cards.filter((card) => card.sites.length).length,
-      );
+      redraw = renderCallouts(map, el, leaders(cards), (tid, button) => {
+        const card = cards.find((c) => c.tid === tid);
+        if (card) void openCardModal(card, button);
+      });
     };
     map.on("move", () => redraw());
     map.on("resize", sync);

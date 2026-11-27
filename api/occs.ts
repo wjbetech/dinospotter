@@ -96,7 +96,7 @@ export async function GET(req: Request): Promise<Response> {
         stale: false,
         dropped,
         total,
-        cards: groupByTid(rows),
+        cards: groupByTid(rows).slice(0, 12),
       },
       {
         headers: {

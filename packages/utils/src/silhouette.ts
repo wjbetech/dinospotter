@@ -12,40 +12,12 @@ export function silhouetteFor(taxonName: string): SvgId {
   const name = taxonName.toLowerCase();
 
   if (name.includes("ptero")) return "pterosaur";
-
-  if (name.includes("raptor") || name.includes("rex") || name.includes("thero")) {
-    return "theropod";
-  }
-
-  if (
-    name.includes("saurichthys") ||
-    name.includes("ichthy") ||
-    name.includes("mosa") ||
-    name.includes("plesio")
-  ) {
-    return "marine";
-  }
-
-  if (name.includes("titan") || name.includes("saur")) {
-    return "sauropod";
-  }
-
-  if (
-    name.includes("cerat") ||
-    name.includes("hadro") ||
-    name.includes("steg") ||
-    name.includes("ankyl")
-  ) {
-    return "ornithischian";
-  }
-
-  if (name.includes("therapsid") || name.includes("synap")) {
-    return "synapsid";
-  }
-
-  if (name.includes("amphib")) {
-    return "amphibian";
-  }
+  if (/saurichthys|ichthy|mosa|plesio/.test(name)) return "marine";
+  if (/cerat|hadro|steg|ankyl|ornithopod|iguanodon/.test(name)) return "ornithischian";
+  if (/therapsid|synap|dimetrodon/.test(name)) return "synapsid";
+  if (name.includes("amphib")) return "amphibian";
+  if (/sauropod|titanosaur|diplodoc|brachiosaur|apatosaur|brontosaur/.test(name)) return "sauropod";
+  if (/theropod|raptor|rex|allosaur|dromaeosaur|tyrannosaur/.test(name)) return "theropod";
 
   return "fallback";
 }

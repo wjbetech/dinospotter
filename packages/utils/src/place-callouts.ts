@@ -14,7 +14,7 @@ export function placeCallouts(
   leaders: Leader[],
   viewport = { width: 960, height: 720 },
 ): PositionedCallout[] {
-  const rail = viewport.width < 640 || viewport.height < 600;
+  const rail = viewport.width < 500 || viewport.height < 480;
   const sorted = [...leaders].slice(0, 12).sort((a, b) => a.tid.localeCompare(b.tid));
   const used = new Set<number>();
   const positions = new Map<string, PositionedCallout>();
