@@ -158,6 +158,15 @@ export async function initGlobe(el: HTMLElement) {
       const { countryCode, payload, status } = store.getState();
       if (countryCode !== focused) {
         focused = countryCode;
+        for (const small of [false, true]) {
+          const rankFilter = [small ? ">" : "<=", "LABELRANK", 3] as const;
+          map.setFilter(
+            small ? "labels-small" : "labels-big",
+            (countryCode
+              ? ["all", rankFilter, ["==", "ISO2", countryCode]]
+              : rankFilter) as unknown as Parameters<typeof map.setFilter>[1],
+          );
+        }
         map.setProjection({ type: countryCode ? "mercator" : "globe" });
         el.dataset.projection = countryCode ? "mercator" : "globe";
         map.setPaintProperty("land", "fill-color", [

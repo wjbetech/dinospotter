@@ -738,6 +738,7 @@ Mentor: `mentor: KR proof?` Files: `apps/website/e2e/` (new mocked-KR spec). DoD
 - [x] M7.6.3 visual review fixes: relief texture, taxonomy-aware fossil art, globe-control-safe floating cards, highlighted active leader, and compact unified drawer artwork.
 - [x] M7.6.4 Museum field atlas: frame countries between geographic labels, highlight findspots on focus, simplify the header, and show compact formation rows with larger detail art.
 - [x] M7.6.5 Site shell: add map, fossil record and About navigation, a share-view action, self-hosted readable body typography, and a full footer.
+- [x] M7.6.6 Keep the selected country's map label and hide other country names in CountryFocus; restore all country names on the globe.
 
 ---
 
