@@ -60,8 +60,9 @@
   These checks are not the final human acceptance required by R6.
 - Frontier: R6 human comparison against `example.png` and release checks with
   the final art and focus framing.
-- Stay on `dev` while finishing this refurb. No commit, PR, merge, or deployment
-  was made in this session. GitHub issue #15 remains the open umbrella issue.
+- Work is on `feat/phase-7-r5-artwork`; [draft PR #17 targets `master`](https://github.com/wjbetech/dinospotter/pull/17).
+  It references open umbrella issue #15 and awaits R6 human visual sign-off.
+  No merge or deployment was performed.
 
 ## 0. Vision, success, non-goals, repo map
 
