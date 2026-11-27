@@ -469,6 +469,165 @@ input {
   }
 }
 
+/* Field atlas refinement */
+:root {
+  --paper: #f4f2eb;
+  --card: #fffefa;
+  --ink: #20302d;
+  --ink-soft: #53645e;
+  --line: #d8ded4;
+  --moss: #2f7760;
+}
+body {
+  background:
+    radial-gradient(ellipse at 72% 4%, rgb(205 222 205 / 42%), transparent 34rem), var(--paper);
+  font-family: "Atkinson Hyperlegible Next", Inter, sans-serif;
+  color: var(--ink);
+}
+.site-header {
+  min-height: 86px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  border-bottom-color: #d6ded3;
+  background: rgb(255 254 250 / 96%);
+  box-shadow: 0 8px 24px rgb(37 54 46 / 7%);
+}
+.site-header .brand {
+  font-size: 28px;
+  letter-spacing: -0.045em;
+}
+.site-header nav {
+  padding: 4px;
+  border: 1px solid #e1e5dc;
+  border-radius: 999px;
+  background: #f1f3ec;
+}
+.site-header nav a {
+  padding: 9px 14px;
+  border-radius: 999px;
+  color: #45564f;
+}
+.site-header nav a:hover {
+  background: #fffefa;
+  text-decoration: none;
+  box-shadow: 0 2px 7px rgb(32 48 45 / 10%);
+}
+#share-view {
+  min-height: 42px;
+  padding-inline: 18px;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #39866c, #28634f);
+  box-shadow: 0 5px 14px rgb(35 96 72 / 22%);
+}
+#app {
+  gap: 24px;
+  padding-top: 2px;
+}
+#map-panel {
+  border-color: #c9d7d2;
+  box-shadow:
+    0 26px 55px rgb(30 55 46 / 16%),
+    0 3px 8px rgb(30 55 46 / 9%),
+    inset 0 1px 0 rgb(255 255 255 / 80%);
+}
+#drawer {
+  padding: 22px;
+  border-color: #d6ded3;
+  border-radius: 18px;
+  background: linear-gradient(155deg, #fffefa, #f8f8f1 82%);
+  box-shadow:
+    0 18px 42px rgb(35 53 44 / 11%),
+    inset 0 1px 0 white;
+}
+#drawer h1 {
+  margin-bottom: 5px;
+  color: #263933;
+  font-size: 25px;
+  line-height: 1.16;
+}
+.drawer-intro {
+  margin: 0 0 16px;
+  color: #56675f;
+  line-height: 1.45;
+}
+#drawer select,
+#drawer input {
+  min-height: 46px;
+  border-color: #cbd6cb;
+  border-radius: 10px;
+  background: #fffefa;
+  box-shadow: inset 0 1px 2px rgb(39 57 46 / 4%);
+}
+#drawer select:focus-visible,
+#drawer input:focus-visible {
+  outline-offset: 1px;
+  border-color: var(--moss);
+}
+#drawer [role="radiogroup"] {
+  gap: 7px;
+  margin: 10px 0 14px;
+}
+#drawer [role="radio"] {
+  min-height: 42px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 600;
+}
+#drawer [role="radio"][aria-checked="true"] {
+  background: linear-gradient(145deg, #39866c, #28634f);
+  box-shadow: 0 3px 9px rgb(35 96 72 / 18%);
+}
+.card {
+  min-height: 68px;
+  border-bottom-color: #d9dfd5;
+}
+.card:focus-visible {
+  border-radius: 8px;
+  outline-offset: 2px;
+}
+.card h3 {
+  color: #263a33;
+  font-size: 15px;
+  line-height: 1.3;
+}
+.card small {
+  display: block;
+  margin-top: 3px;
+  color: #617168;
+}
+.card .figure {
+  border: 1px solid #e6e4d8;
+  background: radial-gradient(ellipse at 50% 75%, #fffefa, transparent 70%), #eeeede;
+}
+.site-footer {
+  color: #34483e;
+  background: linear-gradient(115deg, #e7ece2, #e0e7dc);
+  border-top-color: #cbd5c9;
+}
+.site-footer p,
+.site-footer a {
+  color: #506258;
+}
+.empty-message {
+  padding: 18px;
+  border: 1px solid #d9e1d6;
+  border-radius: 12px;
+  background: #f4f7f0;
+  color: #40584c;
+  line-height: 1.5;
+}
+@media (max-width: 700px) {
+  .site-header nav {
+    border-radius: 12px;
+  }
+  .site-header nav a {
+    padding: 8px 10px;
+  }
+  #drawer {
+    padding: 18px;
+  }
+}
+
 [role="radio"]::before {
   content: "";
   display: inline-block;

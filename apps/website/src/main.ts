@@ -138,7 +138,7 @@ if (drawer instanceof HTMLElement) {
         ? [era, payload && payload.cards.length + (payload.cards.length === 1 ? " taxon" : " taxa")]
             .filter(Boolean)
             .join(" · ")
-        : "Choose a country and an era to see what was found.";
+        : "Choose a country and era to explore its fossil record.";
 
     const txn = parseUrl(location.search).txn;
 

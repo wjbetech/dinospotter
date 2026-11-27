@@ -739,6 +739,7 @@ Mentor: `mentor: KR proof?` Files: `apps/website/e2e/` (new mocked-KR spec). DoD
 - [x] M7.6.4 Museum field atlas: frame countries between geographic labels, highlight findspots on focus, simplify the header, and show compact formation rows with larger detail art.
 - [x] M7.6.5 Site shell: add map, fossil record and About navigation, a share-view action, self-hosted readable body typography, and a full footer.
 - [x] M7.6.6 Keep the selected country's map label and hide other country names in CountryFocus; restore all country names on the globe.
+- [x] M7.6.7 Field atlas visual polish: strengthen typographic hierarchy and control contrast, refine header and panel depth, and simplify map and empty-state copy.
 
 ---
 
