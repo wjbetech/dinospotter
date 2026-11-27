@@ -93,7 +93,7 @@ export async function initGlobe(el: HTMLElement) {
       id: "land-relief",
       type: "fill",
       source: "countries",
-      paint: { "fill-pattern": "land-relief", "fill-opacity": 0.65 },
+      paint: { "fill-pattern": "land-relief", "fill-opacity": 0.19 },
     });
     map.addLayer({
       id: "country-borders",

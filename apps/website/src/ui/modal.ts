@@ -1,3 +1,4 @@
+import { silhouetteFor } from "utils";
 import type { TaxonCard, TaxonDetail } from "utils";
 import { serializeUrl } from "../url.ts";
 import { store } from "../store.ts";
@@ -26,7 +27,12 @@ export function openTaxon(
   const link = document.createElement("a");
   link.textContent = "PBDB Source";
   link.href = `https://paleobiodb.org/classic/checkTaxonInfo?taxon_no=${encodeURIComponent(card.tid.replace(/^txn:/, ""))}`;
-  dialog.append(close, title, summary, metadata, link);
+  const art = document.createElement("span");
+  art.className = "taxon-art detail-art";
+  art.dataset.kind = silhouetteFor(card.tna);
+  art.style.setProperty("--silhouette", "url(/sprites/" + art.dataset.kind + ".svg)");
+  art.setAttribute("aria-hidden", "true");
+  dialog.append(close, title, art, summary, metadata, link);
   dialog.addEventListener("click", (event) => {
     const rect = dialog.getBoundingClientRect();
     if (

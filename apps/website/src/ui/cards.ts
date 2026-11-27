@@ -86,16 +86,16 @@ export function renderCard(card: TaxonCard): HTMLElement {
   art.dataset.kind = kind;
   art.setAttribute("aria-hidden", "true");
   art.style.setProperty("--silhouette", `url('/sprites/${kind}.svg')`);
-  figure.append(art, renderTickBar());
+  figure.append(art);
   const title = document.createElement("h3");
   title.textContent = card.tna;
-  el.append(figure, title);
+  const caption = document.createElement("div");
+  caption.append(title);
+  if (card.sfm) {
+    const formation = document.createElement("small");
+    formation.textContent = card.sfm;
+    caption.append(formation);
+  }
+  el.append(figure, caption);
   return el;
-}
-
-export function renderTickBar(): HTMLElement {
-  const tickBar = document.createElement("div");
-  tickBar.className = "tick-bar";
-  tickBar.textContent = "1.8m";
-  return tickBar;
 }

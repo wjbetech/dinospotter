@@ -478,3 +478,71 @@ input {
   border-radius: 50%;
   background: var(--era-color);
 }
+
+.callout {
+  width: 148px;
+  height: 50px;
+  font-size: 13px;
+  gap: 7px;
+  border: 1px solid #d4ccba;
+  box-shadow: 0 2px 5px #302d2417;
+}
+.callout-art {
+  flex-basis: 32px;
+  height: 32px;
+}
+.callout:hover,
+.callout:focus-visible {
+  border-color: var(--moss);
+  background: #fff;
+}
+.callout-rail .callout:hover {
+  transform: none;
+}
+.card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 0;
+  margin: 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+.card:hover {
+  transform: none;
+  background: var(--paper);
+  box-shadow: none;
+}
+.card .figure {
+  width: 52px;
+  height: 48px;
+  flex: none;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 4px;
+}
+.figure .taxon-art {
+  flex: 0 0 40px;
+  height: 38px;
+}
+.card h3 {
+  margin: 0;
+  font-weight: 500;
+}
+.card small {
+  color: var(--ink-soft);
+  font-size: 12px;
+}
+.card div {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.detail-art {
+  display: block;
+  width: min(100%, 340px);
+  height: 180px;
+  margin: 20px auto;
+}

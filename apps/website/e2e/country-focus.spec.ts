@@ -59,7 +59,7 @@ test("KR: top taxa, floating callouts, cities, scale, modal and globe return", a
   await expect(page.locator('.callout-art[data-kind="bird"]')).toHaveCount(2);
   await expect(page.locator('.callout-art[data-kind="trace"]')).toHaveCount(2);
   await expect(page.locator('.callout-art[data-kind="invertebrate"]')).toHaveCount(1);
-  await expect(page.locator(".callout-footprint")).toHaveCount(6);
+  await expect(page.locator(".callout-footprint")).toHaveCount(0);
   const backBox = await page.getByRole("button", { name: "Back to globe" }).evaluate((node) => {
     const { x, y, width, height } = node.getBoundingClientRect();
     return { x, y, width, height };
@@ -99,13 +99,13 @@ test("KR: top taxa, floating callouts, cities, scale, modal and globe return", a
   );
   await page.reload();
   await expect(callouts).toHaveCount(12);
-  await expect(page.locator(".callout-footprint[aria-hidden='true']")).toHaveCount(6);
+  await expect(page.locator(".callout-footprint[aria-hidden='true']")).toHaveCount(0);
   expect(
     await callouts.evaluateAll((nodes) =>
       nodes.map((n) => [n.getAttribute("data-tid"), n.getAttribute("style")]),
     ),
   ).toEqual(positions);
-  const first = callouts.first();
+  const first = page.locator(".callout").filter({ hasText: "Brontopodus" });
   await first.press("Enter");
   await expect(page.getByRole("dialog")).toBeVisible();
   await page.getByRole("dialog").press("Escape");

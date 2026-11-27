@@ -115,6 +115,18 @@ if (drawer instanceof HTMLElement) {
     const picker = drawer.querySelector('select[aria-label="Country"]') as HTMLSelectElement | null;
 
     if (picker) picker.value = countryCode ?? "";
+    const heading = drawer.querySelector("h1");
+    const intro = drawer.querySelector(".drawer-intro");
+    if (heading)
+      heading.textContent = countryCode
+        ? picker?.selectedOptions[0]?.textContent || countryCode
+        : "Explore the fossil record";
+    if (intro)
+      intro.textContent = countryCode
+        ? [era, payload && payload.cards.length + (payload.cards.length === 1 ? " taxon" : " taxa")]
+            .filter(Boolean)
+            .join(" · ")
+        : "Choose a country and an era to see what was found.";
 
     const txn = parseUrl(location.search).txn;
 

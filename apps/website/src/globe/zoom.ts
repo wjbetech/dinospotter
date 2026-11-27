@@ -3,7 +3,7 @@ export function zoomDuration(): number {
 }
 
 export function zoomTo(map: import("maplibre-gl").Map, bbox: [number, number, number, number]) {
-  const narrow = map.getContainer().clientWidth < 640;
+  const narrow = map.getContainer().clientWidth < 500 || map.getContainer().clientHeight < 560;
   map.fitBounds(
     [
       [bbox[0], bbox[1]],

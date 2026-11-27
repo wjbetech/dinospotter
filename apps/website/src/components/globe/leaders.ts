@@ -47,7 +47,7 @@ export function render(
     type: "FeatureCollection" as const,
     features: items.map((item) => ({
       type: "Feature" as const,
-      properties: {},
+      properties: { active: item.tid === activeTid },
       geometry: { type: "Point" as const, coordinates: item.anchor },
     })),
   };
@@ -59,7 +59,12 @@ export function render(
       id: "findspots",
       type: "circle",
       source: "findspots",
-      paint: { "circle-radius": 2.5, "circle-color": "#2F7D62" },
+      paint: {
+        "circle-radius": ["case", ["get", "active"], 5, 2.5],
+        "circle-stroke-width": ["case", ["get", "active"], 2, 0],
+        "circle-stroke-color": "#fff",
+        "circle-color": "#2F7D62",
+      },
     });
 }
 
@@ -94,19 +99,11 @@ export function renderCallouts(
     art.dataset.kind = kind;
     art.style.setProperty("--silhouette", `url('/sprites/${kind}.svg')`);
     art.setAttribute("aria-hidden", "true");
-    const footprint = document.createElement("span");
-    if (
-      ["trace", "sauropod", "theropod", "ornithischian", "pterosaur", "fallback"].includes(kind)
-    ) {
-      footprint.className = "callout-footprint";
-      footprint.style.setProperty("--footprint", "url('/sprites/footprint.svg')");
-      footprint.setAttribute("aria-hidden", "true");
-    }
     const name = document.createElement("span");
     name.className = "callout-name";
     name.textContent = item.tna;
     button.append(art);
-    if (footprint.className) button.append(footprint);
+
     button.append(name);
     button.addEventListener("click", (event) => {
       event.stopPropagation();
