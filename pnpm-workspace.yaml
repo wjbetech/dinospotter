@@ -20,6 +20,7 @@ catalog:
   vite-plus: 0.2.4
   "@playwright/test": 1.48.0
   "@types/geojson": ^7946.0.16
+  "@fontsource/atkinson-hyperlegible-next": ^5.3.0
 overrides:
   vite: "catalog:"
 peerDependencyRules:

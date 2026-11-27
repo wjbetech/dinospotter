@@ -737,6 +737,7 @@ Mentor: `mentor: KR proof?` Files: `apps/website/e2e/` (new mocked-KR spec). DoD
 - [ ] M7.6.2 human sign-off: KR + one large + one small country vs `example.png`.
 - [x] M7.6.3 visual review fixes: relief texture, taxonomy-aware fossil art, globe-control-safe floating cards, highlighted active leader, and compact unified drawer artwork.
 - [x] M7.6.4 Museum field atlas: frame countries between geographic labels, highlight findspots on focus, simplify the header, and show compact formation rows with larger detail art.
+- [x] M7.6.5 Site shell: add map, fossil record and About navigation, a share-view action, self-hosted readable body typography, and a full footer.
 
 ---
 

@@ -2,8 +2,8 @@
 import "./styles/tokens.css";
 import "@fontsource/space-grotesk/latin-500.css";
 import "@fontsource/space-grotesk/latin-700.css";
-import "@fontsource/inter/latin-400.css";
-import "@fontsource/inter/latin-500.css";
+import "@fontsource/atkinson-hyperlegible-next/latin-400.css";
+import "@fontsource/atkinson-hyperlegible-next/latin-500.css";
 
 // utils
 import { store } from "./store.ts";
@@ -19,6 +19,18 @@ import { renderBadge } from "./ui/badge.ts";
 import { selectEra } from "./ui/era-strip.ts";
 import { copyFor } from "./ui/states.ts";
 
+const shareButton = document.querySelector<HTMLButtonElement>("#share-view");
+shareButton?.addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText(location.href);
+    shareButton.textContent = "Link copied";
+    window.setTimeout(() => {
+      shareButton.textContent = "Share view";
+    }, 2200);
+  } catch {
+    shareButton.textContent = "Copy unavailable";
+  }
+});
 const app = document.querySelector("#app")!;
 if (!app.querySelector("#drawer")) {
   app.insertAdjacentHTML("beforeend", `<aside id="drawer"></aside>`);
