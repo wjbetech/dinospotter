@@ -1,8 +1,9 @@
 # Implementation readiness
 
 Updated 2026-11-27. The starter-era preflight has been superseded by the
-implemented application. The current feature frontier is R5 art and R6 final
-acceptance; see the roadmap handoff for exact progress.
+implemented application. R5 art is complete locally. The current feature
+frontier is R6 visual sign-off and release verification; see the roadmap
+handoff for exact progress.
 
 ## Current baseline
 
@@ -60,9 +61,12 @@ mobile rail. The existing navigation-only F1 smoke can still use seed fallback.
 
 ## Remaining release checks
 
-- R5 requires the user's final eight single-fill clade SVGs plus `footprint.svg`.
-  Existing art is provisionally tinted moss using a CSS mask. The footprint
-  companion is not implemented until that asset is supplied.
+- R5 is implemented with eight original single-fill clade SVGs plus
+  `footprint.svg`; each callout renders a moss silhouette and an `aria-hidden`
+  footprint. CountryFocus switches to Mercator and uses extra sea-margin
+  padding to keep the selected country framed above the callout rail.
+- `places.geojson` retains all 494 features and is compacted to 75,120 bytes;
+  the JSON content is semantically identical to the checked-in source.
 - R6's final human comparison against `docs/research/asset/example.png` remains
   open. Agent live checks of KR, US, and CH do not substitute for that sign-off.
 - The exact version of the original country-polygon extract is not recorded.
@@ -70,6 +74,11 @@ mobile rail. The existing navigation-only F1 smoke can still use seed fallback.
 - A local Lighthouse mobile-profile homepage run measured LCP 1.37s, TBT 0ms,
   and CLS 0.0052. INP was absent from the navigation-only report, so neither this
   run nor the existing Lighthouse config proves the INP threshold.
-- Repeat the production build, budgets, browser/axe checks, and Lighthouse after
-  the art batch. Verify remote preview settings and perform a production smoke
-  check before release. No deployment was performed in this session.
+- After R5, three Lighthouse production-preview homepage runs measured LCP
+  1.359–1.362s and TTFB 1.5–2.3ms; INP remained unmeasured. A separate KR URL
+  probe measured 2.97s LCP while the local `/api/occs` request took about 2.9s;
+  remeasure that route against a deployed preview before release.
+- Production build, artifact budget, browser/axe checks, and homepage Lighthouse
+  pass locally. Before release, verify remote preview settings, recheck the KR
+  route against the deployed API, and perform a production smoke check. No
+  deployment was performed in this session.

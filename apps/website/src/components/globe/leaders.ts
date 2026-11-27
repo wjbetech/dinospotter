@@ -78,9 +78,14 @@ export function renderCallouts(
     art.className = "callout-art";
     art.style.setProperty("--silhouette", `url('/sprites/${silhouetteFor(item.tna)}.svg')`);
     art.setAttribute("aria-hidden", "true");
+    const footprint = document.createElement("span");
+    footprint.className = "callout-footprint";
+    footprint.style.setProperty("--footprint", "url('/sprites/footprint.svg')");
+    footprint.setAttribute("aria-hidden", "true");
     const name = document.createElement("span");
+    name.className = "callout-name";
     name.textContent = item.tna;
-    button.append(art, name);
+    button.append(art, footprint, name);
     button.addEventListener("click", (event) => {
       event.stopPropagation();
       onPick(item.tid, button);

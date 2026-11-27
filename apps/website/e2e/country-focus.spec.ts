@@ -41,6 +41,7 @@ test("KR: named callouts, overflow, city labels, scale, keyboard modal and era c
   await expect(page.getByRole("button", { name: "+3 more" })).toBeVisible();
   await expect(page.locator(".maplibregl-ctrl-scale")).toBeVisible();
   await expect(page.locator("#globe")).toHaveAttribute("data-country", "KR");
+  await expect(page.locator("#globe")).toHaveAttribute("data-projection", "mercator");
   await expect(page.locator("#globe")).toHaveAttribute(
     "data-cities",
     /Seoul, Busan, Incheon, Daejeon/,
@@ -54,6 +55,7 @@ test("KR: named callouts, overflow, city labels, scale, keyboard modal and era c
   );
   await page.reload();
   await expect(callouts).toHaveCount(12);
+  await expect(page.locator(".callout-footprint[aria-hidden='true']")).toHaveCount(12);
   expect(
     await callouts.evaluateAll((nodes) =>
       nodes.map((n) => [n.getAttribute("data-tid"), n.getAttribute("style")]),

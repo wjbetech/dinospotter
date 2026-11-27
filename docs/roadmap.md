@@ -6,7 +6,7 @@
 > Invoke per ticket: `mentor: <ticket-slug>` e.g. `mentor: globe click → country?`, `mentor: top-12 callouts?`
 > Mentor rules (from `docs/agents/code-mentor.md`): <200 words, 1 starter snippet, 1 doc URL, 1 task + 1 check (`vp check` / `vp test`), perf+CI note every ticket.
 > Read order before any ticket: `docs/implementation-readiness.md`, `CONTEXT.md`, the four ADRs, `docs/research/pbdb-api.md`, `docs/perf-budget.md`, `docs/research/asset/example.png`, then this file §§2–§3. Stop at a readiness blocker instead of making an infrastructure decision inside a feature ticket.
-> Current frontier: `R5` user-supplied art, then `R6` final human visual sign-off. R1–R4 are implemented and locally checked (2026-11-27). T0.0–T5.3 plus the Phase 6 ship are done, verified (E2E 11/11, LHCI LCP ~0.9s, budget green), and merged to master. Do not re-open shipped tickets; new work goes in Phase 7.
+> Current frontier: `R5` artwork is implemented locally. `R6` remains: human visual sign-off against the reference, then release verification. R1–R5 are implemented and locally checked (2026-11-27). T0.0–T5.3 plus the Phase 6 ship are done, verified (E2E 11/11, LHCI LCP ~0.9s, budget green), and merged to master. Do not re-open shipped tickets; new work goes in Phase 7.
 
 ## Ticket tracker (tick these as you go — single source of truth)
 
@@ -36,26 +36,30 @@
 - [x] R2 `feat(map): paper-grain land texture`
 - [x] R3 `feat(map): top-12 named callouts + leader wiring + modal`
 - [x] R4 `feat(map): cities + scale + focus fit + era redraw + overflow`
-- [ ] R5 `feat(art): green silhouette batch + footprint companion`
+- [x] R5 `feat(art): green silhouette batch + footprint companion`
 - [ ] R6 `test: KR proof drive-through + locked e2e`
 
 ## Last task done (handoff):
 
 - Date: 2026-11-27
-- Task: R1–R4 complete locally: deterministic top-12 placement, matching leaders,
+- Task: R1–R5 complete locally: deterministic top-12 placement, matching leaders,
   responsive bottom rail, overflow to drawer, native modal focus return, city
-  labels, metric scale, padded focus from URL/picker/map, and era cleanup.
+  labels, metric scale, padded country focus, era cleanup, original green SVGs,
+  and a footprint companion on each callout. CountryFocus now uses Mercator to
+  keep the selected country fully framed.
 - R1 data follow-up: 110m places had only Seoul. A reproducible, version-pinned
-  50m extract supplies the capital + three other major cities at 75,119 bytes.
+  50m extract supplies the capital + three other major cities at 75,120 bytes.
 - R6 M7.6.1 is complete: deterministic mocked-KR desktop/mobile tests, stable
   positions, modal keyboard path, overflow, era clearing, and axe WCAG checks.
 - Checks: 30 unit tests and 12 browser tests pass; format/lint/types pass;
   production build (`--no-cache` on Windows) and artifact budget pass.
-  Lighthouse homepage LCP 1.37s (one mobile-profile run); INP unmeasured.
+  Three production-preview homepage Lighthouse runs measured LCP 1.359–1.362s;
+  INP unmeasured. A KR query run measured 2.97s LCP with a 2.9s local API wait;
+  recheck that route on a deployed preview.
 - Agent live checks: KR, US, CH; KR taxon metadata loaded through the local API.
   These checks are not the final human acceptance required by R6.
-- Frontier: R5 artwork batch (eight clade SVGs + `footprint.svg`), then R6 human
-  comparison against `example.png` and repeat release checks with final assets.
+- Frontier: R6 human comparison against `example.png` and release checks with
+  the final art and focus framing.
 - Stay on `dev` while finishing this refurb. No commit, PR, merge, or deployment
   was made in this session. GitHub issue #15 remains the open umbrella issue.
 
@@ -722,8 +726,8 @@ Mentor: `mentor: city labels?` Files: globe label layers, `ScaleControl` wiring,
 
 Mentor: `mentor: art drop-in?` Files: `apps/website/public/sprites/` (8 + `footprint.svg`). DoD: user-generated batch meets §3.6 specs, render tints `moss` via `currentColor`, footprint beside every callout (`aria-hidden`). Check: `vp check` + eyeball vs `example.png`. Perf: 9 small SVGs, lazy below fold. Doc: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/color
 
-- [ ] M7.5.1 drop-in: 8 SVGs + footprint, spec check (fill, viewBox, filenames).
-- [ ] M7.5.2 footprint companion render rule.
+- [x] M7.5.1 drop-in: 8 original SVGs + footprint, checked single `currentColor` fill, 100×100 viewBox, and exact filenames.
+- [x] M7.5.2 footprint companion renders beside every moss-tinted callout silhouette, hidden from assistive technology.
 
 #### R6 `test: KR proof drive-through + locked e2e` — Blocked by: R2, R4, R5.
 
@@ -804,7 +808,7 @@ Certainty checklist (planning completeness, not implementation status):
 - [x] Toolchain/deployment baseline is green locally (Windows build uses `--no-cache`) — `docs/implementation-readiness.md` T0.0.
 - [x] D4-D7 design choices are recorded; see remaining verification limits — `docs/implementation-readiness.md`.
 - [x] Grill Round 1 Q1–Q4 + style Round 2 Q1–Q10 — §§10–11.
-      Remaining Phase 7 work: R5 artwork and R6 human acceptance; see readiness for release verification limits.
+      Remaining Phase 7 work: R6 human acceptance; see readiness for release verification limits.
 
 ---
 
@@ -984,4 +988,4 @@ Reference: `docs/research/asset/example.png` (Korean fossil map: terrain land, a
 
 ---
 
-Next: supply the R5 SVG batch, finish its render wiring, then complete R6 human visual acceptance. Track the refurb in GitHub issue #15.
+R5 complete 2026-11-27: added original single-fill SVG art and rendered footprint companions. Next: complete R6 human visual acceptance. Track the refurb in GitHub issue #15.

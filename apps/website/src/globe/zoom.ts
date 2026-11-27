@@ -14,8 +14,8 @@ export function zoomTo(map: import("maplibre-gl").Map, bbox: [number, number, nu
       essential: true,
       maxZoom: 7,
       padding: narrow
-        ? { top: 48, bottom: 150, left: 36, right: 36 }
-        : { top: 64, bottom: 64, left: 180, right: 180 },
+        ? { top: 64, bottom: 160, left: 36, right: 36 }
+        : { top: 80, bottom: 128, left: 180, right: 180 },
     },
   );
 }

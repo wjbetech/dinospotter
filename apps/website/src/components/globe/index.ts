@@ -121,6 +121,8 @@ export async function initGlobe(el: HTMLElement) {
       const { countryCode, payload, status } = store.getState();
       if (countryCode !== focused) {
         focused = countryCode;
+        map.setProjection({ type: countryCode ? "mercator" : "globe" });
+        el.dataset.projection = countryCode ? "mercator" : "globe";
         map.setPaintProperty("land", "fill-color", [
           "case",
           ["==", ["get", "ISO2"], countryCode ?? ""],
@@ -129,6 +131,7 @@ export async function initGlobe(el: HTMLElement) {
         ]);
         const country = geo.features.find((f) => f.properties.ISO2 === countryCode);
         if (country) zoomTo(map, bboxFor(country.geometry.coordinates));
+        else map.easeTo({ center: [0, 20], zoom: 1.5, duration: 0 });
         el.dataset.country = countryCode ?? "";
         const selected = countryCode ? majorCities(cities, countryCode) : [];
         el.dataset.cities = selected.map((city) => city.name).join(", ");
