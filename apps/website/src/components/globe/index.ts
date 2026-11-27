@@ -175,11 +175,25 @@ export async function initGlobe(el: HTMLElement) {
           "#E5C58D",
           "#FAF7F0",
         ]);
+        map.setPaintProperty("land", "fill-opacity", [
+          "case",
+          ["==", ["get", "ISO2"], countryCode ?? ""],
+          1,
+          countryCode ? 0.24 : 1,
+        ]);
+        map.setPaintProperty("grain", "fill-opacity", countryCode ? 0.1 : 0.35);
+        map.setPaintProperty("land-relief", "fill-opacity", countryCode ? 0.06 : 0.19);
         map.setPaintProperty("country-borders", "line-color", [
           "case",
           ["==", ["get", "ISO2"], countryCode ?? ""],
           "#765D40",
           ["get", "BORDER_COLOR"],
+        ]);
+        map.setPaintProperty("country-borders", "line-opacity", [
+          "case",
+          ["==", ["get", "ISO2"], countryCode ?? ""],
+          1,
+          countryCode ? 0.28 : 0.95,
         ]);
         const country = geo.features.find((f) => f.properties.ISO2 === countryCode);
         if (country) zoomTo(map, bboxFor(country.geometry.coordinates));
