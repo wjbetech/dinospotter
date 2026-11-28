@@ -34,7 +34,7 @@ export function mountWorkspace(drawer: HTMLElement) {
       );
     });
     results.replaceChildren();
-    summary.textContent = `${filtered.length} of ${cards.length} featured groups · ranked by findsites`;
+    summary.textContent = `${filtered.length} of ${cards.length} featured groups`;
     if (filtered.length) renderCards(results, filtered);
     else if (cards.length) {
       const empty = document.createElement("p");
@@ -54,7 +54,7 @@ export function mountWorkspace(drawer: HTMLElement) {
   const library = document.createElement("section");
   library.id = "field-guide";
   library.className = "atlas-library";
-  library.innerHTML = `<div><p class="eyebrow">The field guide</p><h2>Read the landscape through time</h2><p>DinoSpotter explores dinosaurs and other ancient life. Marine shells, plants and fossil tracks tell different parts of the story.</p><dl><dt>Paleozoic · 539–252 million years ago</dt><dd>Early animal diversity, ancient seas and the spread of life onto land.</dd><dt>Mesozoic · 252–66 million years ago</dt><dd>Dinosaurs on land, alongside diverse marine life and changing plant communities.</dd><dt>Cenozoic · 66 million years ago–present</dt><dd>The diversification of mammals and birds, and the development of modern ecosystems.</dd></dl><p class="source-note">Map positions use modern coordinates. Featured groups are ranked by recorded findsites; they are not a complete inventory. Categories are illustrative name-based matches, and some groups remain unclassified.</p></div><div id="saved-finds"><p class="eyebrow">Your collection</p><h2>Saved finds</h2><p>Stored in this browser. Open a fossil to save it.</p><div class="saved-list"></div><p class="saved-context" role="status"></p></div>`;
+  library.innerHTML = `<div><p class="eyebrow">The field guide</p><h2>Read the landscape through time</h2><p>DinoSpotter explores dinosaurs and other ancient life. Marine shells, plants and fossil tracks tell different parts of the story.</p><dl><dt>Paleozoic · 539–252 million years ago</dt><dd>Early animal diversity, ancient seas and the spread of life onto land.</dd><dt>Mesozoic · 252–66 million years ago</dt><dd>Dinosaurs on land, alongside diverse marine life and changing plant communities.</dd><dt>Cenozoic · 66 million years ago–present</dt><dd>The diversification of mammals and birds, and the development of modern ecosystems.</dd></dl><p class="source-note">Map positions use modern coordinates. Featured groups include named dinosaurs and frequently recorded finds. They are not a complete inventory. Categories are illustrative name-based matches, and some groups remain unclassified.</p></div><div id="saved-finds"><p class="eyebrow">Your collection</p><h2>Saved finds</h2><p>Stored in this browser. Open a fossil to save it.</p><div class="saved-list"></div><p class="saved-context" role="status"></p></div>`;
   document.querySelector("#app")!.append(library);
   const updateSaved = () => {
     const list = library.querySelector(".saved-list")!;

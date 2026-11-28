@@ -14,6 +14,8 @@ export interface FossilSite {
   phylum?: string;
   taxonClass?: string;
   taxonOrder?: string;
+  rank?: number;
+  taxonFlags?: string;
 }
 
 export interface TaxonCard {
@@ -28,6 +30,8 @@ export interface TaxonCard {
   phylum?: string;
   taxonClass?: string;
   taxonOrder?: string;
+  rank?: number;
+  taxonFlags?: string;
 }
 
 export interface SitePayload {
@@ -106,6 +110,8 @@ export function parseOccs(json: { records: Record<string, unknown>[] }): ParsedO
       phylum: str(r.phl ?? ""),
       taxonClass: str(r.cll ?? ""),
       taxonOrder: str(r.odl ?? ""),
+      rank: r.rnk == null || !Number.isFinite(Number(r.rnk)) ? undefined : Number(r.rnk),
+      taxonFlags: str(r.flg ?? ""),
     });
   }
   return { rows, dropped, total: json.records?.length ?? 0 };
@@ -173,6 +179,8 @@ export function groupByTid(rows: FossilSite[]): TaxonCard[] {
     phylum: pickFreq(sites.map((site) => site.phylum ?? "").filter(Boolean)),
     taxonClass: pickFreq(sites.map((site) => site.taxonClass ?? "").filter(Boolean)),
     taxonOrder: pickFreq(sites.map((site) => site.taxonOrder ?? "").filter(Boolean)),
+    rank: sites.find((site) => site.rank !== undefined)?.rank,
+    taxonFlags: pickFreq(sites.map((site) => site.taxonFlags ?? "").filter(Boolean)),
   }));
 
   return cards.sort(

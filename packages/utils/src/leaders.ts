@@ -11,6 +11,7 @@ export type Leader = {
   phylum?: string;
   taxonClass?: string;
   taxonOrder?: string;
+  rank?: number;
 };
 
 // Household names get first crack at the limited callout slots. Keep this
@@ -51,6 +52,7 @@ export function leaders(cards: TaxonCard[], max = 12): Leader[] {
         phylum: card.phylum,
         taxonClass: card.taxonClass,
         taxonOrder: card.taxonOrder,
+        rank: card.rank,
         count: (group.get(card.tid)?.count ?? 0) + 1,
         anchor: group.has(card.tid)
           ? [group.get(card.tid)!.anchor, [site.lng, site.lat] as [number, number]].sort(
@@ -68,6 +70,7 @@ export function leaders(cards: TaxonCard[], max = 12): Leader[] {
     const bKind = kindOf(b);
     return (
       Number(dinosaurs.has(bKind)) - Number(dinosaurs.has(aKind)) ||
+      Number(b.rank !== undefined && b.rank <= 5) - Number(a.rank !== undefined && a.rank <= 5) ||
       fame(b.tna) - fame(a.tna) ||
       Number(Boolean(b.verifiedGroup)) - Number(Boolean(a.verifiedGroup)) ||
       b.count - a.count ||

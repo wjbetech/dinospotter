@@ -4,6 +4,7 @@ import {
   groupByTid,
   normalizeCc,
   fame,
+  artworkFor,
 } from "../packages/utils/dist/index.mjs";
 import type { Era } from "../packages/utils/dist/index.mjs";
 
@@ -136,7 +137,19 @@ export async function GET(req: Request): Promise<Response> {
           for (const [, group] of groups) {
             const picks = verified
               .filter((card) => card.verifiedGroup === group)
-              .sort((a, b) => fame(b.tna) - fame(a.tna) || b.sites.length - a.sites.length);
+              .sort((a, b) => {
+                const specific = (card: (typeof verified)[number]) =>
+                  card.rank !== undefined &&
+                  card.rank <= 5 &&
+                  !/[IF]/i.test(card.taxonFlags ?? "") &&
+                  artworkFor(card.tna, card) === group;
+                return (
+                  Number(specific(b)) - Number(specific(a)) ||
+                  (specific(a) && specific(b) ? (a.rank ?? 99) - (b.rank ?? 99) : 0) ||
+                  fame(b.tna) - fame(a.tna) ||
+                  b.sites.length - a.sites.length
+                );
+              });
             selected.push(...picks.slice(0, 2));
           }
           for (const card of candidates) {

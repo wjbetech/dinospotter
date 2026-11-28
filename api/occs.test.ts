@@ -104,3 +104,40 @@ test("adds verified dinosaur occurrences without breaking the featured limit", a
     ]),
   );
 });
+
+test("prefers named dinosaur species over abundant broad clade records", async () => {
+  global.fetch = vi.fn(async (input) => {
+    const clade = new URL(String(input)).searchParams.get("base_name");
+    if (clade !== "Ornithischia") return Response.json({ records: [] });
+    return Response.json({
+      records: [
+        ...Array.from({ length: 5 }, (_, i) => ({
+          oid: `occ:broad${i}`,
+          tid: "txn:broad",
+          tna: "Ornithopoda",
+          rnk: 12,
+          eag: 100,
+          lag: 90,
+          lng: 128,
+          lat: 35,
+        })),
+        ...["Koreanosaurus boseongensis", "Koreaceratops hwaseongensis"].map((tna, i) => ({
+          oid: `occ:species${i}`,
+          tid: `txn:species${i}`,
+          tna,
+          rnk: 3,
+          eag: 100,
+          lag: 90,
+          lng: 128,
+          lat: 35,
+        })),
+      ],
+    });
+  });
+  const response = await handler(new Request("http://test/api/occs?cc=KR&era=Mesozoic"));
+  const payload = (await response.json()) as { cards: { tna: string }[] };
+  expect(payload.cards.slice(0, 2).map((card) => card.tna)).toEqual([
+    "Koreanosaurus boseongensis",
+    "Koreaceratops hwaseongensis",
+  ]);
+});

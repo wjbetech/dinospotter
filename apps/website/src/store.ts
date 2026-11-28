@@ -18,7 +18,7 @@ export function createStore(initial: {
     if (cache.size > 12) cache.delete(cache.keys().next().value!);
   }
 
-  const VERSION = "v2";
+  const VERSION = "v4";
 
   function storageKey(key: string) {
     return `dinospotter:${VERSION}:${key}`;

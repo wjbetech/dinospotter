@@ -77,7 +77,7 @@ export async function selectEra(era: Era, pushHistory = true): Promise<void> {
     return;
   }
   try {
-    const res = await fetch(`/api/occs?cc=${countryCode}&era=${era}`);
+    const res = await fetch(`/api/occs?cc=${countryCode}&era=${era}`, { cache: "no-cache" });
     if (!res.ok) throw new Error("upstream");
     const response = (await res.json()) as SitePayload;
     if (!Array.isArray(response.cards)) throw new Error("schema");
