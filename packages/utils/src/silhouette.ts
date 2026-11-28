@@ -9,12 +9,28 @@ export type SvgId =
   | "plant"
   | "trace"
   | "bird"
+  | "ammonite"
+  | "bivalve"
+  | "gastropod"
+  | "fern"
+  | "leaf"
   | "invertebrate"
   | "fallback";
 
 export function silhouetteFor(taxonName: string): SvgId {
   const name = taxonName.toLowerCase();
 
+  if (/ammon|lithacocer|franconit|usselicer|turrilit/.test(name)) return "ammonite";
+  if (/gastropod/.test(name)) return "gastropod";
+  if (
+    /trigonioides|bivalv|inoceram|gnesioceram|limopsis|astarte|pinna|cuspidaria|palaeoneilo|camptonectes|pseudolimea|grammatodon/.test(
+      name,
+    )
+  )
+    return "bivalve";
+  if (/cladophlebis|dictyophyllum|fern|phlebopteris|coniopteris/.test(name)) return "fern";
+  if (/podozamites|nilsonia|pagiophyllum|pityophyllum|brachyphyllum|ctenis|otozamites/.test(name))
+    return "leaf";
   if (/ichn|track|footprint|brontopodus|caririchnium/.test(name)) return "trace";
   if (/podozamites|cladophlebis|dictyophyllum|fern|plant|flora/.test(name)) return "plant";
   if (/\baves\b|ornis|bird|avian/.test(name)) return "bird";

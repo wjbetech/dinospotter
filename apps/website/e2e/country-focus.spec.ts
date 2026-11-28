@@ -51,14 +51,14 @@ test.beforeEach(async ({ page }) => {
 test("KR: top taxa, floating callouts, cities, scale, modal and globe return", async ({ page }) => {
   await page.goto("/?cc=KR&era=Mesozoic");
   const callouts = page.locator(".callout");
-  await expect(callouts).toHaveCount(12);
+  await expect(callouts).toHaveCount(8);
   await expect(page.locator(".callout-more")).toHaveCount(0);
   await expect(page.locator(".callout-rail")).toHaveCount(0);
   await expect(page.locator(".card")).toHaveCount(12);
-  await expect(page.locator('.callout-art[data-kind="plant"]')).toHaveCount(3);
-  await expect(page.locator('.callout-art[data-kind="bird"]')).toHaveCount(2);
+  await expect(page.locator('.callout-art[data-kind="fern"]')).toHaveCount(1);
+  await expect(page.locator('.callout-art[data-kind="bird"]')).toHaveCount(1);
   await expect(page.locator('.callout-art[data-kind="trace"]')).toHaveCount(2);
-  await expect(page.locator('.callout-art[data-kind="invertebrate"]')).toHaveCount(1);
+  await expect(page.locator('.card .taxon-art[data-kind="bivalve"]')).toHaveCount(1);
   await expect(page.locator(".callout-footprint")).toHaveCount(0);
   const backBox = await page.getByRole("button", { name: "Back to globe" }).evaluate((node) => {
     const { x, y, width, height } = node.getBoundingClientRect();
@@ -98,7 +98,7 @@ test("KR: top taxa, floating callouts, cities, scale, modal and globe return", a
     nodes.map((n) => [n.getAttribute("data-tid"), n.getAttribute("style")]),
   );
   await page.reload();
-  await expect(callouts).toHaveCount(12);
+  await expect(callouts).toHaveCount(8);
   await expect(page.locator(".callout-footprint[aria-hidden='true']")).toHaveCount(0);
   expect(
     await callouts.evaluateAll((nodes) =>
@@ -106,6 +106,12 @@ test("KR: top taxa, floating callouts, cities, scale, modal and globe return", a
     ),
   ).toEqual(positions);
   const first = page.locator(".callout").filter({ hasText: "Brontopodus" });
+  const badge = await first.boundingBox();
+  expect(badge!.width).toBe(48);
+  await first.focus();
+  await expect(first.locator(".callout-name")).toHaveCSS("opacity", "1");
+  await expect(first).toHaveAccessibleName("Brontopodus");
+
   await first.press("Enter");
   await expect(page.getByRole("dialog")).toBeVisible();
   await page.getByRole("dialog").press("Escape");
@@ -128,7 +134,7 @@ test("narrow country focus uses a scrollable rail with no overlapping buttons", 
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/?cc=KR&era=Mesozoic");
-  await expect(page.locator(".callout-rail .callout")).toHaveCount(12);
+  await expect(page.locator(".callout-rail .callout")).toHaveCount(8);
   const boxes = await page.locator(".callout").evaluateAll((nodes) =>
     nodes.map((n) => {
       const r = n.getBoundingClientRect();

@@ -998,14 +998,16 @@ R5 complete 2026-11-27: added original single-fill SVG art and rendered footprin
 ## Phase 8 — Exploration application (2026-11-28)
 
 Authorized direct implementation on the existing PR #17. Preserve muted greens,
-modern-coordinate provenance, the top-12 cap and account-free use.
+modern-coordinate provenance, up to 12 sidebar records and account-free use.
+2026-11-28 amendment: show at most eight map overlays, fewer when fewer groups have findsites.
 
 - [x] P8.1 Exploration workspace: name/formation search, category filters, reset, explicit featured counts and linked map/list highlighting.
 - [x] P8.2 Specimen facts: readable age, formation, findsite count and source evidence; preserve modal keyboard navigation.
 - [x] P8.3 Local collection: save/remove finds with country/era context and reopen via shareable URL; handle unavailable browser storage.
 - [x] P8.4 Field guide: meaningful navigation to geological context, category limitations and saved collection.
-- [ ] P8.5 Cartographic refinement: compact map markers with expanded selected labels; preserve small-screen usability and collision coverage.
-- [ ] P8.6 Artwork: distinct shell and plant illustrations and reviewed classification beyond name heuristics.
+- [x] P8.5 Cartographic refinement: eight compact specimen badges maximum; expand names on hover, keyboard focus or linked list selection. Mobile retains the scrollable rail and collision coverage.
+- [x] P8.6 Artwork: original vector ammonite, bivalve, gastropod, fern and leaf illustrations, consistently tinted moss across map, list and detail.
+- [ ] P8.6b Taxonomy enrichment: replace disclosed name heuristics with evidence-backed classification; generic unknowns remain unclassified.
 - [ ] P8.7 Finer geological time: assess PBDB coverage, query cost and cache/performance contract before implementing period filters.
 - [ ] P8.8 Acceptance: review desktop/mobile workspace, collection persistence and visual quality with the user; retain R6 release checks.
 

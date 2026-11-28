@@ -20,11 +20,17 @@ export function mountWorkspace(drawer: HTMLElement) {
     const filtered = cards.filter((card) => {
       const kind = silhouetteFor(card.tna);
       const dinosaur = ["theropod", "sauropod", "ornithischian"].includes(kind);
-      const group = dinosaur
-        ? "dinosaur"
-        : ["invertebrate", "plant", "trace"].includes(kind)
-          ? kind
-          : "other";
+      const plant = ["plant", "fern", "leaf"].includes(kind);
+      const shell = ["invertebrate", "ammonite", "bivalve", "gastropod"].includes(kind);
+      const group = plant
+        ? "plant"
+        : shell
+          ? "invertebrate"
+          : dinosaur
+            ? "dinosaur"
+            : ["invertebrate", "plant", "trace"].includes(kind)
+              ? kind
+              : "other";
       return (
         `${card.tna} ${card.sfm}`.toLowerCase().includes(query) &&
         (category.value === "all" || category.value === group)

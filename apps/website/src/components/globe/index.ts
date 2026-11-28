@@ -223,7 +223,7 @@ export async function initGlobe(el: HTMLElement) {
         });
       }
       const cards = status === "loading" || status === "idle" ? [] : (payload?.cards ?? []);
-      redraw = renderCallouts(map, el, leaders(cards), (tid, button) => {
+      redraw = renderCallouts(map, el, leaders(cards, 8), (tid, button) => {
         const card = cards.find((c) => c.tid === tid);
         if (card) void openCardModal(card, button);
       });

@@ -6,7 +6,7 @@ Glossary:
 - Epoch blurb: 1-2 line description + time range per sub-epoch.
 - FossilSite: lat/lon + taxon ids found there.
 - TaxonCard: silhouette + name, clickable → 90% modal.
-- CountryFocus: selected country, camera frames it with sea margin, shows major cities + metric scale and up to 12 named silhouette callouts with leaders to findspot anchors (ADR-004, ADR-005).
+- CountryFocus: selected country, camera frames it with sea margin, shows major cities + metric scale and up to eight compact specimen callouts (up to 12 sidebar records) with leaders to findspot anchors (ADR-004, ADR-005).
 
 Decisions:
 

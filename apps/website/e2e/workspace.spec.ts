@@ -47,6 +47,8 @@ test("search, linked selection and persistent saved collection", async ({ page }
   await page.locator(".card").click();
   await page.getByRole("button", { name: "Save find", exact: true }).click();
   await page.getByRole("dialog").press("Escape");
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await expect(page).not.toHaveURL(/txn=/);
   await page.reload();
   const saved = page.locator(".saved-list a");
   await expect(saved).toHaveCount(1);

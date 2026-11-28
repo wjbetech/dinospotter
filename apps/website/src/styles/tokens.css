@@ -961,3 +961,88 @@ body {
     gap: 24px;
   }
 }
+/* Compact specimen markers; names expand without moving their anchors. */
+.callout {
+  width: 48px;
+  height: 48px;
+  min-height: 48px;
+  padding: 7px;
+  border: 1px solid #c4d3c5;
+  border-radius: 50%;
+  justify-content: center;
+  background: #fffdf5;
+  box-shadow:
+    0 3px 10px #193c3426,
+    inset 0 1px 0 #fff;
+}
+.callout .callout-art {
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  --art-color: #386b54;
+}
+.callout-name {
+  position: absolute;
+  left: calc(100% + 8px);
+  width: max-content;
+  max-width: 150px;
+  padding: 9px 12px;
+  background: #fffdf5;
+  border: 1px solid #c4d3c5;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px #193c3420;
+  color: #203d31;
+  opacity: 0;
+  pointer-events: none;
+  font-size: 12px;
+  line-height: 1.3;
+}
+.callout[data-side="right"] .callout-name {
+  left: auto;
+  right: calc(100% + 8px);
+}
+.callout:hover,
+.callout:focus-visible,
+.callout.is-selected {
+  z-index: 3;
+  background: #e5eee3;
+  transform: translate(-50%, -50%);
+}
+.callout:hover .callout-name,
+.callout:focus-visible .callout-name,
+.callout.is-selected .callout-name {
+  opacity: 1;
+}
+.callout-rail .callout {
+  flex: 0 0 48px;
+  transform: none;
+}
+.callout-rail .callout-name {
+  display: none;
+}
+.callout-rail .callout:focus-visible,
+.callout-rail .callout.is-selected {
+  flex-basis: 180px;
+  border-radius: 12px;
+  justify-content: flex-start;
+}
+.callout-rail .callout:focus-visible .callout-name,
+.callout-rail .callout.is-selected .callout-name {
+  display: block;
+  position: static;
+  width: auto;
+  border: 0;
+  padding: 0 4px;
+  background: none;
+  box-shadow: none;
+}
+.taxon-art[data-kind="fern"],
+.taxon-art[data-kind="leaf"] {
+  --art-color: #52764d;
+}
+@media (prefers-reduced-motion: reduce) {
+  .callout,
+  .callout-name {
+    transition: none;
+  }
+}

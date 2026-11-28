@@ -76,7 +76,7 @@ export function renderCallouts(
   onPick: (tid: string, button: HTMLButtonElement) => void,
 ): () => void {
   wrap.querySelectorAll(".callout, .callout-rail").forEach((el) => el.remove());
-  const positioned = placeCallouts(items.slice(0, 12), {
+  const positioned = placeCallouts(items.slice(0, 8), {
     width: wrap.clientWidth,
     height: wrap.clientHeight,
   });
@@ -97,6 +97,8 @@ export function renderCallouts(
     button.type = "button";
     button.className = "callout";
     button.dataset.tid = item.tid;
+    button.setAttribute("aria-label", item.tna);
+    button.dataset.side = item.callout[0] > wrap.clientWidth / 2 ? "right" : "left";
     const art = document.createElement("span");
     art.className = "callout-art";
     const kind = silhouetteFor(item.tna);
