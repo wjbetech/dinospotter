@@ -13,6 +13,7 @@
     "@fontsource/atkinson-hyperlegible-next": "catalog:",
     "@fontsource/inter": "catalog:",
     "@fontsource/space-grotesk": "catalog:",
+    "lucide": "catalog:",
     "maplibre-gl": "catalog:",
     "utils": "workspace:*"
   },

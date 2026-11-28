@@ -12,7 +12,7 @@
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="/">DinoSpotter<span>A fossil field guide</span></a>
+      <a class="brand" href="/">DinoSpotter</a>
       <nav aria-label="Main navigation">
         <a href="/explore" aria-current="page">Explore</a
         ><a href="/explore#field-guide">Field guide</a
@@ -23,20 +23,22 @@
     <main id="home" class="home-screen" hidden>
       <div id="home-globe" aria-hidden="true"></div>
       <div class="home-content">
-        <p class="home-eyebrow">An atlas of ancient life</p>
-        <h1>Every place has a deeper past.</h1>
+        <h1>Find your local dinosaurs.</h1>
         <p>
           Explore fossil discoveries around the world, from dinosaurs and plants to life in ancient
           seas.
         </p>
-        <a class="home-cta" href="/explore">Get started <span aria-hidden="true">↗</span></a>
+        <a class="home-cta" href="/explore"
+          >Get started <i data-lucide="arrow-up-right" aria-hidden="true"></i
+        ></a>
       </div>
-      <p class="home-caption">Modern borders · fossil finds at present-day coordinates</p>
     </main>
     <main id="app">
       <section id="map-panel" aria-label="Fossil map">
         <div id="globe" aria-label="Interactive fossil map"></div>
-        <button id="back-to-globe" type="button" hidden>← Back to globe</button>
+        <button id="back-to-globe" type="button" hidden>
+          <i data-lucide="arrow-left" aria-hidden="true"></i> Back to globe
+        </button>
         <p id="hint">Findspots use modern coordinates</p>
         <button id="load-globe">Open map</button>
       </section>
@@ -48,11 +50,11 @@
     <footer id="about" class="site-footer">
       <div>
         <strong>DinoSpotter</strong>
-        <p>Discover the ancient life recorded beneath our maps.</p>
       </div>
       <div>
         <a href="https://paleobiodb.org/">Paleobiology Database</a
-        ><a href="/geo/ATTRIBUTION.md">Map sources</a><a href="#map-panel">Back to map ↑</a>
+        ><a href="/geo/ATTRIBUTION.md">Map sources</a
+        ><a href="#map-panel">Back to map <i data-lucide="arrow-up" aria-hidden="true"></i></a>
       </div>
     </footer>
     <script type="module" src="/src/main.ts"></script>

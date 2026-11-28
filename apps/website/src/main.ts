@@ -11,6 +11,7 @@ import { mountWorkspace } from "./ui/workspace.ts";
 import { store } from "./store.ts";
 import { parseUrl } from "./url.ts";
 import { COUNTRIES } from "utils";
+import { ArrowLeft, ArrowUp, ArrowUpRight, createIcons } from "lucide";
 
 // components
 import { openCardModal } from "./ui/cards.ts";
@@ -20,6 +21,8 @@ import { renderEraStrip } from "./ui/era-strip.ts";
 import { renderBadge } from "./ui/badge.ts";
 import { selectEra } from "./ui/era-strip.ts";
 import { copyFor } from "./ui/states.ts";
+
+createIcons({ icons: { ArrowLeft, ArrowUp, ArrowUpRight } });
 
 const navLinks = document.querySelectorAll<HTMLAnchorElement>(".site-header nav a");
 function syncNavigation(): void {

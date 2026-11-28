@@ -1264,21 +1264,13 @@ body {
   padding: clamp(32px, 6vw, 88px);
   box-sizing: border-box;
 }
-.home-eyebrow {
-  margin: 0 0 20px;
-  color: #27664f;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
 .home-content h1 {
   margin: 0;
   font: 700 clamp(48px, 6.2vw, 96px)/0.98 var(--font-display);
   letter-spacing: -0.075em;
   color: #173d31;
 }
-.home-content > p:not(.home-eyebrow) {
+.home-content > p {
   max-width: 480px;
   margin: 24px 0 32px;
   color: #38574b;
@@ -1306,13 +1298,13 @@ body {
   outline: 3px solid #123b30;
   outline-offset: 4px;
 }
-.home-caption {
-  position: absolute;
-  z-index: 3;
-  right: 28px;
-  bottom: 12px;
-  color: #305a4d;
-  font-size: 12px;
+.home-cta svg,
+#back-to-globe svg,
+.site-footer a svg {
+  width: 1rem;
+  height: 1rem;
+  vertical-align: -0.15em;
+  stroke-width: 2;
 }
 @media (max-width: 700px) {
   .home-screen::before {
@@ -1333,10 +1325,6 @@ body {
   }
   .home-content h1 {
     font-size: clamp(44px, 12vw, 72px);
-  }
-  .home-caption {
-    left: 24px;
-    right: 24px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

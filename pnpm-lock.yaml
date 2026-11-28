@@ -185,6 +185,9 @@ catalogs:
     '@types/geojson':
       specifier: ^7946.0.16
       version: 7946.0.16
+    lucide:
+      specifier: ^1.81.0
+      version: 1.81.0
     maplibre-gl:
       specifier: ^6.7.0
       version: 6.7.0
@@ -235,6 +238,9 @@ importers:
       '@fontsource/space-grotesk':
         specifier: 'catalog:'
         version: 5.3.0
+      lucide:
+        specifier: 'catalog:'
+        version: 1.81.0
       maplibre-gl:
         specifier: 'catalog:'
         version: 6.7.0
@@ -1672,6 +1678,9 @@ packages:
 
   lru_map@0.3.3:
     resolution: {integrity: sha512-Pn9cox5CsMYngeDbmChANltQl+5pi6XmTrraMSzhPmMBbmgcxmqWry0U3PGapCU1yB4/LqCcom7qhHZiF/jGfQ==}
+
+  lucide@1.81.0:
+    resolution: {integrity: sha512-qdTqSaFN1Q3+KW3FkXkr25xQzMRZdZAwjlSz2o30pUNToIUhWyYN+juYn8CCuIKLK2OSa1r4X0sPV99T9hPFBg==}
 
   lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
@@ -3777,6 +3786,8 @@ snapshots:
   lru-cache@7.18.3: {}
 
   lru_map@0.3.3: {}
+
+  lucide@1.81.0: {}
 
   lz-string@1.5.0: {}
 
