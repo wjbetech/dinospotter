@@ -3,6 +3,7 @@ import {
   parseOccs,
   groupByTid,
   normalizeCc,
+  fame,
 } from "../packages/utils/dist/index.mjs";
 import type { Era } from "../packages/utils/dist/index.mjs";
 
@@ -133,7 +134,10 @@ export async function GET(req: Request): Promise<Response> {
           const verified = candidates.filter((card) => card.verifiedGroup);
           const selected: typeof verified = [];
           for (const [, group] of groups) {
-            selected.push(...verified.filter((card) => card.verifiedGroup === group).slice(0, 2));
+            const picks = verified
+              .filter((card) => card.verifiedGroup === group)
+              .sort((a, b) => fame(b.tna) - fame(a.tna) || b.sites.length - a.sites.length);
+            selected.push(...picks.slice(0, 2));
           }
           for (const card of candidates) {
             if (!selected.includes(card)) selected.push(card);

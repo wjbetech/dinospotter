@@ -1,6 +1,6 @@
 import { selectFind, onSelection, selectedFind } from "../../ui/selection.ts";
 import type { GeoJSONSource, Map } from "maplibre-gl";
-import { placeCallouts, silhouetteFor, type Leader, type PositionedCallout } from "utils";
+import { placeCallouts, artworkFor, type Leader, type PositionedCallout } from "utils";
 
 const commonNames: Record<string, string> = {
   theropoda: "Theropods",
@@ -119,7 +119,7 @@ export function renderCallouts(
     button.dataset.side = item.callout[0] > wrap.clientWidth / 2 ? "right" : "left";
     const art = document.createElement("span");
     art.className = "callout-art";
-    const kind = item.verifiedGroup ?? silhouetteFor(item.tna);
+    const kind = artworkFor(item.tna, item);
     art.dataset.kind = kind;
     art.style.setProperty("--silhouette", `url('/sprites/${kind}.svg')`);
     art.setAttribute("aria-hidden", "true");

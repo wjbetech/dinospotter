@@ -94,6 +94,9 @@ A new visitor can select a country, choose a time interval, find a fossil, under
 - [x] Expand the Mesozoic candidate pool using PBDB clade-filtered occurrences and use those verified groups for callout artwork, while keeping the featured list limited to twelve.
 - [x] Redraw all twelve animal-group icons for the atlas. Review the shared artwork at compact marker and record-row sizes.
 - [ ] Expand taxonomy-backed artwork beyond the three dinosaur groups and replace remaining name-based classification with verified classifications where available.
+  - [x] Carry PBDB phylum, class and order into record and callout artwork, with a fallback when the classification is too broad.
+  - [x] Enlarge callout artwork and restore distinct fossil-group colors. Review Germany, Denmark, South Korea and the United States.
+  - [ ] Extend classification coverage for groups that PBDB does not resolve at these ranks and review misleading generic artwork.
 - [ ] Separate a small featured map selection from a paginated or virtualized view of the broader record where data supports it.
 - [ ] Add evidence-backed category, formation and geological interval filters with counts and shareable state. Label unverified classification honestly.
 - [ ] Make country and era changes predictable in loading, cached, stale, empty, rate-limited and failed states.

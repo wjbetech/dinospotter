@@ -573,7 +573,6 @@ body {
   flex: 0 0 32px;
   width: 32px;
   height: 32px;
-  --art-color: #386b54;
 }
 .callout-name {
   position: absolute;
@@ -652,10 +651,41 @@ body {
   gap: 8px;
 }
 .callout .callout-art {
-  flex: 0 0 38px;
-  height: 38px;
+  flex: 0 0 48px;
+  width: 48px;
+  height: 44px;
   background-color: var(--art-color, var(--moss));
   filter: drop-shadow(0 2px 1px rgb(28 65 50 / 20%));
+}
+.callout-art[data-kind="theropod"] {
+  --art-color: #a65c45;
+}
+.callout-art[data-kind="sauropod"] {
+  --art-color: #407d66;
+}
+.callout-art[data-kind="ornithischian"] {
+  --art-color: #718347;
+}
+.callout-art[data-kind="pterosaur"] {
+  --art-color: #9b7548;
+}
+.callout-art[data-kind="marine"] {
+  --art-color: #407f91;
+}
+.callout-art[data-kind="synapsid"] {
+  --art-color: #87644e;
+}
+.callout-art[data-kind="amphibian"] {
+  --art-color: #648552;
+}
+.callout-art[data-kind="ammonite"],
+.callout-art[data-kind="bivalve"],
+.callout-art[data-kind="gastropod"] {
+  --art-color: #8065a4;
+}
+.callout-art[data-kind="fern"],
+.callout-art[data-kind="leaf"] {
+  --art-color: #52764d;
 }
 .callout .callout-name,
 .callout[data-side="right"] .callout-name,

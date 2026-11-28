@@ -1,4 +1,4 @@
-import { silhouetteFor, type TaxonCard } from "utils";
+import { artworkFor, type TaxonCard } from "utils";
 import { renderCards } from "./cards.ts";
 import { savedFinds } from "./selection.ts";
 import { store } from "../store.ts";
@@ -15,7 +15,7 @@ export function mountWorkspace(drawer: HTMLElement) {
     cards = next;
     const query = input.value.trim().toLowerCase();
     const filtered = cards.filter((card) => {
-      const kind = card.verifiedGroup ?? silhouetteFor(card.tna);
+      const kind = artworkFor(card.tna, card);
       const dinosaur = ["theropod", "sauropod", "ornithischian"].includes(kind);
       const plant = ["plant", "fern", "leaf"].includes(kind);
       const shell = ["invertebrate", "ammonite", "bivalve", "gastropod"].includes(kind);
