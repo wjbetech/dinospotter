@@ -91,6 +91,7 @@ A new visitor can select a country, choose a time interval, find a fossil, under
 
 - [ ] Make selected record state consistent across map, list and detail, including filtering and reset.
 - [ ] Place markers and leaders using projected screen positions. Prevent avoidable crossings, keep names in bounds and quiet unrelated lines. Check dense, sparse, wide and island countries.
+- [ ] Expand the fossil candidate pool and use verified taxonomy and artwork so callouts can show familiar dinosaur groups when records support them. The current featured pool is limited to twelve records.
 - [ ] Separate a small featured map selection from a paginated or virtualized view of the broader record where data supports it.
 - [ ] Add evidence-backed category, formation and geological interval filters with counts and shareable state. Label unverified classification honestly.
 - [ ] Make country and era changes predictable in loading, cached, stale, empty, rate-limited and failed states.

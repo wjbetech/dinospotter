@@ -27,9 +27,12 @@ export function leaders(cards: TaxonCard[], max = 12): Leader[] {
       });
     }
 
-  const candidates = [...group.values()].sort(
-    (a, b) => b.count - a.count || a.tid.localeCompare(b.tid),
-  );
+  const dinosaurs = new Set(["theropod", "sauropod", "ornithischian"]);
+  const candidates = [...group.values()].sort((a, b) => {
+    const aDinosaur = dinosaurs.has(silhouetteFor(a.tna));
+    const bDinosaur = dinosaurs.has(silhouetteFor(b.tna));
+    return Number(bDinosaur) - Number(aDinosaur) || b.count - a.count || a.tid.localeCompare(b.tid);
+  });
   const chosen: Leader[] = [];
   const counts = new Map<string, number>();
   for (const candidate of candidates) {

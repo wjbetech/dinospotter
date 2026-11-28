@@ -652,7 +652,10 @@ body {
   gap: 8px;
 }
 .callout .callout-art {
-  flex: 0 0 32px;
+  flex: 0 0 38px;
+  height: 38px;
+  background-color: var(--art-color, var(--moss));
+  filter: drop-shadow(0 2px 1px rgb(28 65 50 / 20%));
 }
 .callout .callout-name,
 .callout[data-side="right"] .callout-name,

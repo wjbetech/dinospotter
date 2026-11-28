@@ -11,6 +11,13 @@ const commonNames: Record<string, string> = {
   bivalvia: "Bivalves",
   gastropoda: "Gastropods",
   ammonoidea: "Ammonites",
+  "tyrannosaurus rex": "T. rex",
+  triceratops: "Triceratops",
+  stegosaurus: "Stegosaurus",
+  brachiosaurus: "Brachiosaurus",
+  diplodocus: "Diplodocus",
+  velociraptor: "Velociraptor",
+  spinosaurus: "Spinosaurus",
 };
 
 export function render(
@@ -118,7 +125,10 @@ export function renderCallouts(
     art.setAttribute("aria-hidden", "true");
     const name = document.createElement("span");
     name.className = "callout-name";
-    name.textContent = commonNames[item.tna.toLowerCase()] ?? item.tna;
+    name.textContent =
+      commonNames[item.tna.toLowerCase()] ??
+      commonNames[item.tna.toLowerCase().split(" ")[0]] ??
+      item.tna;
     button.append(art);
 
     button.append(name);
