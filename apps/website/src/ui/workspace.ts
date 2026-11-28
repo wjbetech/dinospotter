@@ -3,16 +3,13 @@ import { renderCards } from "./cards.ts";
 import { savedFinds } from "./selection.ts";
 import { store } from "../store.ts";
 import { serializeUrl } from "../url.ts";
+import { createSearchControls } from "./search-controls.ts";
 
 export function mountWorkspace(drawer: HTMLElement) {
-  const controls = document.createElement("section");
-  controls.className = "workspace-controls";
-  controls.innerHTML = `<label for="find-search">Find ancient life</label><div class="search-row"><input id="find-search" type="search" placeholder="Name or formation"><button type="button">Reset</button></div><label for="find-category">Fossil category</label><select id="find-category"><option value="all">All fossil groups</option><option value="dinosaur">Dinosaurs</option><option value="invertebrate">Invertebrates</option><option value="plant">Plants</option><option value="trace">Tracks and traces</option><option value="other">Other / unclassified</option></select><p class="results-summary" role="status"></p>`;
+  const { controls, input, category, reset, summary } = createSearchControls();
   const results = document.createElement("div");
   results.className = "workspace-results";
   drawer.append(controls, results);
-  const input = controls.querySelector("input")!;
-  const category = controls.querySelector("select")!;
   let cards: TaxonCard[] = [];
   const render = (next = cards) => {
     cards = next;
@@ -37,8 +34,7 @@ export function mountWorkspace(drawer: HTMLElement) {
       );
     });
     results.replaceChildren();
-    controls.querySelector(".results-summary")!.textContent =
-      `${filtered.length} of ${cards.length} featured groups · ranked by findsites`;
+    summary.textContent = `${filtered.length} of ${cards.length} featured groups · ranked by findsites`;
     if (filtered.length) renderCards(results, filtered);
     else if (cards.length) {
       const empty = document.createElement("p");
@@ -48,7 +44,7 @@ export function mountWorkspace(drawer: HTMLElement) {
   };
   input.addEventListener("input", () => render());
   category.addEventListener("change", () => render());
-  controls.querySelector("button")!.addEventListener("click", () => {
+  reset.addEventListener("click", () => {
     input.value = "";
     category.value = "all";
     render();
@@ -82,7 +78,7 @@ export function mountWorkspace(drawer: HTMLElement) {
       input.value = "";
       category.value = "all";
       results.replaceChildren();
-      controls.querySelector(".results-summary")!.textContent = "";
+      summary.textContent = "";
     },
   };
 }

@@ -34,12 +34,15 @@ export async function loadBlurbs(): Promise<EpochBlurb[]> {
 
 export function renderEraStrip(active: Era, dots: Record<Era, string>): HTMLElement {
   const group = document.createElement("div");
+  group.className = "my-4 flex gap-2";
 
   group.setAttribute("role", "radiogroup");
   group.setAttribute("aria-label", "Geological era");
 
   for (const era of ["Paleozoic", "Mesozoic", "Cenozoic"] as Era[]) {
     const btn = document.createElement("button");
+    btn.className =
+      "min-h-11 min-w-0 flex-1 rounded-[var(--radius-control)]! border-boundary! bg-surface! px-2! py-2! text-[0.8125rem]! font-semibold! text-ink! transition-colors hover:border-moss! focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus aria-[checked=true]:border-moss! aria-[checked=true]:bg-moss! aria-[checked=true]:text-white!";
     btn.setAttribute("role", "radio");
     btn.setAttribute("aria-checked", String(era === active));
     btn.textContent = era;

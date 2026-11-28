@@ -48,7 +48,8 @@ A new visitor can select a country, choose a time interval, find a fossil, under
 - [ ] Build a compact component inventory: header/nav, primary and quiet buttons, fields, filter controls, record row, map badge, status panel, specimen view and footer. Document default, hover, selected, focus, disabled and loading states.
   - [ ] Each component should have it's own file and styles should be defined inline using tailwind.
   - [x] Move the shared header, navigation, share action and footer into component files with Tailwind utilities.
-  - [ ] Migrate exploration controls, records and transient panels; remove their superseded CSS selectors.
+  - [x] Move the country picker, era filter and search controls into component-owned Tailwind styling; remove their superseded CSS selectors.
+  - [ ] Migrate record rows and transient panels; remove their superseded CSS selectors.
 - [ ] Consolidate the repeated rules in `apps/website/src/styles/tokens.css` into tokens and component sections. Preserve appearance until each component is deliberately redesigned.
   - [ ] Make sure the styles align with the previous point and we only have one unified style system.
 
@@ -57,6 +58,7 @@ A new visitor can select a country, choose a time interval, find a fossil, under
 ### 1.3 Design the core screens as a family
 
 - [ ] Design the unselected globe view with a clear invitation and a useful explanation of what DinoSpotter contains (this may be best placed on the new home page).
+  - [x] Load the exploration globe on entry without an extra button press.
 - [ ] Design the selected-country workspace: country/time heading, map, up to eight quiet markers, featured record list, filters and a clearly selected fossil. Set a deliberate relationship between map and records.
 - [ ] Design a specimen view that can later accept richer evidence without a wholesale layout change. Specify art, name, age, location, formation, source and save/share actions.
 - [ ] Design useful loading, no-results, no-records, upstream-error and saved-empty states with a recovery action where one exists.

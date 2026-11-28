@@ -89,7 +89,6 @@ if (!isHome) {
   }
 
   const globeEl = document.querySelector("#globe");
-  const loadBtn = document.querySelector("#load-globe");
   const drawer = document.querySelector("#drawer");
   let globeLoaded = false;
 
@@ -97,17 +96,10 @@ if (!isHome) {
     if (globeEl instanceof HTMLElement && !globeLoaded) {
       globeLoaded = true;
       void import("./components/globe/index.ts").then((m) => m.initGlobe(globeEl));
-      loadBtn?.remove();
     }
   }
 
-  if (parseUrl(location.search).countryCode) {
-    loadGlobe();
-  } else {
-    loadBtn?.addEventListener("click", loadGlobe, {
-      once: true,
-    });
-  }
+  loadGlobe();
 
   if (drawer instanceof HTMLElement) {
     drawer.append(
