@@ -49,7 +49,6 @@ if (isHome) {
   const globe = home.querySelector<HTMLElement>("#home-globe")!;
   void import("./components/globe/index.ts").then(async ({ initGlobe }) => {
     const map = await initGlobe(globe);
-    map.setPadding({ left: Math.min(window.innerWidth * 0.42, 580), right: 0, top: 0, bottom: 0 });
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let active = true;
     map.on("remove", () => {

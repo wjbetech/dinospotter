@@ -987,28 +987,21 @@ while the invitation stays readable. */
   overflow: hidden;
   background: #e5ede7;
 }
-.home-screen::before {
-  content: "";
+#home-globe {
   position: absolute;
   left: 68%;
   top: 50%;
-  width: 412px;
+  width: min(412px, calc(100vw - 32px));
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
-  border: 1px solid #6d9998;
-  border-radius: 50%;
-  background: #a6c9cc;
-  box-shadow:
-    0 24px 80px #20464038,
-    inset -18px -10px 40px #285d5d30;
-}
-#home-globe {
-  position: absolute;
-  inset: 0;
   z-index: 1;
   opacity: 0.9;
   pointer-events: none;
-  clip-path: circle(205px at 68% 50%);
+  overflow: hidden;
+  border: 1px solid #6d9998;
+  border-radius: 50%;
+  background: #a6c9cc;
+  box-shadow: 0 24px 80px #20464038;
 }
 .is-home .maplibregl-ctrl-scale {
   display: none;
@@ -1070,14 +1063,9 @@ while the invitation stays readable. */
   stroke-width: 2;
 }
 @media (max-width: 700px) {
-  .home-screen::before {
-    left: 75%;
-    top: 74%;
-    width: 412px;
-  }
   #home-globe {
-    clip-path: circle(205px at 75% 50%);
-    transform: translateY(24%);
+    left: 50%;
+    top: 74%;
   }
   .home-screen {
     min-height: max(820px, calc(100dvh - 190px));
