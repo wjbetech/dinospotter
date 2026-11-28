@@ -4,5 +4,6 @@
   "buildCommand": "pnpm --filter utils run build && pnpm --filter website run build",
   "outputDirectory": "apps/website/dist",
   "installCommand": "pnpm install",
-  "devCommand": "vp dev apps/website --port $PORT"
+  "devCommand": "vp dev apps/website --port $PORT",
+  "rewrites": [{ "source": "/explore", "destination": "/index.html" }]
 }
