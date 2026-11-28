@@ -1,17 +1,24 @@
 import { expect, test } from "@playwright/test";
 
-test("F3 card modal Esc returns focus", async ({ page }) => {
-  await page.goto("http://localhost:3000/?cc=US&era=Mesozoic");
-  await page.locator("article[role='button']").first().click();
-  await expect(page.getByRole("dialog")).toBeVisible();
-  await page.keyboard.press("Escape");
-  await expect(page.getByRole("dialog")).toHaveCount(0);
-});
-
-test("F3 modal optens + Esc returns focus", async ({ page }) => {
+test("F3 card modal Escape returns focus to its trigger", async ({ page }) => {
+  await page.route("**/api/occs?*", (route) =>
+    route.fulfill({
+      json: {
+        cc: "US",
+        era: "Mesozoic",
+        cards: [{ tid: "txn:1", tna: "Testosaurus", eag: 100, lag: 90, sfm: "Test Fm", sites: [] }],
+      },
+    }),
+  );
+  await page.route("**/api/taxon?*", (route) =>
+    route.fulfill({ json: { tid: "txn:1", rank: "genus", authority: "Test Author" } }),
+  );
   await page.goto("/?cc=US&era=Mesozoic");
-  await page.getByRole("button").first().click();
+  const card = page.locator(".card").first();
+  await card.click();
   await expect(page.getByRole("dialog")).toBeVisible();
-  await page.keyboard.press("Escape");
-  await expect(page.getByRole("dialog")).toBeHidden();
+  await expect(page.getByText("genus · Test Author")).toBeVisible();
+  await page.getByRole("dialog").press("Escape");
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await expect(card).toBeFocused();
 });

@@ -167,6 +167,9 @@ catalogs:
     '@axe-core/playwright':
       specifier: 4.10.2
       version: 4.10.2
+    '@fontsource/atkinson-hyperlegible-next':
+      specifier: ^5.3.0
+      version: 5.3.0
     '@fontsource/inter':
       specifier: ^5.3.0
       version: 5.3.0
@@ -179,6 +182,9 @@ catalogs:
     '@playwright/test':
       specifier: 1.48.0
       version: 1.48.0
+    '@types/geojson':
+      specifier: ^7946.0.16
+      version: 7946.0.16
     maplibre-gl:
       specifier: ^6.7.0
       version: 6.7.0
@@ -220,6 +226,9 @@ importers:
 
   apps/website:
     dependencies:
+      '@fontsource/atkinson-hyperlegible-next':
+        specifier: 'catalog:'
+        version: 5.3.0
       '@fontsource/inter':
         specifier: 'catalog:'
         version: 5.3.0
@@ -236,6 +245,9 @@ importers:
       '@playwright/test':
         specifier: 'catalog:'
         version: 1.48.0
+      '@types/geojson':
+        specifier: 'catalog:'
+        version: 7946.0.16
       '@types/node':
         specifier: ^26.1.1
         version: 26.4.1
@@ -294,6 +306,9 @@ packages:
 
   '@blazediff/core@1.9.1':
     resolution: {integrity: sha512-ehg3jIkYKulZh+8om/O25vkvSsXXwC+skXmyA87FFx6A/45eqOkZsBltMw/TVteb0mloiGT8oGRTcjRAz66zaA==}
+
+  '@fontsource/atkinson-hyperlegible-next@5.3.0':
+    resolution: {integrity: sha512-8p1tHVoPDo6oYwSO3sMw5snGwFwSf3TmeSF9Gcj792GXdsg6oqvhoItbj6Hj/XZIk0Xs+Cwu6pkLBAl3Q5HrwA==}
 
   '@fontsource/inter@5.3.0':
     resolution: {integrity: sha512-RofMylZmjlJEfELXeNHFWBRcSs75rGU/6bV2S2jfnvv/3rPXPGe0LgUJTklcHZ9lM4OZmAVFhcJPnACfb91A3g==}
@@ -2476,6 +2491,8 @@ snapshots:
   '@babel/runtime@7.29.7': {}
 
   '@blazediff/core@1.9.1': {}
+
+  '@fontsource/atkinson-hyperlegible-next@5.3.0': {}
 
   '@fontsource/inter@5.3.0': {}
 

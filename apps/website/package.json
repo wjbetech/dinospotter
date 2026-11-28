@@ -10,6 +10,7 @@
     "check:budget": "node ../../scripts/check-budget.mjs"
   },
   "dependencies": {
+    "@fontsource/atkinson-hyperlegible-next": "catalog:",
     "@fontsource/inter": "catalog:",
     "@fontsource/space-grotesk": "catalog:",
     "maplibre-gl": "catalog:",
@@ -17,6 +18,7 @@
   },
   "devDependencies": {
     "@playwright/test": "catalog:",
+    "@types/geojson": "catalog:",
     "@types/node": "^26.1.1",
     "sax": "catalog:",
     "typescript": "~6.0.2",

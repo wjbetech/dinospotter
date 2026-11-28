@@ -96,7 +96,7 @@ export async function GET(req: Request): Promise<Response> {
         stale: false,
         dropped,
         total,
-        cards: groupByTid(rows),
+        cards: groupByTid(rows).slice(0, 12),
       },
       {
         headers: {
@@ -105,6 +105,20 @@ export async function GET(req: Request): Promise<Response> {
       },
     );
   } catch (error) {
+    const name = error instanceof Error ? error.name : "";
+
+    if (name === "AbortError" || name === "TimeoutError") {
+      return Response.json(
+        {
+          error: "timeout",
+          message: "timed out!",
+        } satisfies ApiError,
+        {
+          status: 504,
+        },
+      );
+    }
+
     if ((error as DOMException).name === "AbortError") {
       return Response.json(
         {
