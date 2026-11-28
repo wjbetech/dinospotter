@@ -65,7 +65,8 @@ A new visitor can select a country, choose a time interval, find a fossil, under
 - [ ] Design useful loading, no-results, no-records, upstream-error and saved-empty states with a recovery action where one exists.
 - [ ] Review each design at wide desktop, 768px tablet and 360–390px mobile. Check map area, panel order, scrolling, sticky elements and dialog behavior.
   - [x] Review Germany Mesozoic and Iceland Paleozoic at 390px, including a populated list and an empty result.
-  - [ ] Adjust the mobile marker rail so it does not cover the map scale, then review tablet and selected specimen states.
+  - [x] Adjust the mobile marker rail so it does not cover the map scale, then review tablet and selected specimen states.
+  - [ ] Refine the specimen dialog's oversized tablet layout and review its loading and error states as part of the specimen redesign.
 
 **Review artifact:** Annotated screen captures or prototypes for these states. **Acceptance:** A user can identify the main action and current selection at a glance on each viewport; map and records do not obscure one another.
 
