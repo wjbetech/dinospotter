@@ -105,7 +105,7 @@ export function renderCallouts(
     art.dataset.kind = kind;
     art.style.setProperty("--silhouette", `url('/sprites/${kind}.svg')`);
     art.setAttribute("aria-hidden", "true");
-    const name = document.createElement("span");
+    const name = document.createElement("i");
     name.className = "callout-name";
     name.textContent = item.tna;
     button.append(art);

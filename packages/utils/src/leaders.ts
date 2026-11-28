@@ -1,4 +1,5 @@
 import type { TaxonCard } from "./pbdb.ts";
+import { silhouetteFor } from "./silhouette.ts";
 
 export type Leader = {
   tid: string;
@@ -26,7 +27,21 @@ export function leaders(cards: TaxonCard[], max = 12): Leader[] {
       });
     }
 
-  return [...group.values()]
-    .sort((a, b) => b.count - a.count || a.tid.localeCompare(b.tid))
-    .slice(0, max);
+  const candidates = [...group.values()].sort(
+    (a, b) => b.count - a.count || a.tid.localeCompare(b.tid),
+  );
+  const chosen: Leader[] = [];
+  const counts = new Map<string, number>();
+  for (const candidate of candidates) {
+    const kind = silhouetteFor(candidate.tna);
+    if ((counts.get(kind) ?? 0) >= 2) continue;
+    chosen.push(candidate);
+    counts.set(kind, (counts.get(kind) ?? 0) + 1);
+    if (chosen.length === max) return chosen;
+  }
+  for (const candidate of candidates) {
+    if (!chosen.includes(candidate)) chosen.push(candidate);
+    if (chosen.length >= max) break;
+  }
+  return chosen.slice(0, max);
 }

@@ -641,6 +641,43 @@ body {
   }
 }
 
+/* Named fossil cards stay legible over the map and in the mobile rail. */
+.callout {
+  width: 158px;
+  min-height: 56px;
+  height: auto;
+  padding: 8px;
+  border-radius: 12px;
+  justify-content: flex-start;
+  gap: 8px;
+}
+.callout .callout-art {
+  flex: 0 0 32px;
+}
+.callout .callout-name,
+.callout[data-side="right"] .callout-name,
+.callout-rail .callout-name {
+  display: block;
+  position: static;
+  width: auto;
+  max-width: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  opacity: 1;
+  overflow-wrap: anywhere;
+  text-align: left;
+  font-size: 12px;
+  line-height: 1.25;
+}
+.callout-rail .callout,
+.callout-rail .callout:focus-visible,
+.callout-rail .callout.is-selected {
+  flex: 0 0 158px;
+  border-radius: 12px;
+}
+
 /* Atlas primitives: one visual scale for shell, navigation and content. */
 html {
   min-height: 100%;

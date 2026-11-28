@@ -23,7 +23,7 @@ export function silhouetteFor(taxonName: string): SvgId {
   if (/ammon|lithacocer|franconit|usselicer|turrilit/.test(name)) return "ammonite";
   if (/gastropod/.test(name)) return "gastropod";
   if (
-    /trigonioides|bivalv|inoceram|gnesioceram|limopsis|astarte|pinna|cuspidaria|palaeoneilo|camptonectes|pseudolimea|grammatodon/.test(
+    /trigonioides|bivalv|inoceram|gnesioceram|limopsis|astarte|pinna|cuspidaria|palaeoneilo|camptonectes|pseudolimea|grammatodon|buchia|nuculana|septocardia|cymbophora/.test(
       name,
     )
   )
