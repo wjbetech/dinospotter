@@ -1266,7 +1266,7 @@ body {
   position: absolute;
   left: 68%;
   top: 50%;
-  width: 490px;
+  width: 412px;
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   border: 1px solid #6d9998;
@@ -1282,7 +1282,7 @@ body {
   z-index: 1;
   opacity: 0.9;
   pointer-events: none;
-  clip-path: circle(244px at 68% 50%);
+  clip-path: circle(205px at 68% 50%);
 }
 .is-home .maplibregl-ctrl-scale {
   display: none;
@@ -1355,10 +1355,10 @@ body {
 @media (max-width: 700px) {
   .home-screen::before {
     left: 75%;
-    width: 420px;
+    width: 412px;
   }
   #home-globe {
-    clip-path: circle(209px at 75% 50%);
+    clip-path: circle(205px at 75% 50%);
   }
   .home-screen {
     min-height: calc(100dvh - 190px);

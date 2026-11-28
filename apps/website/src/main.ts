@@ -49,10 +49,13 @@ if (isHome) {
     let last = performance.now();
     const rotate = (now: number) => {
       if (active) {
-        const elapsed = Math.min(now - last, 100);
-        if (document.visibilityState === "visible" && elapsed >= 32)
-          map.setCenter([map.getCenter().lng + elapsed * 0.0025, 20]);
-        last = now;
+        if (document.visibilityState !== "visible") last = now;
+        else if (now - last >= 32) {
+          const elapsed = Math.min(now - last, 200);
+          map.setCenter([map.getCenter().lng + elapsed * 0.006, 20]);
+          globe.dataset.longitude = String(map.getCenter().lng);
+          last = now;
+        }
         requestAnimationFrame(rotate);
       }
     };

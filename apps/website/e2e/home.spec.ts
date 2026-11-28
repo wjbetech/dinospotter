@@ -19,16 +19,17 @@ test("home fits a narrow screen and respects reduced motion", async ({ page }) =
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await expect(page.getByRole("link", { name: "Get started" })).toBeVisible();
+  await expect(page.locator("#home-globe .maplibregl-canvas")).toBeVisible({ timeout: 15000 });
+  await expect(page.locator("#home-globe")).not.toHaveAttribute("data-longitude", /\d/);
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
 });
 
 test("home globe visibly rotates while motion is allowed", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator("#home-globe")).toHaveAttribute("data-projection", "globe");
-  const globe = page.locator("#home-globe canvas");
-  await page.waitForTimeout(600);
-  const first = await globe.screenshot();
-  await page.waitForTimeout(2000);
-  const second = await globe.screenshot();
-  expect(first.equals(second)).toBe(false);
+  const globe = page.locator("#home-globe");
+  await expect(globe).toHaveAttribute("data-longitude", /\d/, { timeout: 15000 });
+  const first = Number(await globe.getAttribute("data-longitude"));
+  await page.waitForTimeout(3000);
+  const second = Number(await globe.getAttribute("data-longitude"));
+  expect(second - first).toBeGreaterThan(10);
 });
