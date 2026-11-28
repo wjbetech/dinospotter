@@ -1,4 +1,5 @@
 // styles
+import "./styles/theme.css";
 import "./styles/tokens.css";
 import "@fontsource/space-grotesk/latin-500.css";
 import "@fontsource/space-grotesk/latin-700.css";

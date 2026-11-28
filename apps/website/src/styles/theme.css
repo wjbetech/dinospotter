@@ -1,0 +1,32 @@
+:root {
+  color-scheme: light;
+  --paper: #f1f3ec;
+  --card: #fffefa;
+  --surface-inset: #e7ede5;
+  --ink: #203a33;
+  --ink-soft: #52665a;
+  --line: #cbd7ca;
+  --moss: #28735a;
+  --moss-hover: #1f604a;
+  --focus: #145f79;
+  --warning: #9a5b2d;
+  --sky: #bfd9dc;
+  --straw: #d4b97d;
+  --sand: #ede6d6;
+
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Atkinson Hyperlegible Next", sans-serif;
+  --font-data: "Atkinson Hyperlegible Next", sans-serif;
+
+  --text-caption: 0.8125rem;
+  --text-body: 1rem;
+  --text-record: 1.0625rem;
+  --text-section: clamp(1.5rem, 2vw, 1.875rem);
+  --text-page: clamp(3rem, 6vw, 5rem);
+
+  --radius-control: 0.625rem;
+  --radius-card: 1.125rem;
+  --radius-pill: 999px;
+  --shadow-raised: 0 0.875rem 2.375rem rgb(32 58 51 / 12%);
+  --shadow-floating: 0 1rem 3rem rgb(32 58 51 / 20%);
+}

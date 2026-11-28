@@ -40,7 +40,7 @@ A new visitor can select a country, choose a time interval, find a fossil, under
 
 ### 1.2 Define the visual system
 
-- [ ] Create a small, named palette for paper, surface, water, selected land, moss actions, borders, primary text, muted text, warning and focus. Check text and control contrast on actual map and panel surfaces.
+- [x] Create a small, named palette for paper, surface, water, selected land, moss actions, borders, primary text, muted text, warning and focus. Check text and control contrast on actual map and panel surfaces.
   - [ ] Work through the color scheme to ensure high contrast, visual depth and distinctiveness between sections and components, and overall theme matches the site.
 - [ ] Choose display, body and data typography roles; set sizes and line heights for page title, section title, record name, body, caption and map label. Remove unused font files and conflicting declarations.
   - [ ] Assert the `px` or `rem` modality for fonts to make sure we are always working with responsive text sizes.
