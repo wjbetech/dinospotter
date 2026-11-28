@@ -87,7 +87,7 @@ export function renderCard(card: TaxonCard): HTMLElement {
   const art = document.createElement("span");
   const kind = silhouetteFor(card.tna);
   art.className = "taxon-art";
-  art.classList.add("h-[2.375rem]", "w-10", "shrink-0");
+  art.classList.add("h-[2.375rem]!", "w-10!", "flex-[0_0_40px]!");
   art.dataset.kind = kind;
   art.setAttribute("aria-hidden", "true");
   art.style.setProperty("--silhouette", `url('/sprites/${kind}.svg')`);
