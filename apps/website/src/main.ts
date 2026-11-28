@@ -49,10 +49,10 @@ if (isHome) {
     let last = performance.now();
     const rotate = (now: number) => {
       if (active) {
-        if (document.visibilityState === "visible" && now - last > 80) {
-          map.setCenter([map.getCenter().lng + 0.012, 20]);
-          last = now;
-        }
+        const elapsed = Math.min(now - last, 100);
+        if (document.visibilityState === "visible" && elapsed >= 32)
+          map.setCenter([map.getCenter().lng + elapsed * 0.0025, 20]);
+        last = now;
         requestAnimationFrame(rotate);
       }
     };

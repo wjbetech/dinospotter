@@ -21,3 +21,14 @@ test("home fits a narrow screen and respects reduced motion", async ({ page }) =
   await expect(page.getByRole("link", { name: "Get started" })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
 });
+
+test("home globe visibly rotates while motion is allowed", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("#home-globe")).toHaveAttribute("data-projection", "globe");
+  const globe = page.locator("#home-globe canvas");
+  await page.waitForTimeout(600);
+  const first = await globe.screenshot();
+  await page.waitForTimeout(2000);
+  const second = await globe.screenshot();
+  expect(first.equals(second)).toBe(false);
+});
