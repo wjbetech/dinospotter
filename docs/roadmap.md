@@ -92,6 +92,7 @@ A new visitor can select a country, choose a time interval, find a fossil, under
 - [ ] Make selected record state consistent across map, list and detail, including filtering and reset.
 - [ ] Place markers and leaders using projected screen positions. Prevent avoidable crossings, keep names in bounds and quiet unrelated lines. Check dense, sparse, wide and island countries.
 - [x] Expand the Mesozoic candidate pool using PBDB clade-filtered occurrences and use those verified groups for callout artwork, while keeping the featured list limited to twelve.
+- [x] Redraw all twelve animal-group icons for the atlas. Review the shared artwork at compact marker and record-row sizes.
 - [ ] Expand taxonomy-backed artwork beyond the three dinosaur groups and replace remaining name-based classification with verified classifications where available.
 - [ ] Separate a small featured map selection from a paginated or virtualized view of the broader record where data supports it.
 - [ ] Add evidence-backed category, formation and geological interval filters with counts and shareable state. Label unverified classification honestly.
