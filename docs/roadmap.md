@@ -30,13 +30,53 @@ A new visitor can select a country, choose a time interval, find a fossil, under
 
 ## Stage 1 — Product and visual foundation
 
-- [ ] Give Explore, Fossil record, Field guide and Saved finds purposeful destinations with clear navigation state.
-- [ ] Establish semantic colors, type, spacing, surfaces, buttons, fields, cards, dialogs, focus states and responsive rules. Consolidate `tokens.css` instead of appending overrides.
-- [ ] Design the country overview, record row, selected specimen and empty/error states as one family; review desktop and mobile captures.
-- [ ] Rewrite copy around user actions and evidence. Explain modern coordinates, featured ranking, freshness and dinosaurs versus other fossils in context.
-- [ ] Review hierarchy, contrast, clipping, whitespace and behavior from 360px to wide desktop.
+**Purpose:** Give the existing map and data a coherent product structure and a visual language strong enough to carry later features. This stage changes presentation and navigation; deeper data, taxonomy and map behavior belong to later stages.
 
-**Done when:** Each state has a clear primary action, all destinations work, and representative routes show one consistent interface.
+### 1.1 Decide the product structure
+
+- [ ] Map the current journeys: first visit, choose country and era, inspect a featured fossil, search, save, return and share. Record where a user loses context or reaches a dead end.
+- [ ] Agree on the role of each destination. Proposed: **Explore** is the map and country overview; **Fossil record** is the searchable list; **Field guide** teaches concepts; **Saved finds** is the personal collection. Decide whether the last three need distinct routes or focused views inside one app shell.
+- [ ] Draw a desktop and mobile navigation map showing entry points, back behavior, selected country/era persistence and direct-link behavior. Make the logo and browser back action predictable.
+- [ ] Decide what appears before a country is selected and what the primary next action is in loading, empty, error and saved-empty states.
+
+**Review artifact:** A one-page navigation map with the four destinations and the key journeys. **Acceptance:** Every visible nav item leads to a distinct useful state; direct links and browser back retain the expected context.
+
+### 1.2 Define the visual system
+
+- [ ] Create a small, named palette for paper, surface, water, selected land, moss actions, borders, primary text, muted text, warning and focus. Check text and control contrast on actual map and panel surfaces.
+- [ ] Choose display, body and data typography roles; set sizes and line heights for page title, section title, record name, body, caption and map label. Remove unused font files and conflicting declarations.
+- [ ] Set spacing, radius, border and elevation scales. Specify when a surface is raised, inset or flat so depth communicates hierarchy rather than decorating every element.
+- [ ] Build a compact component inventory: header/nav, primary and quiet buttons, fields, filter controls, record row, map badge, status panel, specimen view and footer. Document default, hover, selected, focus, disabled and loading states.
+- [ ] Consolidate the repeated rules in `apps/website/src/styles/tokens.css` into tokens and component sections. Preserve appearance until each component is deliberately redesigned.
+
+**Review artifact:** A visual board or live component page with desktop and mobile examples. **Acceptance:** One token source controls the main UI; no later override blocks are needed to make a component look correct; contrast and focus are readable.
+
+### 1.3 Design the core screens as a family
+
+- [ ] Design the unselected globe view with a clear invitation and a useful explanation of what DinoSpotter contains.
+- [ ] Design the selected-country workspace: country/time heading, map, up to eight quiet markers, featured record list, filters and a clearly selected fossil. Set a deliberate relationship between map and records.
+- [ ] Design a specimen view that can later accept richer evidence without a wholesale layout change. Specify art, name, age, location, formation, source and save/share actions.
+- [ ] Design useful loading, no-results, no-records, upstream-error and saved-empty states with a recovery action where one exists.
+- [ ] Review each design at wide desktop, 768px tablet and 360–390px mobile. Check map area, panel order, scrolling, sticky elements and dialog behavior.
+
+**Review artifact:** Annotated screen captures or prototypes for these states. **Acceptance:** A user can identify the main action and current selection at a glance on each viewport; map and records do not obscure one another.
+
+### 1.4 Edit the product language
+
+- [ ] Create a short vocabulary sheet for country, era, fossil group, findsite, formation, featured result and source. Use the same terms in map, list, specimen view and guide.
+- [ ] Replace generic or misleading labels, including copy that suggests all results are dinosaurs or that twelve featured groups are a country's complete record.
+- [ ] Put brief provenance notes where they answer a real question: modern coordinates by the map; ranking by the featured list; date or freshness by the records; PBDB attribution by the evidence.
+- [ ] Write specific empty and error messages with the next action. Review labels at narrow widths and with screen readers.
+
+**Review artifact:** A copy deck covering every visible state. **Acceptance:** No unexplained specialist term blocks the main journey; caveats are concise and close to the claim they qualify.
+
+### 1.5 Implement and accept Stage 1
+
+- [ ] Implement navigation, tokens, components and copy in small PR slices, reviewing the real app after each slice. Keep state and data contracts intact unless the design explicitly requires a change.
+- [ ] Run the repo checks, meaningful browser journeys and accessibility checks. Review screen captures for an unselected globe, a dense country, a sparse country, a selected specimen and mobile.
+- [ ] Complete a human visual walkthrough against the agreed design direction, fix the findings and record the remaining issues under the appropriate later stage.
+
+**Stage exit:** All four destinations have a purpose; the visual system is consistent; the core states are readable at 360px and desktop; keyboard focus, contrast and scrolling work; the user accepts the direction before Stage 2 expands functionality.
 
 ## Stage 2 — Reliable exploration
 
