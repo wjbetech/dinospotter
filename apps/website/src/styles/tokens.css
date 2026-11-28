@@ -822,21 +822,11 @@ body {
   height: clamp(520px, calc(100dvh - 150px), 840px);
   min-height: 0;
 }
-.globe-edge {
-  position: absolute;
-  z-index: 2;
-  top: 50%;
-  left: 50%;
-  width: min(72%, 460px);
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  border: 1px solid rgb(68 122 126 / 82%);
-  border-radius: 50%;
-  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 35%);
-  pointer-events: none;
+#globe[data-projection="globe"] {
+  background: #edf2ec;
 }
-.globe-edge[hidden] {
-  display: none;
+#map-panel #globe[data-projection="globe"] .maplibregl-canvas {
+  filter: saturate(1.12) contrast(1.03) drop-shadow(0 0 1px #48787a) drop-shadow(0 0 1px #48787a);
 }
 #drawer {
   min-width: 0;
