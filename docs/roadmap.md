@@ -47,6 +47,8 @@ A new visitor can select a country, choose a time interval, find a fossil, under
 - [ ] Set spacing, radius, border and elevation scales. Specify when a surface is raised, inset or flat so depth communicates hierarchy rather than decorating every element.
 - [ ] Build a compact component inventory: header/nav, primary and quiet buttons, fields, filter controls, record row, map badge, status panel, specimen view and footer. Document default, hover, selected, focus, disabled and loading states.
   - [ ] Each component should have it's own file and styles should be defined inline using tailwind.
+  - [x] Move the shared header, navigation, share action and footer into component files with Tailwind utilities.
+  - [ ] Migrate exploration controls, records and transient panels; remove their superseded CSS selectors.
 - [ ] Consolidate the repeated rules in `apps/website/src/styles/tokens.css` into tokens and component sections. Preserve appearance until each component is deliberately redesigned.
   - [ ] Make sure the styles align with the previous point and we only have one unified style system.
 

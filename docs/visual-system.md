@@ -39,4 +39,4 @@ Flat surfaces group information. Inset surfaces hold secondary controls or conte
 | Specimen view         | Raised panel             | Selected tab or action uses moss         | Focus remains inside dialog | Skeleton while detail loads           |
 | Footer                | Flat paper shell         | Link underline                           | Visible outline             | Not applicable                        |
 
-The next component migration will put each component in its own file and use Tailwind utilities in its markup. Existing selectors remain until their component is deliberately migrated so this token change preserves the current layout.
+The shared header and footer now live in separate component files with Tailwind utilities in their markup. Exploration controls, records and transient panels still use the legacy stylesheet. Remove their old selectors as each component moves; keep the token file as the single source for visual roles.

@@ -1,6 +1,7 @@
 // styles
 import "./styles/theme.css";
 import "./styles/tokens.css";
+import "./styles/tailwind.css";
 import "@fontsource/space-grotesk/latin-500.css";
 import "@fontsource/space-grotesk/latin-700.css";
 import "@fontsource/atkinson-hyperlegible-next/latin-400.css";
@@ -21,10 +22,15 @@ import { renderEraStrip } from "./ui/era-strip.ts";
 import { renderBadge } from "./ui/badge.ts";
 import { selectEra } from "./ui/era-strip.ts";
 import { copyFor } from "./ui/states.ts";
+import { renderHeader } from "./ui/shell/header.ts";
+import { renderFooter } from "./ui/shell/footer.ts";
 
+const isHome = location.pathname === "/" && !parseUrl(location.search).countryCode;
+renderHeader(isHome);
+renderFooter(isHome);
 createIcons({ icons: { ArrowLeft, ArrowUp, ArrowUpRight } });
 
-const navLinks = document.querySelectorAll<HTMLAnchorElement>(".site-header nav a");
+const navLinks = document.querySelectorAll<HTMLAnchorElement>("header nav a");
 function syncNavigation(): void {
   const current =
     location.hash === "#field-guide" || location.hash === "#saved-finds" ? location.hash : "";
@@ -36,7 +42,6 @@ function syncNavigation(): void {
 }
 window.addEventListener("hashchange", syncNavigation);
 syncNavigation();
-const isHome = location.pathname === "/" && !parseUrl(location.search).countryCode;
 if (isHome) {
   document.body.classList.add("is-home");
   const home = document.querySelector<HTMLElement>("#home")!;
@@ -66,7 +71,7 @@ if (isHome) {
     requestAnimationFrame(rotate);
   });
 }
-const shareButton = document.querySelector<HTMLButtonElement>("#share-view");
+const shareButton = document.querySelector<HTMLButtonElement>("#share-view-button");
 shareButton?.addEventListener("click", async () => {
   try {
     await navigator.clipboard.writeText(location.href);
