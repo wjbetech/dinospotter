@@ -119,7 +119,7 @@ export function renderCallouts(
     button.dataset.side = item.callout[0] > wrap.clientWidth / 2 ? "right" : "left";
     const art = document.createElement("span");
     art.className = "callout-art";
-    const kind = silhouetteFor(item.tna);
+    const kind = item.verifiedGroup ?? silhouetteFor(item.tna);
     art.dataset.kind = kind;
     art.style.setProperty("--silhouette", `url('/sprites/${kind}.svg')`);
     art.setAttribute("aria-hidden", "true");

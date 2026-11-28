@@ -15,7 +15,7 @@ export function mountWorkspace(drawer: HTMLElement) {
     cards = next;
     const query = input.value.trim().toLowerCase();
     const filtered = cards.filter((card) => {
-      const kind = silhouetteFor(card.tna);
+      const kind = card.verifiedGroup ?? silhouetteFor(card.tna);
       const dinosaur = ["theropod", "sauropod", "ornithischian"].includes(kind);
       const plant = ["plant", "fern", "leaf"].includes(kind);
       const shell = ["invertebrate", "ammonite", "bivalve", "gastropod"].includes(kind);

@@ -10,6 +10,7 @@ export interface FossilSite {
   lng: number;
   lat: number;
   sfm: string;
+  verifiedGroup?: "theropod" | "sauropod" | "ornithischian";
 }
 
 export interface TaxonCard {
@@ -20,6 +21,7 @@ export interface TaxonCard {
   lag: number;
   sfm: string;
   sites: FossilSite[];
+  verifiedGroup?: "theropod" | "sauropod" | "ornithischian";
 }
 
 export interface SitePayload {
@@ -158,6 +160,7 @@ export function groupByTid(rows: FossilSite[]): TaxonCard[] {
     lag: Math.min(...sites.map((site) => site.lag)),
     sfm: pickSfm(sites.map((site) => site.sfm)),
     sites,
+    verifiedGroup: sites.find((site) => site.verifiedGroup)?.verifiedGroup,
   }));
 
   return cards.sort(

@@ -85,6 +85,38 @@ export async function GET(req: Request): Promise<Response> {
 
     const parsed = await Promise.all(results.map((r) => r.json() as Promise<OccsJson>));
     const rows = parsed.flatMap((p) => parseOccs(p).rows);
+    // Targeted PBDB clade queries expand the sample without making the main
+    // fossil record depend on the supplementary requests succeeding.
+    const groups = [
+      ["Theropoda", "theropod"],
+      ["Sauropoda", "sauropod"],
+      ["Ornithischia", "ornithischian"],
+    ] as const;
+    if (era === "Mesozoic") {
+      const extra = await Promise.allSettled(
+        groups.map(async ([clade, verifiedGroup]) => {
+          const query = new URL("https://paleobiodb.org/data1.2/occs/list.json");
+          query.search = new URLSearchParams({
+            cc,
+            interval: era,
+            base_name: clade,
+            limit: "250",
+            show: "coords,ident,strat,class",
+          }).toString();
+          const response = await fetch(query, { signal: AbortSignal.timeout(8000) });
+          if (!response.ok) throw new Error("supplementary query failed");
+          const json = (await response.json()) as OccsJson;
+          return parseOccs(json).rows.map((site) => ({ ...site, verifiedGroup }));
+        }),
+      );
+      const byOccurrence = new Map(rows.map((site) => [site.oid, site]));
+      for (const result of extra) {
+        if (result.status === "fulfilled") {
+          for (const site of result.value) byOccurrence.set(site.oid, site);
+        }
+      }
+      rows.splice(0, rows.length, ...byOccurrence.values());
+    }
     const dropped = parsed.reduce((sum, p) => sum + parseOccs(p).dropped, 0);
     const total = parsed.reduce((sum, p) => sum + parseOccs(p).total, 0);
 
@@ -96,7 +128,19 @@ export async function GET(req: Request): Promise<Response> {
         stale: false,
         dropped,
         total,
-        cards: groupByTid(rows).slice(0, 12),
+        cards: (() => {
+          const candidates = groupByTid(rows);
+          const verified = candidates.filter((card) => card.verifiedGroup);
+          const selected: typeof verified = [];
+          for (const [, group] of groups) {
+            selected.push(...verified.filter((card) => card.verifiedGroup === group).slice(0, 2));
+          }
+          for (const card of candidates) {
+            if (!selected.includes(card)) selected.push(card);
+            if (selected.length >= 12) break;
+          }
+          return selected;
+        })(),
       },
       {
         headers: {

@@ -85,7 +85,7 @@ export function renderCard(card: TaxonCard): HTMLElement {
   figure.className =
     "figure flex h-12 w-[3.25rem] shrink-0 items-center justify-center rounded-md border border-boundary bg-inset p-1";
   const art = document.createElement("span");
-  const kind = silhouetteFor(card.tna);
+  const kind = card.verifiedGroup ?? silhouetteFor(card.tna);
   art.className = "taxon-art";
   art.classList.add("h-[2.375rem]!", "w-10!", "flex-[0_0_40px]!");
   art.dataset.kind = kind;

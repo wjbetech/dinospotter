@@ -78,3 +78,29 @@ test("504 on abort", async () => {
 
   expect(res.status).toBe(504);
 });
+
+test("adds verified dinosaur occurrences without breaking the featured limit", async () => {
+  global.fetch = vi.fn(async (input) => {
+    const url = new URL(String(input));
+    const clade = url.searchParams.get("base_name");
+    if (clade === "Sauropoda") throw new Error("unavailable");
+    const tid =
+      clade === "Theropoda" ? "txn:100" : clade === "Ornithischia" ? "txn:200" : "txn:300";
+    return Response.json({
+      records: [
+        { oid: `occ:${tid}`, tid, tna: clade ?? "Shell", eag: 100, lag: 90, lng: 12, lat: 40 },
+      ],
+    });
+  });
+  const response = await handler(new Request("http://test/api/occs?cc=US&era=Mesozoic"));
+  const payload = (await response.json()) as { cards: { tid: string; verifiedGroup?: string }[] };
+  expect(response.status).toBe(200);
+  expect(payload.cards.length).toBeLessThanOrEqual(12);
+  expect(payload.cards).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({ tid: "txn:100", verifiedGroup: "theropod" }),
+      expect.objectContaining({ tid: "txn:200", verifiedGroup: "ornithischian" }),
+      expect.objectContaining({ tid: "txn:300" }),
+    ]),
+  );
+});
