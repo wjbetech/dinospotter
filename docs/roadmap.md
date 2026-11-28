@@ -32,28 +32,29 @@ A new visitor can select a country, choose a time interval, find a fossil, under
 
 **Purpose:** Give the existing map and data a coherent product structure and a visual language strong enough to carry later features. This stage changes presentation and navigation; deeper data, taxonomy and map behavior belong to later stages.
 
-### 1.1 Decide the product structure
+### 1.1 Build a home page screen
 
-- [ ] Map the current journeys: first visit, choose country and era, inspect a featured fossil, search, save, return and share. Record where a user loses context or reaches a dead end.
-- [ ] Agree on the role of each destination. Proposed: **Explore** is the map and country overview; **Fossil record** is the searchable list; **Field guide** teaches concepts; **Saved finds** is the personal collection. Decide whether the last three need distinct routes or focused views inside one app shell.
-- [ ] Draw a desktop and mobile navigation map showing entry points, back behavior, selected country/era persistence and direct-link behavior. Make the logo and browser back action predictable.
-- [ ] Decide what appears before a country is selected and what the primary next action is in loading, empty, error and saved-empty states.
-
-**Review artifact:** A one-page navigation map with the four destinations and the key journeys. **Acceptance:** Every visible nav item leads to a distinct useful state; direct links and browser back retain the expected context.
+- [x] Create a new initial screen with the Header and Footer.
+  - [x] The area between the header and footer should have a rotating maplibre globe full width and height section with the colored land borders still present, rotating slowly, opacity lowered.
+  - [x] A title overlay with a button 'Get Started'.
 
 ### 1.2 Define the visual system
 
 - [ ] Create a small, named palette for paper, surface, water, selected land, moss actions, borders, primary text, muted text, warning and focus. Check text and control contrast on actual map and panel surfaces.
+  - [ ] Work through the color scheme to ensure high contrast, visual depth and distinctiveness between sections and components, and overall theme matches the site.
 - [ ] Choose display, body and data typography roles; set sizes and line heights for page title, section title, record name, body, caption and map label. Remove unused font files and conflicting declarations.
+  - [ ] Assert the `px` or `rem` modality for fonts to make sure we are always working with responsive text sizes.
 - [ ] Set spacing, radius, border and elevation scales. Specify when a surface is raised, inset or flat so depth communicates hierarchy rather than decorating every element.
 - [ ] Build a compact component inventory: header/nav, primary and quiet buttons, fields, filter controls, record row, map badge, status panel, specimen view and footer. Document default, hover, selected, focus, disabled and loading states.
+  - [ ] Each component should have it's own file and styles should be defined inline using tailwind.
 - [ ] Consolidate the repeated rules in `apps/website/src/styles/tokens.css` into tokens and component sections. Preserve appearance until each component is deliberately redesigned.
+  - [ ] Make sure the styles align with the previous point and we only have one unified style system.
 
 **Review artifact:** A visual board or live component page with desktop and mobile examples. **Acceptance:** One token source controls the main UI; no later override blocks are needed to make a component look correct; contrast and focus are readable.
 
 ### 1.3 Design the core screens as a family
 
-- [ ] Design the unselected globe view with a clear invitation and a useful explanation of what DinoSpotter contains.
+- [ ] Design the unselected globe view with a clear invitation and a useful explanation of what DinoSpotter contains (this may be best placed on the new home page).
 - [ ] Design the selected-country workspace: country/time heading, map, up to eight quiet markers, featured record list, filters and a clearly selected fossil. Set a deliberate relationship between map and records.
 - [ ] Design a specimen view that can later accept richer evidence without a wholesale layout change. Specify art, name, age, location, formation, source and save/share actions.
 - [ ] Design useful loading, no-results, no-records, upstream-error and saved-empty states with a recovery action where one exists.

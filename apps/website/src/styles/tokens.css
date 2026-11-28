@@ -1242,3 +1242,119 @@ body {
     align-content: start;
   }
 }
+
+/* Stage 1 home: the globe provides atmosphere, while the invitation stays readable. */
+.is-home #app,
+.is-home #share-view {
+  display: none;
+}
+.home-screen[hidden] {
+  display: none;
+}
+.home-screen {
+  position: relative;
+  isolation: isolate;
+  flex: 1;
+  display: grid;
+  align-items: center;
+  min-height: min(760px, calc(100dvh - 154px));
+  overflow: hidden;
+  background: #b8d4d2;
+}
+#home-globe {
+  position: absolute;
+  inset: 0;
+  opacity: 0.9;
+  pointer-events: none;
+}
+.is-home .maplibregl-ctrl-scale {
+  display: none;
+}
+.home-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, #eef2e9f5 0%, #eef2e9e8 34%, #d7e9df55 56%, transparent 80%);
+}
+.home-content {
+  position: relative;
+  z-index: 1;
+  width: min(670px, 100%);
+  padding: clamp(32px, 6vw, 88px);
+  box-sizing: border-box;
+}
+.home-eyebrow {
+  margin: 0 0 20px;
+  color: #27664f;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.home-content h1 {
+  margin: 0;
+  font: 700 clamp(48px, 6.2vw, 96px)/0.98 var(--font-display);
+  letter-spacing: -0.075em;
+  color: #173d31;
+}
+.home-content > p:not(.home-eyebrow) {
+  max-width: 480px;
+  margin: 24px 0 32px;
+  color: #38574b;
+  font-size: clamp(17px, 1.5vw, 21px);
+  line-height: 1.5;
+}
+.home-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 32px;
+  padding: 15px 21px;
+  border-radius: 10px;
+  background: #246c52;
+  box-shadow: 0 10px 26px #1a4e3a35;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.home-cta:hover {
+  background: #194e3b;
+  transform: translateY(-2px);
+}
+.home-cta:focus-visible {
+  outline: 3px solid #123b30;
+  outline-offset: 4px;
+}
+.home-caption {
+  position: absolute;
+  z-index: 1;
+  right: 28px;
+  bottom: 12px;
+  color: #305a4d;
+  font-size: 12px;
+}
+@media (max-width: 700px) {
+  .home-screen {
+    min-height: calc(100dvh - 190px);
+  }
+  .home-screen::after {
+    background: linear-gradient(180deg, #eef2e9f5 0%, #eef2e9e8 65%, #d7e9df88 100%);
+  }
+  .home-content {
+    padding: 34px 24px 80px;
+  }
+  .home-content h1 {
+    font-size: clamp(44px, 12vw, 72px);
+  }
+  .home-caption {
+    left: 24px;
+    right: 24px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-cta:hover {
+    transform: none;
+  }
+}

@@ -23,16 +23,42 @@ import { copyFor } from "./ui/states.ts";
 const navLinks = document.querySelectorAll<HTMLAnchorElement>(".site-header nav a");
 function syncNavigation(): void {
   const current =
-    location.hash === "#field-guide" || location.hash === "#saved-finds"
-      ? location.hash
-      : "#map-panel";
+    location.hash === "#field-guide" || location.hash === "#saved-finds" ? location.hash : "";
   navLinks.forEach((link) => {
-    if (link.hash === current) link.setAttribute("aria-current", "page");
+    if (location.pathname === "/explore" && link.hash === current)
+      link.setAttribute("aria-current", "page");
     else link.removeAttribute("aria-current");
   });
 }
 window.addEventListener("hashchange", syncNavigation);
 syncNavigation();
+const isHome = location.pathname === "/" && !parseUrl(location.search).countryCode;
+if (isHome) {
+  document.body.classList.add("is-home");
+  const home = document.querySelector<HTMLElement>("#home")!;
+  home.hidden = false;
+  const globe = home.querySelector<HTMLElement>("#home-globe")!;
+  void import("./components/globe/index.ts").then(async ({ initGlobe }) => {
+    const map = await initGlobe(globe);
+    map.setPadding({ left: Math.min(window.innerWidth * 0.42, 580), right: 0, top: 0, bottom: 0 });
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let active = true;
+    map.on("remove", () => {
+      active = false;
+    });
+    let last = performance.now();
+    const rotate = (now: number) => {
+      if (active) {
+        if (document.visibilityState === "visible" && now - last > 80) {
+          map.setCenter([map.getCenter().lng + 0.012, 20]);
+          last = now;
+        }
+        requestAnimationFrame(rotate);
+      }
+    };
+    requestAnimationFrame(rotate);
+  });
+}
 const shareButton = document.querySelector<HTMLButtonElement>("#share-view");
 shareButton?.addEventListener("click", async () => {
   try {
@@ -45,116 +71,120 @@ shareButton?.addEventListener("click", async () => {
     shareButton.textContent = "Copy unavailable";
   }
 });
-const app = document.querySelector("#app")!;
-if (!app.querySelector("#drawer")) {
-  app.insertAdjacentHTML("beforeend", `<aside id="drawer"></aside>`);
-}
-
-const globeEl = document.querySelector("#globe");
-const loadBtn = document.querySelector("#load-globe");
-const drawer = document.querySelector("#drawer");
-let globeLoaded = false;
-
-function loadGlobe(): void {
-  if (globeEl instanceof HTMLElement && !globeLoaded) {
-    globeLoaded = true;
-    void import("./components/globe/index.ts").then((m) => m.initGlobe(globeEl));
-    loadBtn?.remove();
+if (!isHome) {
+  const app = document.querySelector("#app")!;
+  if (!app.querySelector("#drawer")) {
+    app.insertAdjacentHTML("beforeend", `<aside id="drawer"></aside>`);
   }
-}
 
-if (parseUrl(location.search).countryCode) {
-  loadGlobe();
-} else {
-  loadBtn?.addEventListener("click", loadGlobe, {
-    once: true,
-  });
-}
+  const globeEl = document.querySelector("#globe");
+  const loadBtn = document.querySelector("#load-globe");
+  const drawer = document.querySelector("#drawer");
+  let globeLoaded = false;
 
-if (drawer instanceof HTMLElement) {
-  drawer.append(
-    renderCountryListBox([...COUNTRIES], (c) => {
-      const era = store.getState().era;
-      loadGlobe();
-      store.setState({
-        countryCode: c.countryCode,
-        payload: null,
-        status: "loading",
-      });
-      void selectEra(era);
-    }),
-  );
-
-  drawer.append(
-    renderEraStrip(store.getState().era, {
-      Paleozoic: "#2F7D62",
-      Mesozoic: "#D9A441",
-      Cenozoic: "#DCEBF5",
-    }),
-  );
-
-  const workspace = mountWorkspace(drawer);
-
-  store.subscribe(() => {
-    const { payload, status, countryCode, era } = store.getState();
-
-    drawer
-      .querySelectorAll(".skeleton, .card, .empty-message, .badge, .sentinel")
-      .forEach((el) => el.remove());
-
-    workspace.reset();
-
-    if (status === "loading") {
-      const s = renderSkeleton(15);
-      s.classList.add("skeleton");
-      drawer.append(s);
-    } else if (status === "empty") {
-      const emptyMessage = document.createElement("p");
-      emptyMessage.classList.add("empty-message");
-      emptyMessage.textContent = copyFor("empty", countryCode, era);
-      drawer.append(emptyMessage);
-    } else if (status === "degraded" || status === "error") {
-      const badge = renderBadge(status, () => void selectEra(store.getState().era));
-      if (badge) {
-        drawer.append(badge);
-      }
-      if (payload) workspace.render(payload.cards);
-    } else if (payload) {
-      workspace.render(payload.cards);
+  function loadGlobe(): void {
+    if (globeEl instanceof HTMLElement && !globeLoaded) {
+      globeLoaded = true;
+      void import("./components/globe/index.ts").then((m) => m.initGlobe(globeEl));
+      loadBtn?.remove();
     }
+  }
 
-    drawer.querySelectorAll('[role="radio"]').forEach((btn) => {
-      btn.setAttribute("aria-checked", String(!!btn.textContent?.startsWith(era)));
+  if (parseUrl(location.search).countryCode) {
+    loadGlobe();
+  } else {
+    loadBtn?.addEventListener("click", loadGlobe, {
+      once: true,
     });
+  }
 
-    const picker = drawer.querySelector('select[aria-label="Country"]') as HTMLSelectElement | null;
+  if (drawer instanceof HTMLElement) {
+    drawer.append(
+      renderCountryListBox([...COUNTRIES], (c) => {
+        const era = store.getState().era;
+        loadGlobe();
+        store.setState({
+          countryCode: c.countryCode,
+          payload: null,
+          status: "loading",
+        });
+        void selectEra(era);
+      }),
+    );
 
-    if (picker) picker.value = countryCode ?? "";
-    const heading = drawer.querySelector("h1");
-    const intro = drawer.querySelector(".drawer-intro");
-    if (heading)
-      heading.textContent = countryCode
-        ? picker?.selectedOptions[0]?.textContent || countryCode
-        : "Explore the fossil record";
-    if (intro)
-      intro.textContent = countryCode
-        ? [era, payload && `${payload.cards.length} featured fossil groups`]
-            .filter(Boolean)
-            .join(" · ")
-        : "Choose a country and era to explore its fossil record.";
+    drawer.append(
+      renderEraStrip(store.getState().era, {
+        Paleozoic: "#2F7D62",
+        Mesozoic: "#D9A441",
+        Cenozoic: "#DCEBF5",
+      }),
+    );
 
-    const txn = parseUrl(location.search).txn;
+    const workspace = mountWorkspace(drawer);
 
-    if (txn && payload) {
-      const hit = payload.cards.find((c) => c.tid === txn || c.tid === `txn:${txn}`);
-      if (hit) void openCardModal(hit, document.body);
-    }
-  });
-}
+    store.subscribe(() => {
+      const { payload, status, countryCode, era } = store.getState();
 
-const init = parseUrl(location.search);
+      drawer
+        .querySelectorAll(".skeleton, .card, .empty-message, .badge, .sentinel")
+        .forEach((el) => el.remove());
 
-if (init.countryCode) {
-  store.setState({ countryCode: init.countryCode, era: init.era });
-  void selectEra(init.era);
+      workspace.reset();
+
+      if (status === "loading") {
+        const s = renderSkeleton(15);
+        s.classList.add("skeleton");
+        drawer.append(s);
+      } else if (status === "empty") {
+        const emptyMessage = document.createElement("p");
+        emptyMessage.classList.add("empty-message");
+        emptyMessage.textContent = copyFor("empty", countryCode, era);
+        drawer.append(emptyMessage);
+      } else if (status === "degraded" || status === "error") {
+        const badge = renderBadge(status, () => void selectEra(store.getState().era));
+        if (badge) {
+          drawer.append(badge);
+        }
+        if (payload) workspace.render(payload.cards);
+      } else if (payload) {
+        workspace.render(payload.cards);
+      }
+
+      drawer.querySelectorAll('[role="radio"]').forEach((btn) => {
+        btn.setAttribute("aria-checked", String(!!btn.textContent?.startsWith(era)));
+      });
+
+      const picker = drawer.querySelector(
+        'select[aria-label="Country"]',
+      ) as HTMLSelectElement | null;
+
+      if (picker) picker.value = countryCode ?? "";
+      const heading = drawer.querySelector("h1");
+      const intro = drawer.querySelector(".drawer-intro");
+      if (heading)
+        heading.textContent = countryCode
+          ? picker?.selectedOptions[0]?.textContent || countryCode
+          : "Explore the fossil record";
+      if (intro)
+        intro.textContent = countryCode
+          ? [era, payload && `${payload.cards.length} featured fossil groups`]
+              .filter(Boolean)
+              .join(" · ")
+          : "Choose a country and era to explore its fossil record.";
+
+      const txn = parseUrl(location.search).txn;
+
+      if (txn && payload) {
+        const hit = payload.cards.find((c) => c.tid === txn || c.tid === `txn:${txn}`);
+        if (hit) void openCardModal(hit, document.body);
+      }
+    });
+  }
+
+  const init = parseUrl(location.search);
+
+  if (init.countryCode) {
+    store.setState({ countryCode: init.countryCode, era: init.era });
+    void selectEra(init.era);
+  }
 }

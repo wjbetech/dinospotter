@@ -102,7 +102,8 @@ export async function selectEra(era: Era, pushHistory = true): Promise<void> {
 }
 
 const init = parseUrl(location.search);
-history.replaceState(null, "", "?" + serializeUrl(init.countryCode, init.era, init.txn));
+if (location.pathname !== "/" || init.countryCode)
+  history.replaceState(null, "", "?" + serializeUrl(init.countryCode, init.era, init.txn));
 window.addEventListener("popstate", () => {
   const { countryCode, era } = parseUrl(location.search);
   store.setState({ countryCode, payload: null, status: "idle" });
