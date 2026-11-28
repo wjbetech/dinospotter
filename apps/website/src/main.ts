@@ -140,7 +140,8 @@ if (!isHome) {
         drawer.append(s);
       } else if (status === "empty") {
         const emptyMessage = document.createElement("p");
-        emptyMessage.classList.add("empty-message");
+        emptyMessage.className =
+          "rounded-xl border border-boundary bg-inset p-4 leading-relaxed text-ink";
         emptyMessage.textContent = copyFor("empty", countryCode, era);
         drawer.append(emptyMessage);
       } else if (status === "degraded" || status === "error") {

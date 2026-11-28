@@ -49,7 +49,8 @@ A new visitor can select a country, choose a time interval, find a fossil, under
   - [ ] Each component should have it's own file and styles should be defined inline using tailwind.
   - [x] Move the shared header, navigation, share action and footer into component files with Tailwind utilities.
   - [x] Move the country picker, era filter and search controls into component-owned Tailwind styling; remove their superseded CSS selectors.
-  - [ ] Migrate record rows and transient panels; remove their superseded CSS selectors.
+  - [x] Move fossil record rows and loading, empty and upstream status states into component-owned Tailwind styling.
+  - [ ] Remove the remaining overlapping legacy record and state selectors after visual review across countries.
 - [ ] Consolidate the repeated rules in `apps/website/src/styles/tokens.css` into tokens and component sections. Preserve appearance until each component is deliberately redesigned.
   - [ ] Make sure the styles align with the previous point and we only have one unified style system.
 
