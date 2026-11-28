@@ -1,3 +1,4 @@
+import { savedFinds, toggleSaved } from "./selection.ts";
 import { silhouetteFor } from "utils";
 import type { TaxonCard, TaxonDetail } from "utils";
 import { serializeUrl } from "../url.ts";
@@ -32,7 +33,44 @@ export function openTaxon(
   art.dataset.kind = silhouetteFor(card.tna);
   art.style.setProperty("--silhouette", "url(/sprites/" + art.dataset.kind + ".svg)");
   art.setAttribute("aria-hidden", "true");
-  dialog.append(close, title, art, summary, metadata, link);
+  const save = document.createElement("button");
+  const context = store.getState();
+  const updateSave = () => {
+    const saved = savedFinds().some(
+      (find) =>
+        find.card.tid === card.tid &&
+        find.country === context.countryCode &&
+        find.era === context.era,
+    );
+    save.textContent = saved ? "Remove saved find" : "Save find";
+    save.setAttribute("aria-pressed", String(saved));
+  };
+  updateSave();
+  save.addEventListener("click", () => {
+    if (
+      context.countryCode &&
+      toggleSaved({ card, country: context.countryCode, era: context.era })
+    )
+      updateSave();
+    else save.textContent = "Storage unavailable in this browser";
+  });
+  const facts = document.createElement("dl");
+  facts.className = "specimen-facts";
+  for (const [label, value] of [
+    ["Age", `${card.eag}–${card.lag} million years ago`],
+    ["Formation", card.sfm || "Not recorded"],
+    ["Recorded findsites", String(card.sites.length)],
+    ["Era", context.era],
+  ]) {
+    const term = document.createElement("dt");
+    term.textContent = label;
+    const description = document.createElement("dd");
+    description.textContent = value;
+    facts.append(term, description);
+  }
+  summary.textContent = "A fossil group represented in the selected country's featured records.";
+  link.textContent = "View evidence in the Paleobiology Database";
+  dialog.append(close, title, art, summary, facts, metadata, save, link);
   dialog.addEventListener("click", (event) => {
     const rect = dialog.getBoundingClientRect();
     if (

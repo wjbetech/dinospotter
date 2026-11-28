@@ -994,3 +994,21 @@ Reference: `docs/research/asset/example.png` (Korean fossil map: terrain land, a
 ---
 
 R5 complete 2026-11-27: added original single-fill SVG art and rendered footprint companions. Next: complete R6 human visual acceptance. Track the refurb in GitHub issue #15.
+
+## Phase 8 — Exploration application (2026-11-28)
+
+Authorized direct implementation on the existing PR #17. Preserve muted greens,
+modern-coordinate provenance, the top-12 cap and account-free use.
+
+- [x] P8.1 Exploration workspace: name/formation search, category filters, reset, explicit featured counts and linked map/list highlighting.
+- [x] P8.2 Specimen facts: readable age, formation, findsite count and source evidence; preserve modal keyboard navigation.
+- [x] P8.3 Local collection: save/remove finds with country/era context and reopen via shareable URL; handle unavailable browser storage.
+- [x] P8.4 Field guide: meaningful navigation to geological context, category limitations and saved collection.
+- [ ] P8.5 Cartographic refinement: compact map markers with expanded selected labels; preserve small-screen usability and collision coverage.
+- [ ] P8.6 Artwork: distinct shell and plant illustrations and reviewed classification beyond name heuristics.
+- [ ] P8.7 Finer geological time: assess PBDB coverage, query cost and cache/performance contract before implementing period filters.
+- [ ] P8.8 Acceptance: review desktop/mobile workspace, collection persistence and visual quality with the user; retain R6 release checks.
+
+Acceptance for P8.1–P8.4: search by name and formation, reset empty searches,
+highlight the matching map/list entry, inspect structured facts, save a find,
+reload and reopen it in its country/era, remove it. No account or new runtime dependency.

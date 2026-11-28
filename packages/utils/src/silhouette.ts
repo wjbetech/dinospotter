@@ -18,7 +18,12 @@ export function silhouetteFor(taxonName: string): SvgId {
   if (/ichn|track|footprint|brontopodus|caririchnium/.test(name)) return "trace";
   if (/podozamites|cladophlebis|dictyophyllum|fern|plant|flora/.test(name)) return "plant";
   if (/\baves\b|ornis|bird|avian/.test(name)) return "bird";
-  if (/trigonioides|bivalve|ammon|mollusk|trilobite/.test(name)) return "invertebrate";
+  if (
+    /trigonioides|bivalv|ammon|mollusk|trilobite|inoceram|gnesioceram|limopsis|astarte|gastropod|pinna|cuspidaria|palaeoneilo|camptonectes|pseudolimea|isocrania|orbiculiforma|grammatodon|turrilit|franconit|usselicer|lithacocer/.test(
+      name,
+    )
+  )
+    return "invertebrate";
   if (name.includes("ptero")) return "pterosaur";
   if (/saurichthys|ichthy|mosa|plesio/.test(name)) return "marine";
   if (/cerat|hadro|steg|ankyl|ornithopod|iguanodon/.test(name)) return "ornithischian";

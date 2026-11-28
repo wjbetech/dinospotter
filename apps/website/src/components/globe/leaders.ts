@@ -1,3 +1,4 @@
+import { selectFind, onSelection, selectedFind } from "../../ui/selection.ts";
 import type { GeoJSONSource, Map } from "maplibre-gl";
 import { placeCallouts, silhouetteFor, type Leader, type PositionedCallout } from "utils";
 
@@ -82,12 +83,15 @@ export function renderCallouts(
   const rail = document.createElement("div");
   rail.className = "callout-rail";
   if (positioned[0]?.rail) wrap.append(rail);
-  let activeTid: string | null = null;
+  let activeTid: string | null = selectedFind();
   const redraw = () => render(map, positioned, wrap, activeTid);
   const highlight = (tid: string | null) => {
+    selectFind(tid);
+  };
+  onSelection(wrap, (tid) => {
     activeTid = tid;
     redraw();
-  };
+  });
   for (const item of positioned) {
     const button = document.createElement("button");
     button.type = "button";

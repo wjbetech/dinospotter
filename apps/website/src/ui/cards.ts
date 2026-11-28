@@ -1,11 +1,11 @@
+import { selectFind } from "./selection.ts";
 import { page, silhouetteFor, type TaxonCard, type TaxonDetail } from "utils";
 import { openTaxon } from "./modal.ts";
 import { store } from "../store";
 import { serializeUrl } from "../url";
-
 const detailCache = new Map<string, TaxonDetail>();
-
 export async function openCardModal(card: TaxonCard, returnTo: HTMLElement): Promise<void> {
+  selectFind(card.tid);
   const cached = detailCache.get(card.tid);
   const dialog = openTaxon(
     card,
@@ -40,7 +40,6 @@ export async function openCardModal(card: TaxonCard, returnTo: HTMLElement): Pro
       "Additional details are unavailable. You can still view the PBDB source.";
   }
 }
-
 export function renderCards(wrap: HTMLElement, cards: TaxonCard[]): void {
   let num = 0;
   const sentinel = document.createElement("div");
@@ -65,10 +64,12 @@ export function renderCards(wrap: HTMLElement, cards: TaxonCard[]): void {
   wrap.append(sentinel);
   io.observe(sentinel);
 }
-
 export function renderCard(card: TaxonCard): HTMLElement {
   const el = document.createElement("article");
   el.classList.add("card");
+  el.dataset.tid = card.tid;
+  el.addEventListener("mouseenter", () => selectFind(card.tid));
+  el.addEventListener("focus", () => selectFind(card.tid));
   el.tabIndex = 0;
   el.setAttribute("role", "button");
   el.addEventListener("click", () => void openCardModal(card, el));
@@ -96,6 +97,10 @@ export function renderCard(card: TaxonCard): HTMLElement {
     formation.textContent = card.sfm;
     caption.append(formation);
   }
+  const age = document.createElement("small");
+  age.className = "record-age";
+  age.textContent = `${card.eag}–${card.lag} million years ago`;
+  caption.append(age);
   el.append(figure, caption);
   return el;
 }

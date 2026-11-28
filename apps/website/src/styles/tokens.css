@@ -837,3 +837,127 @@ body {
     gap: 14px;
   }
 }
+/* Exploration workspace */
+#app {
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 24px;
+}
+#drawer {
+  padding: 24px;
+}
+.workspace-controls {
+  margin: 20px 0 8px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.workspace-controls label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 12px 0 7px;
+  color: #415b50;
+}
+.search-row {
+  display: flex;
+  gap: 6px;
+}
+.search-row input {
+  min-width: 0;
+  flex: 1;
+}
+.workspace-controls select {
+  width: 100%;
+}
+.results-summary,
+.source-note {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.record-age {
+  display: block;
+  font-size: 11px;
+}
+.card.is-selected {
+  background: #e2eee5;
+  box-shadow: inset 3px 0 var(--moss);
+  padding-left: 9px;
+}
+.callout.is-selected {
+  border-color: var(--moss);
+  box-shadow:
+    0 0 0 2px #2f7d6230,
+    0 5px 15px #183c3420;
+}
+.atlas-library {
+  max-width: 1440px;
+  margin: 12px auto 40px;
+  padding: 32px;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 56px;
+  background: #e6ebe2;
+  border: 1px solid #cdd7c9;
+  border-radius: 16px;
+}
+.atlas-library h2 {
+  font-size: 25px;
+  letter-spacing: -0.04em;
+  margin: 8px 0 16px;
+}
+.atlas-library p,
+.atlas-library dd {
+  line-height: 1.6;
+}
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 11px;
+  font-weight: 600;
+  color: #426452;
+}
+.atlas-library dt {
+  font-weight: 600;
+  margin-top: 18px;
+}
+.atlas-library dd {
+  margin: 6px 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+.saved-list a {
+  display: block;
+  padding: 14px 0;
+  border-bottom: 1px solid #cdd7c9;
+  color: #235d48;
+}
+.specimen-facts {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 12px;
+  padding: 20px;
+  background: #edf0e7;
+  border-radius: 10px;
+}
+.specimen-facts dt {
+  color: var(--ink-soft);
+}
+.specimen-facts dd {
+  margin: 0;
+}
+.modal-panel > a:last-child {
+  display: block;
+  margin-top: 20px;
+  color: #235d48;
+}
+@media (max-width: 850px) {
+  #app {
+    grid-template-columns: 1fr;
+  }
+  .atlas-library {
+    grid-template-columns: 1fr;
+    margin: 12px;
+    padding: 24px;
+    gap: 24px;
+  }
+}
