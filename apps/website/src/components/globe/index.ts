@@ -43,6 +43,10 @@ export async function initGlobe(el: HTMLElement) {
   const { Map, ScaleControl, setWorkerUrl } = await import("maplibre-gl");
   setWorkerUrl((await import("maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url")).default);
   const map = new Map({ container: el, style: "/styles/light.json", center: [0, 20], zoom: 1.5 });
+  const globeEdge = document.createElement("span");
+  globeEdge.className = "globe-edge";
+  globeEdge.setAttribute("aria-hidden", "true");
+  el.append(globeEdge);
   map.addControl(new ScaleControl({ unit: "metric" }), "bottom-left");
   map.on("load", async () => {
     const [geo, places] = await Promise.all([
@@ -169,6 +173,7 @@ export async function initGlobe(el: HTMLElement) {
         }
         map.setProjection({ type: countryCode ? "mercator" : "globe" });
         el.dataset.projection = countryCode ? "mercator" : "globe";
+        globeEdge.hidden = Boolean(countryCode);
         map.setPaintProperty("land", "fill-color", [
           "case",
           ["==", ["get", "ISO2"], countryCode ?? ""],
