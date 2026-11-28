@@ -1014,3 +1014,11 @@ modern-coordinate provenance, up to 12 sidebar records and account-free use.
 Acceptance for P8.1–P8.4: search by name and formation, reset empty searches,
 highlight the matching map/list entry, inspect structured facts, save a find,
 reload and reopen it in its country/era, remove it. No account or new runtime dependency.
+
+### P8.9 UI primitives (2026-11-28)
+
+- [x] Unify muted green colors, display/body typography and text scale.
+- [x] Give the three navigation destinations a clear current state.
+- [x] Increase map land, water, border and label contrast.
+- [x] Remove duplicated map and navigation wording.
+- [x] Keep map, records and field guide inside the main app region; constrain the desktop record pane so the footer follows the workspace.

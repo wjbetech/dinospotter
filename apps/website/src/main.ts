@@ -20,6 +20,19 @@ import { renderBadge } from "./ui/badge.ts";
 import { selectEra } from "./ui/era-strip.ts";
 import { copyFor } from "./ui/states.ts";
 
+const navLinks = document.querySelectorAll<HTMLAnchorElement>(".site-header nav a");
+function syncNavigation(): void {
+  const current =
+    location.hash === "#field-guide" || location.hash === "#saved-finds"
+      ? location.hash
+      : "#map-panel";
+  navLinks.forEach((link) => {
+    if (link.hash === current) link.setAttribute("aria-current", "page");
+    else link.removeAttribute("aria-current");
+  });
+}
+window.addEventListener("hashchange", syncNavigation);
+syncNavigation();
 const shareButton = document.querySelector<HTMLButtonElement>("#share-view");
 shareButton?.addEventListener("click", async () => {
   try {

@@ -75,7 +75,7 @@ export async function initGlobe(el: HTMLElement) {
       id: "land",
       type: "fill",
       source: "countries",
-      paint: { "fill-color": "#FAF7F0" },
+      paint: { "fill-color": "#F2F2E8" },
     });
     // A fixed tile gives the land a quiet paper grain without another data source.
     const grain = new Image(16, 16);
@@ -103,7 +103,7 @@ export async function initGlobe(el: HTMLElement) {
         "line-color": [
           "case",
           ["==", ["get", "ISO2"], store.getState().countryCode ?? ""],
-          "#765D40",
+          "#5B6545",
           ["get", "BORDER_COLOR"],
         ],
         "line-width": ["interpolate", ["linear"], ["zoom"], 0, 0.7, 4, 1.6],
@@ -135,7 +135,7 @@ export async function initGlobe(el: HTMLElement) {
           "text-size": 12,
           "text-allow-overlap": false,
         },
-        paint: { "text-color": "#4A545E", "text-halo-color": "#FAF7F0", "text-halo-width": 1.5 },
+        paint: { "text-color": "#324C47", "text-halo-color": "#F2F2E8", "text-halo-width": 1.5 },
       });
     map.addSource("cities", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
     map.addLayer({
@@ -150,7 +150,7 @@ export async function initGlobe(el: HTMLElement) {
         "text-allow-overlap": false,
         "symbol-sort-key": ["get", "order"],
       },
-      paint: { "text-color": "#1E242B", "text-halo-color": "#FAF7F0", "text-halo-width": 2 },
+      paint: { "text-color": "#253C36", "text-halo-color": "#F2F2E8", "text-halo-width": 2 },
     });
     let focused: string | null = null;
     let redraw = () => {};
@@ -172,28 +172,28 @@ export async function initGlobe(el: HTMLElement) {
         map.setPaintProperty("land", "fill-color", [
           "case",
           ["==", ["get", "ISO2"], countryCode ?? ""],
-          "#E5C58D",
-          "#FAF7F0",
+          "#D4B97D",
+          "#F2F2E8",
         ]);
         map.setPaintProperty("land", "fill-opacity", [
           "case",
           ["==", ["get", "ISO2"], countryCode ?? ""],
           1,
-          countryCode ? 0.24 : 1,
+          countryCode ? 0.44 : 1,
         ]);
         map.setPaintProperty("grain", "fill-opacity", countryCode ? 0.1 : 0.35);
         map.setPaintProperty("land-relief", "fill-opacity", countryCode ? 0.06 : 0.19);
         map.setPaintProperty("country-borders", "line-color", [
           "case",
           ["==", ["get", "ISO2"], countryCode ?? ""],
-          "#765D40",
+          "#5B6545",
           ["get", "BORDER_COLOR"],
         ]);
         map.setPaintProperty("country-borders", "line-opacity", [
           "case",
           ["==", ["get", "ISO2"], countryCode ?? ""],
           1,
-          countryCode ? 0.28 : 0.95,
+          countryCode ? 0.42 : 0.95,
         ]);
         const country = geo.features.find((f) => f.properties.ISO2 === countryCode);
         if (country) zoomTo(map, bboxFor(country.geometry.coordinates));
