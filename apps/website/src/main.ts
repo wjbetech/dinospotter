@@ -142,7 +142,8 @@ if (!isHome) {
         const emptyMessage = document.createElement("p");
         emptyMessage.className =
           "rounded-xl border border-boundary bg-inset p-4 leading-relaxed text-ink";
-        emptyMessage.textContent = copyFor("empty", countryCode, era);
+        const countryName = COUNTRIES.find((country) => country.countryCode === countryCode)?.name;
+        emptyMessage.textContent = copyFor("empty", countryName ?? countryCode, era);
         drawer.append(emptyMessage);
       } else if (status === "degraded" || status === "error") {
         const badge = renderBadge(status, () => void selectEra(store.getState().era));

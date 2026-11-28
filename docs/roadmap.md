@@ -50,7 +50,7 @@ A new visitor can select a country, choose a time interval, find a fossil, under
   - [x] Move the shared header, navigation, share action and footer into component files with Tailwind utilities.
   - [x] Move the country picker, era filter and search controls into component-owned Tailwind styling; remove their superseded CSS selectors.
   - [x] Move fossil record rows and loading, empty and upstream status states into component-owned Tailwind styling.
-  - [ ] Remove the remaining overlapping legacy record and state selectors after visual review across countries.
+  - [x] Remove the remaining overlapping legacy record and state selectors after visual review across countries.
 - [ ] Consolidate the repeated rules in `apps/website/src/styles/tokens.css` into tokens and component sections. Preserve appearance until each component is deliberately redesigned.
   - [ ] Make sure the styles align with the previous point and we only have one unified style system.
 
@@ -64,6 +64,8 @@ A new visitor can select a country, choose a time interval, find a fossil, under
 - [ ] Design a specimen view that can later accept richer evidence without a wholesale layout change. Specify art, name, age, location, formation, source and save/share actions.
 - [ ] Design useful loading, no-results, no-records, upstream-error and saved-empty states with a recovery action where one exists.
 - [ ] Review each design at wide desktop, 768px tablet and 360–390px mobile. Check map area, panel order, scrolling, sticky elements and dialog behavior.
+  - [x] Review Germany Mesozoic and Iceland Paleozoic at 390px, including a populated list and an empty result.
+  - [ ] Adjust the mobile marker rail so it does not cover the map scale, then review tablet and selected specimen states.
 
 **Review artifact:** Annotated screen captures or prototypes for these states. **Acceptance:** A user can identify the main action and current selection at a glance on each viewport; map and records do not obscure one another.
 
