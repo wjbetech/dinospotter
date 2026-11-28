@@ -66,6 +66,12 @@ export async function initGlobe(el: HTMLElement) {
     waterContours.src = "/styles/water-contours.svg";
     await waterContours.decode();
     map.addImage("water-contours", waterContours);
+    if (el.id === "globe") {
+      map.addLayer(
+        { id: "globe-water", type: "background", paint: { "background-color": "#BFD9DC" } },
+        "bg",
+      );
+    }
     map.setPaintProperty("bg", "background-pattern", "water-contours");
     const landRelief = new Image(192, 192);
     landRelief.src = "/styles/land-relief.svg";
@@ -152,7 +158,7 @@ export async function initGlobe(el: HTMLElement) {
       },
       paint: { "text-color": "#253C36", "text-halo-color": "#F2F2E8", "text-halo-width": 2 },
     });
-    let focused: string | null = null;
+    let focused: string | null | undefined;
     let redraw = () => {};
     const sync = () => {
       const { countryCode, payload, status } = store.getState();
@@ -169,6 +175,9 @@ export async function initGlobe(el: HTMLElement) {
         }
         map.setProjection({ type: countryCode ? "mercator" : "globe" });
         el.dataset.projection = countryCode ? "mercator" : "globe";
+        if (map.getLayer("globe-water")) {
+          map.setLayoutProperty("globe-water", "visibility", countryCode ? "none" : "visible");
+        }
         map.setPaintProperty("land", "fill-color", [
           "case",
           ["==", ["get", "ISO2"], countryCode ?? ""],

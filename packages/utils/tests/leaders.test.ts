@@ -69,6 +69,49 @@ test("leaders: defaults to the top 12 in fame/popularity order", () => {
   expect(got[0].tid).toBe("t0");
 });
 
+test("leaders: mixes dinosaur kinds and prefers famous genera", () => {
+  const card = (
+    tid: string,
+    tna: string,
+    verifiedGroup: "theropod" | "sauropod" | "ornithischian" | undefined,
+    n: number,
+  ) => ({
+    tid,
+    tna,
+    oei: "",
+    eag: 100,
+    lag: 90,
+    sfm: "",
+    verifiedGroup,
+    sites: Array.from({ length: n }, (_, i) => ({ lng: i, lat: i })),
+  });
+
+  const got = leaders(
+    [
+      card("t1", "Velociraptor", "theropod", 2),
+      card("t2", "Ceratosaurus", "theropod", 10),
+      card("t3", "Tyrannosaurus", "theropod", 1),
+      card("t4", "Allosaurus", "theropod", 9),
+      card("s1", "Diplodocus", "sauropod", 2),
+      card("s2", "Brachiosaurus", "sauropod", 1),
+      card("o1", "Stegosaurus", "ornithischian", 2),
+      card("o2", "Triceratops", "ornithischian", 1),
+      card("x1", "Monticlarella", undefined, 40),
+    ] as never,
+    6,
+  );
+
+  expect(got.slice(0, 3).map((l) => l.verifiedGroup)).toEqual([
+    "theropod",
+    "sauropod",
+    "ornithischian",
+  ]);
+  expect(got.filter((l) => l.verifiedGroup === "theropod").map((l) => l.tna)).toEqual([
+    "Allosaurus",
+    "Velociraptor",
+  ]);
+});
+
 test("ties and representative anchors remain stable when occurrence order changes", () => {
   const cards = [
     {

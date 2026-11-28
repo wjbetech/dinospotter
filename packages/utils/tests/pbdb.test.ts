@@ -16,6 +16,31 @@ test("buildOccsUrls: Mesozoic → 3 URLs with cc=UK", () => {
     expect(url).toContain("show=coords,ident,strat");
   }
   expect(urls[0]).toContain("interval=Triassic");
+  expect(urls[0]).toContain("show=coords,ident,strat,class");
+});
+
+test("parseOccs carries PBDB taxonomy hints", () => {
+  const { rows } = parseOccs({
+    records: [
+      {
+        oid: "1",
+        tid: "10",
+        tna: "Cardium",
+        eag: 10,
+        lag: 5,
+        lng: 1,
+        lat: 2,
+        phl: "Mollusca",
+        cll: "Bivalvia",
+        odl: "Venerida",
+      },
+    ],
+  });
+  expect(rows[0]).toMatchObject({
+    phylum: "Mollusca",
+    taxonClass: "Bivalvia",
+    taxonOrder: "Venerida",
+  });
 });
 
 test("parseOccs: drops missing tna, 0,0, eag<lag", () => {

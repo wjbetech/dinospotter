@@ -40,13 +40,17 @@ A new visitor can select a country, choose a time interval, find a fossil, under
 
 ### 1.2 Define the visual system
 
-- [ ] Create a small, named palette for paper, surface, water, selected land, moss actions, borders, primary text, muted text, warning and focus. Check text and control contrast on actual map and panel surfaces.
+- [x] Create a small, named palette for paper, surface, water, selected land, moss actions, borders, primary text, muted text, warning and focus. Check text and control contrast on actual map and panel surfaces.
   - [ ] Work through the color scheme to ensure high contrast, visual depth and distinctiveness between sections and components, and overall theme matches the site.
 - [ ] Choose display, body and data typography roles; set sizes and line heights for page title, section title, record name, body, caption and map label. Remove unused font files and conflicting declarations.
   - [ ] Assert the `px` or `rem` modality for fonts to make sure we are always working with responsive text sizes.
 - [ ] Set spacing, radius, border and elevation scales. Specify when a surface is raised, inset or flat so depth communicates hierarchy rather than decorating every element.
 - [ ] Build a compact component inventory: header/nav, primary and quiet buttons, fields, filter controls, record row, map badge, status panel, specimen view and footer. Document default, hover, selected, focus, disabled and loading states.
   - [ ] Each component should have it's own file and styles should be defined inline using tailwind.
+  - [x] Move the shared header, navigation, share action and footer into component files with Tailwind utilities.
+  - [x] Move the country picker, era filter and search controls into component-owned Tailwind styling; remove their superseded CSS selectors.
+  - [x] Move fossil record rows and loading, empty and upstream status states into component-owned Tailwind styling.
+  - [x] Remove the remaining overlapping legacy record and state selectors after visual review across countries.
 - [ ] Consolidate the repeated rules in `apps/website/src/styles/tokens.css` into tokens and component sections. Preserve appearance until each component is deliberately redesigned.
   - [ ] Make sure the styles align with the previous point and we only have one unified style system.
 
@@ -55,10 +59,14 @@ A new visitor can select a country, choose a time interval, find a fossil, under
 ### 1.3 Design the core screens as a family
 
 - [ ] Design the unselected globe view with a clear invitation and a useful explanation of what DinoSpotter contains (this may be best placed on the new home page).
+  - [x] Load the exploration globe on entry without an extra button press.
 - [ ] Design the selected-country workspace: country/time heading, map, up to eight quiet markers, featured record list, filters and a clearly selected fossil. Set a deliberate relationship between map and records.
 - [ ] Design a specimen view that can later accept richer evidence without a wholesale layout change. Specify art, name, age, location, formation, source and save/share actions.
 - [ ] Design useful loading, no-results, no-records, upstream-error and saved-empty states with a recovery action where one exists.
 - [ ] Review each design at wide desktop, 768px tablet and 360–390px mobile. Check map area, panel order, scrolling, sticky elements and dialog behavior.
+  - [x] Review Germany Mesozoic and Iceland Paleozoic at 390px, including a populated list and an empty result.
+  - [x] Adjust the mobile marker rail so it does not cover the map scale, then review tablet and selected specimen states.
+  - [ ] Refine the specimen dialog's oversized tablet layout and review its loading and error states as part of the specimen redesign.
 
 **Review artifact:** Annotated screen captures or prototypes for these states. **Acceptance:** A user can identify the main action and current selection at a glance on each viewport; map and records do not obscure one another.
 
@@ -83,6 +91,13 @@ A new visitor can select a country, choose a time interval, find a fossil, under
 
 - [ ] Make selected record state consistent across map, list and detail, including filtering and reset.
 - [ ] Place markers and leaders using projected screen positions. Prevent avoidable crossings, keep names in bounds and quiet unrelated lines. Check dense, sparse, wide and island countries.
+- [x] Expand the Mesozoic candidate pool using PBDB clade-filtered occurrences and use those verified groups for callout artwork, while keeping the featured list limited to twelve.
+- [x] Prioritize named dinosaur species and genera in the featured Mesozoic records when PBDB supplies them, retaining broader finds where necessary.
+- [x] Redraw all twelve animal-group icons for the atlas. Review the shared artwork at compact marker and record-row sizes.
+- [ ] Expand taxonomy-backed artwork beyond the three dinosaur groups and replace remaining name-based classification with verified classifications where available.
+  - [x] Carry PBDB phylum, class and order into record and callout artwork, with a fallback when the classification is too broad.
+  - [x] Enlarge callout artwork and restore distinct fossil-group colors. Review Germany, Denmark, South Korea and the United States.
+  - [ ] Extend classification coverage for groups that PBDB does not resolve at these ranks and review misleading generic artwork.
 - [ ] Separate a small featured map selection from a paginated or virtualized view of the broader record where data supports it.
 - [ ] Add evidence-backed category, formation and geological interval filters with counts and shareable state. Label unverified classification honestly.
 - [ ] Make country and era changes predictable in loading, cached, stale, empty, rate-limited and failed states.

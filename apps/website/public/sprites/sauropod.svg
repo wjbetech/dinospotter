@@ -1,1 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80"><path fill="currentColor" fill-rule="evenodd" d="M2 52Q15 52 29 42Q39 31 55 37Q66 43 72 31Q77 22 80 12Q83 5 90 8L96 12L94 16L86 15Q84 33 76 43Q71 51 66 53L65 72L58 72L57 53L52 54L49 69L44 69L44 54L37 53L32 72L25 72L28 51Q16 57 2 52Z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80">
+  <mask id="detail">
+    <path fill="white" d="M1 49 C12 50 20 46 29 40 C40 31 51 29 60 32 Q67 34 72 27 C78 18 81 8 88 8 Q92 7 96 10 L99 12 97 15 91 14 Q88 14 86 20 C82 31 80 40 72 45 L67 49 65 65 68 69 60 69 58 65 59 51 Q53 54 45 51 Q42 57 37 62 L36 68 39 71 31 71 31 61 34 50 34 46 C22 48 13 54 1 49Z"/>
+    <path fill="#444" d="M72 34q6-7 11-17-3 11-10 20z M35 41q6-5 13-5-7 2-12 7z"/>
+  </mask>
+  <path fill="currentColor" opacity=".52" d="M39 42 L46 43 44 62 48 65 41 65 38 59Z M63 40 L69 38 69 60 73 63 66 64 63 60Z"/>
+  <rect width="100" height="80" fill="currentColor" mask="url(#detail)"/>
+</svg>

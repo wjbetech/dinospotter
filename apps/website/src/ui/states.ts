@@ -15,7 +15,7 @@ export function copyFor(status: Status, country: string | null, era: Era): strin
   }
 
   if (status === "empty") {
-    return `No recorded taxonomical data for ${country} in the ${era} Era. Try another era!`;
+    return `No fossil groups found for ${country} in the ${era}. Try another era.`;
   }
 
   if (status === "error") {

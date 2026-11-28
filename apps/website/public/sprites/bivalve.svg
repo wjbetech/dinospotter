@@ -1,1 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><mask id="ribs"><rect width="100" height="100" fill="white"/><path d="M50 77 23 33m27 44L36 29m14 48V37m0 40 15-48M50 77l27-44" stroke="black" stroke-width="3" fill="none" stroke-linecap="round"/></mask></defs><g mask="url(#ribs)"><path fill="currentColor" d="M50 87C34 82 9 59 10 39 11 20 28 10 50 10s39 10 40 29C91 59 66 82 50 87z"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80">
+  <mask id="detail">
+    <path fill="white" d="M12 48 C10 38 21 23 35 18 Q44 12 50 13 Q56 10 61 16 Q78 17 87 33 C94 47 87 59 76 63 C67 69 50 70 35 66 Q16 63 12 48Z"/>
+    <path fill="#444" d="M50 19Q29 30 19 48q5-18 31-29z M51 20Q37 37 30 59q0-19 21-39z M54 21q-6 25-5 43-6-16 5-43z M56 22q9 21 11 39 2-21-11-39z M60 23q16 12 22 29-1-15-22-29z"/>
+  </mask>
+  <rect width="100" height="80" fill="currentColor" mask="url(#detail)"/>
+</svg>

@@ -1,6 +1,24 @@
 import { selectFind, onSelection, selectedFind } from "../../ui/selection.ts";
 import type { GeoJSONSource, Map } from "maplibre-gl";
-import { placeCallouts, silhouetteFor, type Leader, type PositionedCallout } from "utils";
+import { placeCallouts, artworkFor, type Leader, type PositionedCallout } from "utils";
+
+const commonNames: Record<string, string> = {
+  theropoda: "Theropods",
+  sauropoda: "Sauropods",
+  ornithopoda: "Ornithopods",
+  dinosauria: "Dinosaurs",
+  aves: "Birds",
+  bivalvia: "Bivalves",
+  gastropoda: "Gastropods",
+  ammonoidea: "Ammonites",
+  "tyrannosaurus rex": "T. rex",
+  triceratops: "Triceratops",
+  stegosaurus: "Stegosaurus",
+  brachiosaurus: "Brachiosaurus",
+  diplodocus: "Diplodocus",
+  velociraptor: "Velociraptor",
+  spinosaurus: "Spinosaurus",
+};
 
 export function render(
   map: Map,
@@ -101,13 +119,16 @@ export function renderCallouts(
     button.dataset.side = item.callout[0] > wrap.clientWidth / 2 ? "right" : "left";
     const art = document.createElement("span");
     art.className = "callout-art";
-    const kind = silhouetteFor(item.tna);
+    const kind = artworkFor(item.tna, item);
     art.dataset.kind = kind;
     art.style.setProperty("--silhouette", `url('/sprites/${kind}.svg')`);
     art.setAttribute("aria-hidden", "true");
     const name = document.createElement("span");
     name.className = "callout-name";
-    name.textContent = item.tna;
+    name.textContent =
+      commonNames[item.tna.toLowerCase()] ??
+      commonNames[item.tna.toLowerCase().split(" ")[0]] ??
+      item.tna;
     button.append(art);
 
     button.append(name);

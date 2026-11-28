@@ -10,6 +10,12 @@ export interface FossilSite {
   lng: number;
   lat: number;
   sfm: string;
+  verifiedGroup?: "theropod" | "sauropod" | "ornithischian";
+  phylum?: string;
+  taxonClass?: string;
+  taxonOrder?: string;
+  rank?: number;
+  taxonFlags?: string;
 }
 
 export interface TaxonCard {
@@ -20,6 +26,12 @@ export interface TaxonCard {
   lag: number;
   sfm: string;
   sites: FossilSite[];
+  verifiedGroup?: "theropod" | "sauropod" | "ornithischian";
+  phylum?: string;
+  taxonClass?: string;
+  taxonOrder?: string;
+  rank?: number;
+  taxonFlags?: string;
 }
 
 export interface SitePayload {
@@ -57,7 +69,7 @@ export function buildOccsUrls(cc: string, era: Era): string[] {
   const normalizedCc = normalizeCc(cc);
   return ERA_PERIODS[era].map(
     (period) =>
-      `https://paleobiodb.org/data1.2/occs/list.json?cc=${normalizedCc}&interval=${period}&limit=500&show=coords,ident,strat`,
+      `https://paleobiodb.org/data1.2/occs/list.json?cc=${normalizedCc}&interval=${period}&limit=500&show=coords,ident,strat,class`,
   );
 }
 
@@ -95,6 +107,11 @@ export function parseOccs(json: { records: Record<string, unknown>[] }): ParsedO
       lng,
       lat,
       sfm: str(r.sfm ?? ""),
+      phylum: str(r.phl ?? ""),
+      taxonClass: str(r.cll ?? ""),
+      taxonOrder: str(r.odl ?? ""),
+      rank: r.rnk == null || !Number.isFinite(Number(r.rnk)) ? undefined : Number(r.rnk),
+      taxonFlags: str(r.flg ?? ""),
     });
   }
   return { rows, dropped, total: json.records?.length ?? 0 };
@@ -158,6 +175,12 @@ export function groupByTid(rows: FossilSite[]): TaxonCard[] {
     lag: Math.min(...sites.map((site) => site.lag)),
     sfm: pickSfm(sites.map((site) => site.sfm)),
     sites,
+    verifiedGroup: sites.find((site) => site.verifiedGroup)?.verifiedGroup,
+    phylum: pickFreq(sites.map((site) => site.phylum ?? "").filter(Boolean)),
+    taxonClass: pickFreq(sites.map((site) => site.taxonClass ?? "").filter(Boolean)),
+    taxonOrder: pickFreq(sites.map((site) => site.taxonOrder ?? "").filter(Boolean)),
+    rank: sites.find((site) => site.rank !== undefined)?.rank,
+    taxonFlags: pickFreq(sites.map((site) => site.taxonFlags ?? "").filter(Boolean)),
   }));
 
   return cards.sort(

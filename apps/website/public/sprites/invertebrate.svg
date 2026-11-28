@@ -1,1 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="currentColor" d="M50 9c23 0 41 18 41 41 0 22-18 40-41 40S9 72 9 50 27 9 50 9zm0 10c-17 0-31 14-31 31s14 30 31 30 31-13 31-30S67 19 50 19zm0 9c12 0 22 10 22 22S62 71 50 71 28 61 28 50s10-22 22-22zm0 9a13 13 0 1 0 0 26 13 13 0 0 0 0-26z"/><path fill="currentColor" d="M77 59c10 2 16 7 19 15l-17-3-9 7 1-14z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80">
+  <mask id="detail">
+    <path fill="white" d="M32 20 Q40 10 54 10 Q70 10 77 23 L81 36 75 33 Q78 44 72 54 L68 57 Q66 64 55 71 Q52 74 48 71 Q35 64 31 55 L28 51 Q24 42 27 34 L20 39 Q23 27 32 20Z"/>
+    <path fill="#444" d="M38 27q9-8 26-4-12-1-17 6l-2 6-4-1z M46 37q-9 1-16-4 4 7 16 8z M58 37q10-1 16-7-2 7-16 11z M46 45q-8 0-15-4 4 6 15 8z M57 45q10-2 15-7-3 8-15 11z M47 53q-7-1-12-4 4 6 12 8z M56 53q9-3 13-7-3 7-13 11z M48 61l-8-4 8 7z M54 61l10-6-10 10z"/>
+  </mask>
+  <rect width="100" height="80" fill="currentColor" mask="url(#detail)"/>
+</svg>

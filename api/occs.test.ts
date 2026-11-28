@@ -78,3 +78,66 @@ test("504 on abort", async () => {
 
   expect(res.status).toBe(504);
 });
+
+test("adds verified dinosaur occurrences without breaking the featured limit", async () => {
+  global.fetch = vi.fn(async (input) => {
+    const url = new URL(String(input));
+    const clade = url.searchParams.get("base_name");
+    if (clade === "Sauropoda") throw new Error("unavailable");
+    const tid =
+      clade === "Theropoda" ? "txn:100" : clade === "Ornithischia" ? "txn:200" : "txn:300";
+    return Response.json({
+      records: [
+        { oid: `occ:${tid}`, tid, tna: clade ?? "Shell", eag: 100, lag: 90, lng: 12, lat: 40 },
+      ],
+    });
+  });
+  const response = await handler(new Request("http://test/api/occs?cc=US&era=Mesozoic"));
+  const payload = (await response.json()) as { cards: { tid: string; verifiedGroup?: string }[] };
+  expect(response.status).toBe(200);
+  expect(payload.cards.length).toBeLessThanOrEqual(12);
+  expect(payload.cards).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({ tid: "txn:100", verifiedGroup: "theropod" }),
+      expect.objectContaining({ tid: "txn:200", verifiedGroup: "ornithischian" }),
+      expect.objectContaining({ tid: "txn:300" }),
+    ]),
+  );
+});
+
+test("prefers named dinosaur species over abundant broad clade records", async () => {
+  global.fetch = vi.fn(async (input) => {
+    const clade = new URL(String(input)).searchParams.get("base_name");
+    if (clade !== "Ornithischia") return Response.json({ records: [] });
+    return Response.json({
+      records: [
+        ...Array.from({ length: 5 }, (_, i) => ({
+          oid: `occ:broad${i}`,
+          tid: "txn:broad",
+          tna: "Ornithopoda",
+          rnk: 12,
+          eag: 100,
+          lag: 90,
+          lng: 128,
+          lat: 35,
+        })),
+        ...["Koreanosaurus boseongensis", "Koreaceratops hwaseongensis"].map((tna, i) => ({
+          oid: `occ:species${i}`,
+          tid: `txn:species${i}`,
+          tna,
+          rnk: 3,
+          eag: 100,
+          lag: 90,
+          lng: 128,
+          lat: 35,
+        })),
+      ],
+    });
+  });
+  const response = await handler(new Request("http://test/api/occs?cc=KR&era=Mesozoic"));
+  const payload = (await response.json()) as { cards: { tna: string }[] };
+  expect(payload.cards.slice(0, 2).map((card) => card.tna)).toEqual([
+    "Koreanosaurus boseongensis",
+    "Koreaceratops hwaseongensis",
+  ]);
+});

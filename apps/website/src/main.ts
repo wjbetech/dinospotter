@@ -1,5 +1,7 @@
 // styles
+import "./styles/theme.css";
 import "./styles/tokens.css";
+import "./styles/tailwind.css";
 import "@fontsource/space-grotesk/latin-500.css";
 import "@fontsource/space-grotesk/latin-700.css";
 import "@fontsource/atkinson-hyperlegible-next/latin-400.css";
@@ -10,6 +12,7 @@ import { mountWorkspace } from "./ui/workspace.ts";
 import { store } from "./store.ts";
 import { parseUrl } from "./url.ts";
 import { COUNTRIES } from "utils";
+import { ArrowLeft, ArrowUp, ArrowUpRight, createIcons } from "lucide";
 
 // components
 import { openCardModal } from "./ui/cards.ts";
@@ -19,8 +22,15 @@ import { renderEraStrip } from "./ui/era-strip.ts";
 import { renderBadge } from "./ui/badge.ts";
 import { selectEra } from "./ui/era-strip.ts";
 import { copyFor } from "./ui/states.ts";
+import { renderHeader } from "./ui/shell/header.ts";
+import { renderFooter } from "./ui/shell/footer.ts";
 
-const navLinks = document.querySelectorAll<HTMLAnchorElement>(".site-header nav a");
+const isHome = location.pathname === "/" && !parseUrl(location.search).countryCode;
+renderHeader(isHome);
+renderFooter(isHome);
+createIcons({ icons: { ArrowLeft, ArrowUp, ArrowUpRight } });
+
+const navLinks = document.querySelectorAll<HTMLAnchorElement>("header nav a");
 function syncNavigation(): void {
   const current =
     location.hash === "#field-guide" || location.hash === "#saved-finds" ? location.hash : "";
@@ -32,7 +42,6 @@ function syncNavigation(): void {
 }
 window.addEventListener("hashchange", syncNavigation);
 syncNavigation();
-const isHome = location.pathname === "/" && !parseUrl(location.search).countryCode;
 if (isHome) {
   document.body.classList.add("is-home");
   const home = document.querySelector<HTMLElement>("#home")!;
@@ -40,7 +49,6 @@ if (isHome) {
   const globe = home.querySelector<HTMLElement>("#home-globe")!;
   void import("./components/globe/index.ts").then(async ({ initGlobe }) => {
     const map = await initGlobe(globe);
-    map.setPadding({ left: Math.min(window.innerWidth * 0.42, 580), right: 0, top: 0, bottom: 0 });
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let active = true;
     map.on("remove", () => {
@@ -62,7 +70,7 @@ if (isHome) {
     requestAnimationFrame(rotate);
   });
 }
-const shareButton = document.querySelector<HTMLButtonElement>("#share-view");
+const shareButton = document.querySelector<HTMLButtonElement>("#share-view-button");
 shareButton?.addEventListener("click", async () => {
   try {
     await navigator.clipboard.writeText(location.href);
@@ -81,7 +89,6 @@ if (!isHome) {
   }
 
   const globeEl = document.querySelector("#globe");
-  const loadBtn = document.querySelector("#load-globe");
   const drawer = document.querySelector("#drawer");
   let globeLoaded = false;
 
@@ -89,17 +96,10 @@ if (!isHome) {
     if (globeEl instanceof HTMLElement && !globeLoaded) {
       globeLoaded = true;
       void import("./components/globe/index.ts").then((m) => m.initGlobe(globeEl));
-      loadBtn?.remove();
     }
   }
 
-  if (parseUrl(location.search).countryCode) {
-    loadGlobe();
-  } else {
-    loadBtn?.addEventListener("click", loadGlobe, {
-      once: true,
-    });
-  }
+  loadGlobe();
 
   if (drawer instanceof HTMLElement) {
     drawer.append(
@@ -140,8 +140,10 @@ if (!isHome) {
         drawer.append(s);
       } else if (status === "empty") {
         const emptyMessage = document.createElement("p");
-        emptyMessage.classList.add("empty-message");
-        emptyMessage.textContent = copyFor("empty", countryCode, era);
+        emptyMessage.className =
+          "rounded-xl border border-boundary bg-inset p-4 leading-relaxed text-ink";
+        const countryName = COUNTRIES.find((country) => country.countryCode === countryCode)?.name;
+        emptyMessage.textContent = copyFor("empty", countryName ?? countryCode, era);
         drawer.append(emptyMessage);
       } else if (status === "degraded" || status === "error") {
         const badge = renderBadge(status, () => void selectEra(store.getState().era));

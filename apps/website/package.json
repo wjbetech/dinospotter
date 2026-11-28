@@ -13,14 +13,17 @@
     "@fontsource/atkinson-hyperlegible-next": "catalog:",
     "@fontsource/inter": "catalog:",
     "@fontsource/space-grotesk": "catalog:",
+    "lucide": "catalog:",
     "maplibre-gl": "catalog:",
     "utils": "workspace:*"
   },
   "devDependencies": {
     "@playwright/test": "catalog:",
+    "@tailwindcss/vite": "catalog:",
     "@types/geojson": "catalog:",
     "@types/node": "^26.1.1",
     "sax": "catalog:",
+    "tailwindcss": "catalog:",
     "typescript": "~6.0.2",
     "vite": "catalog:",
     "vite-plus": "catalog:"
